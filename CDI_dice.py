@@ -90,10 +90,10 @@ if __name__ == "__main__" :
     # Create a GUI window
     gui = Tk()
     # set the name of tkinter GUI window
-    gui.title("Aide CDI")
+    gui.title("Helper")
 
     # Set the configuration of GUI window
-    gui.geometry("500x300")
+    gui.geometry("400x250")
 
     #StringVar
     res_d_field=StringVar()
@@ -123,9 +123,9 @@ if __name__ == "__main__" :
 
 
     #TITRE
-    stats=Label(gui, text="CARACTERISTIQUES",fg="maroon")
+    stats=Label(gui, text="CARACTÉRISTIQUES",fg="maroon")
     dice=Label(gui, text="DÉS", fg="maroon")
-    res=Label(gui, text="RESULTATS", fg="maroon")
+    res=Label(gui, text="RÉSULTATS", fg="maroon")
 
 
     #Boutton résultat
