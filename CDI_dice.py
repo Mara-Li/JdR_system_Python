@@ -1,6 +1,8 @@
 # import all functions from the tkinter
 from tkinter import *
 
+
+
 # import messagebox class from tkinter
 from tkinter import messagebox
 
@@ -35,9 +37,8 @@ def checkError() :
         messagebox.showerror("Erreur","Il y a un problème dans les valeurs rentrées !")
 
         # clearAll function calling
-        clearAll()
-
-    return -1
+        return -1
+    return 1
 
 def calculate_degat():
     value=checkError()
@@ -53,7 +54,7 @@ def calculate_degat():
         bonus=int(bonus_field.get())/100
 
         #Calcul des dégâts
-        d= atq - defe
+        d= abs(atq - defe)
         if (d==0):
             d=0+bonus
         elif (d==1):
@@ -69,14 +70,15 @@ def calculate_degat():
         elif (d>=9):
             d=0.5+bonus
 
+        d=abs(int(d*pv))
+        cuirasse=abs(int(d*(1-shield))) #Calcul des dégâts avec prise en compte de la cuirasse
+
         #Verif réussite endurance
         if (endu_de > endu_val):
             encaissement=0
         else:
-            encaissement = int(d * (1 - (10 * (endu_val - endu_de) + 1) / 100))
-
-        d=int(d*pv)
-        cuirasse=int(d*(1-shield)) #Calcul des dégâts avec prise en compte de la cuirasse
+            encaissement = cuirasse * (1 - (10 * (abs(endu_val - endu_de) + 1)) / 100)
+            encaissement=int(encaissement)
 
         #insert methode : value in the text entry box
         res_d_field.set(str(d))
@@ -110,36 +112,36 @@ if __name__ == "__main__" :
     d_endu= Label(gui, text="Endurance")
 
     #RESULTATS
-    degat=Label(gui, textvariable= res_d_field.get(), fg="grey")
+    degat=Label(gui, textvariable= res_d_field, fg="grey")
     degat_label=Label(gui, text="Dégât basique : ", fg="grey")
 
-    res_cuirasse=Label(gui, textvariable=res_cuirasse_field.get(), fg="grey")
+    res_cuirasse=Label(gui, textvariable=res_cuirasse_field, fg="grey")
     res_cuirasse_label=Label(gui, text="Dégât avec cuirasse : ", fg= "grey")
 
-    res_encaissement=Label(gui, textvariable=res_encaissement_field.get(), fg="grey")
+    res_encaissement=Label(gui, textvariable=res_encaissement_field, fg="grey")
     res_encaissement_label=Label(gui, text="Dégât après encaissement : ", fg="grey")
 
 
     #TITRE
     stats=Label(gui, text="CARACTERISTIQUES",fg="maroon")
-    dice=Label(gui, text="DES", fg="maroon")
+    dice=Label(gui, text="DÉS", fg="maroon")
     res=Label(gui, text="RESULTATS", fg="maroon")
 
 
     #Boutton résultat
-    resultat=Button(gui, text="Résultat",fg="Black", bg="Light green", command=calculate_degat)
+    resultat=Button(gui, text="Résultat",bg ="bisque", fg="maroon", command=calculate_degat)
 
     #Clear
-    clearEntry=Button(gui,text="Effacer tout",fg="Black", bg="Light green", command=clearAll)
+    clearEntry=Button(gui,text="Effacer tout",bg ="bisque", fg="maroon", command=clearAll)
 
     #Remplissage
-    pv_field=Entry(gui,bg ="bisque", fg="maroon", width="5")
-    atq_field=Entry(gui,bg ="bisque", fg="maroon", width="5")
-    defe_field=Entry(gui,bg ="bisque", fg="maroon", width="5")
-    shield_field=Entry(gui,bg ="bisque", fg="maroon", width="5")
-    d_endu_field=Entry(gui,bg ="bisque", fg="maroon", width="5")
-    val_endu_field=Entry(gui,bg ="bisque", fg="maroon", width="5")
-    bonus_field=Entry(gui,bg ="bisque", fg="maroon", width="5")
+    pv_field=Entry(gui,bg ="bisque", fg="maroon", width="7")
+    atq_field=Spinbox(gui, from_=0, to=10, width=5,bg ="bisque", fg="maroon")
+    defe_field=Spinbox(gui, from_=0, to=10, width=5,bg ="bisque", fg="maroon")
+    shield_field=Entry(gui,bg ="bisque", fg="maroon", width="7")
+    d_endu_field=Spinbox(gui, from_=0, to=10, width=5,bg ="bisque", fg="maroon")
+    val_endu_field=Spinbox(gui, from_=0, to=10, width=5,bg ="bisque", fg="maroon")
+    bonus_field=Entry(gui,bg ="bisque", fg="maroon", width="7")
 
     #res_d_field=Entry(gui)
     #res_cuirasse_field=Entry(gui)
@@ -168,11 +170,11 @@ if __name__ == "__main__" :
     atq.grid(row=1, column=3)
     atq_field.grid(row=1, column=4)
 
-    defe.grid(row=3, column=3)
-    defe_field.grid(row=3, column=4)
-
     d_endu.grid(row=2, column=3)
     d_endu_field.grid(row=2, column=4)
+
+    defe.grid(row=3, column=3)
+    defe_field.grid(row=3, column=4)
 
     #RESULTAT
 
