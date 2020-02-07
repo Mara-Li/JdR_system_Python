@@ -125,7 +125,7 @@ if __name__ == "__main__" :
     gui.title("Helper")
 
     # Set the configuration of GUI window
-    gui.geometry("315x150")
+    gui.geometry("290x150")
     gui.resizable(0, 0)
     gui.rowconfigure(0, weight=1)
     gui.columnconfigure(0, weight=1)
@@ -144,15 +144,13 @@ if __name__ == "__main__" :
     # DICES
     atq= Label(gui, text="ATQ")
     defe= Label(gui, text="DEF")
-    d_endu= Label(gui, text="Endurance")
+    d_endu= Label(gui, text="END")
 
     #RESULTATS
     degat=Label(gui, textvariable= res_d_field, fg="grey")
     degat_label=Label(gui, text="Dégât sans défense : ", fg="grey")
-
     res_cuirasse=Label(gui, textvariable=res_cuirasse_field, fg="grey")
     res_cuirasse_label=Label(gui, text="Dégât avec cuirasse : ", fg= "grey")
-
     res_encaissement=Label(gui, textvariable=res_encaissement_field, fg="grey")
     res_encaissement_label=Label(gui, text="Dégât finaux : ", fg="grey")
 
@@ -162,10 +160,11 @@ if __name__ == "__main__" :
     dice=Label(gui, text="DÉS", fg="maroon")
     res=Label(gui, text="RÉSULTATS", fg="maroon")
     vide=Label(gui, text="")
+    ligne=Label(gui, text="", relief="groove",bd=1, width=1)
 
 
     #Boutton résultat
-    resultat=Button(gui, text="Dégât finaux : ",bg ="bisque", fg="maroon", command=calculate_degat)
+    resultat=Button(gui, text="Dégâts finaux : ",bg ="bisque", fg="maroon", command=calculate_degat)
 
     #Clear
     #clearEntry=Button(gui,text="Effacer tout",bg ="bisque", fg="maroon", command=clearAll)
@@ -173,10 +172,11 @@ if __name__ == "__main__" :
     #Remplissage
     pv_field=Spinbox(gui, from_=2, to=1000000, bg ="bisque", fg="maroon", width="7")
     atq_field=Spinbox(gui, from_=0, to=10, width=5,bg ="bisque", fg="maroon")
+    val_endu_field = Spinbox(gui, from_=0, to=10, width=5, bg="bisque", fg="maroon")
     defe_field=Spinbox(gui, from_=0, to=10, width=5,bg ="bisque", fg="maroon")
     shield_field=Spinbox(gui, from_=0, to=999999, bg ="bisque", fg="maroon", width="7")
     d_endu_field=Spinbox(gui, from_=0, to=10, width=5,bg ="bisque", fg="maroon")
-    val_endu_field=Spinbox(gui, from_=0, to=10, width=5,bg ="bisque", fg="maroon")
+
     bonus_field=Spinbox(gui, from_=0, to=99, bg ="bisque", fg="maroon", width="7")
 
     #res_d_field=Entry(gui)
@@ -186,6 +186,7 @@ if __name__ == "__main__" :
 
     #Menu
     #ETAT
+
     stats.grid(row=0, column=1,sticky="nsew")
 
     pv.grid(row=1, column=0,sticky="nsew")
@@ -201,16 +202,18 @@ if __name__ == "__main__" :
     bonus_field.grid(row=4, column=1,sticky="nsew")
 
     #DICES
+    ligne.grid(row=0, column=2, sticky="nsew", rowspan=6, ipadx=0, ipady=0)
     dice.grid(row=0, column=3,sticky="nsew")
+    #dice.grid_bbox(0, 0, 1, 1)
 
     atq.grid(row=1, column=2,sticky="nsew")
     atq_field.grid(row=1, column=3,sticky="nsew")
 
-    d_endu.grid(row=2, column=2,sticky="nsew")
-    d_endu_field.grid(row=2, column=3,sticky="nsew")
+    d_endu.grid(row=3, column=2,sticky="nsew")
+    d_endu_field.grid(row=3, column=3,sticky="nsew")
 
-    defe.grid(row=3, column=2,sticky="nsew")
-    defe_field.grid(row=3, column=3,sticky="nsew")
+    defe.grid(row=2, column=2,sticky="nsew")
+    defe_field.grid(row=2, column=3,sticky="nsew")
 
     #RESULTAT
     vide.grid(row=5, column=0,sticky="nsew")
