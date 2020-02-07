@@ -89,7 +89,7 @@ A noté où dans le cas où les deux combattant font des UltraCC d'attaque et de
 
 ## Screenshot
 
-![Imgur](https://i.imgur.com/imfqtfw.png) 
+![Imgur](https://i.imgur.com/kuZHZNP.png) 
 ![Imgur](https://i.imgur.com/6YTMYN0.png)
 ![Imgur](https://i.imgur.com/8lPrLD4.png)
 ![Imgur](https://i.imgur.com/7GSZl61.png)
