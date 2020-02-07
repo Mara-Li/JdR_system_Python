@@ -12,7 +12,7 @@ executables = [
 ]
 
 setup(name='CDI_Helper',
-      version = '1.1',
+      version = '1.2.5',
       description = 'Une aide pour les joueurs et MJ',
       options = dict(build_exe = buildOptions),
       executables = executables)
