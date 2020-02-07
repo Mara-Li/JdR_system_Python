@@ -202,7 +202,7 @@ if __name__ == "__main__" :
     bonus_field.grid(row=4, column=1,sticky="nsew")
 
     #DICES
-    ligne.grid(row=0, column=2, sticky="nsew", rowspan=6, ipadx=0, ipady=0)
+    #ligne.grid(row=0, column=2, sticky="nsew", rowspan=6, ipadx=0, ipady=0)
     dice.grid(row=0, column=3,sticky="nsew")
     #dice.grid_bbox(0, 0, 1, 1)
 
