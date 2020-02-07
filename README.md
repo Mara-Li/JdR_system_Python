@@ -82,7 +82,7 @@ A noté où dans le cas où les deux combattant font des UltraCC d'attaque et de
 
 # Utilisation
 
-* A droite, vous remplissez vos caractéristiques, à gauche, les dés qui ont été lancé.
+* A droite, vous remplissez vos caractéristiques, à gauche, les dés qui ont été lancé. Vous n'avez pas besoin de faire de calcul : le programme est là pour ça. Ainsi, pour le bouclier et les bonus, vous avez juste à marquer le pourcentage qui correspond (sans évidemment, diviser par 100, le programme s'en occupe aussi). 
 * Lorsque vous avez une esquive raté, il n'est pas nécessaire de remplir la partie "Endurance" : vous pouvez laisser à 0. Vous devez tout de même remplir la partie **DEF** qui correspond à la valeur que vous avez. 
 * Dans le cas où c'est l'endurance qui est utilisé pour la défense, vous devez remplir tous les champs et **les champs DEF et END ont alors les mêmes valeurs**.
 * De manière évidente, vous n'avez pas besoin de calculer les dégâts lorsque le défenseur a esquivé. 
