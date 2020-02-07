@@ -1,5 +1,6 @@
 # import all functions from the tkinter
 from tkinter import *
+import tkinter.font as tkfont
 
 
 
@@ -125,7 +126,7 @@ if __name__ == "__main__" :
     gui.title("Helper")
 
     # Set the configuration of GUI window
-    gui.geometry("290x150")
+    gui.geometry("290x140")
     gui.resizable(0, 0)
     gui.rowconfigure(0, weight=1)
     gui.columnconfigure(0, weight=1)
@@ -135,49 +136,63 @@ if __name__ == "__main__" :
     res_cuirasse_field=StringVar()
     res_encaissement_field=StringVar()
 
+#Frames
+    cadre_statistique=Frame(gui)
+    cadre_dice=Frame(gui)
+    cadre_statistique.config(bd=1, relief="groove")
+    cadre_statistique.grid(row=0, column=0, rowspan=3, columnspan=5, sticky='nwes')
+    cadre_dice.config(bd=1, relief="groove")
+    cadre_dice.grid(row=0, column=3, rowspan=3, columnspan=6,sticky='nsew',ipadx=3)
+    #cadre_resultat=Frame(gui)
+    #cadre_resultat.grid(row=5, column=2, sticky='nsew')
+    #cadre_resultat.config(bd=1, relief="groove")
+
     #STATISTIQUES
-    pv = Label(gui, text="PV")
-    val_endu = Label(gui, text="Endurance")
-    bonus = Label(gui, text="Bonus")
-    shield = Label(gui, text="Cuirasse")
+    pv = Label(cadre_statistique, text="PV")
+    shield = Label(cadre_statistique, text="Cuirasse")
+    val_endu = Label(cadre_statistique, text="Endurance")
+    bonus = Label(cadre_statistique, text="Bonus")
 
     # DICES
-    atq= Label(gui, text="ATQ")
-    defe= Label(gui, text="DEF")
-    d_endu= Label(gui, text="END")
+    atq= Label(cadre_dice, text="      ATQ")
+    defe= Label(cadre_dice, text="      DEF")
+    d_endu= Label(cadre_dice, text="      END")
 
     #RESULTATS
-    degat=Label(gui, textvariable= res_d_field, fg="grey")
-    degat_label=Label(gui, text="Dégât sans défense : ", fg="grey")
-    res_cuirasse=Label(gui, textvariable=res_cuirasse_field, fg="grey")
-    res_cuirasse_label=Label(gui, text="Dégât avec cuirasse : ", fg= "grey")
-    res_encaissement=Label(gui, textvariable=res_encaissement_field, fg="grey")
-    res_encaissement_label=Label(gui, text="Dégât finaux : ", fg="grey")
+    helvetica = tkfont.Font(family='Helvetica', size=16)
+    titre=tkfont.Font(family='Verdana', size=8)
+    #degat=Label(gui, textvariable= res_d_field, fg="grey")
+    #degat_label=Label(gui, text="Dégât sans défense : ", fg="grey")
+    #res_cuirasse=Label(gui, textvariable=res_cuirasse_field, fg="grey")
+    #res_cuirasse_label=Label(gui, text="Dégât avec cuirasse : ", fg= "grey")
+    res_encaissement=Label(gui, textvariable=res_encaissement_field, fg="maroon", font=helvetica)
+    #res_encaissement_label=Label(gui, text="Dégât finaux : ", fg="grey")
 
 
     #TITRE
-    stats=Label(gui, text="CARACTÉRISTIQUES",fg="maroon")
-    dice=Label(gui, text="DÉS", fg="maroon")
-    res=Label(gui, text="RÉSULTATS", fg="maroon")
-    vide=Label(gui, text="")
-    ligne=Label(gui, text="", relief="groove",bd=1, width=1)
+    stats=Label(cadre_statistique, text="CARACTÉRISTIQUES",fg="maroon")
+    dice=Label(cadre_dice, text="DÉS", fg="maroon")
+    #res=Label(gui, text="RÉSULTATS", fg="maroon")
+    vide=Label(gui, text="    ")
+    #ligne=Label(gui, text="", relief="groove",bd=1, width=1)
 
 
     #Boutton résultat
-    resultat=Button(gui, text="Dégâts finaux : ",bg ="bisque", fg="maroon", command=calculate_degat)
+    resultat=Button(gui, text="Dégâts finaux :  ",bg ="bisque", fg="maroon", command=calculate_degat, relief=GROOVE, takefocus=1, overrelief=GROOVE
+                    , width=3)
 
     #Clear
     #clearEntry=Button(gui,text="Effacer tout",bg ="bisque", fg="maroon", command=clearAll)
 
     #Remplissage
-    pv_field=Spinbox(gui, from_=2, to=1000000, bg ="bisque", fg="maroon", width="7")
-    atq_field=Spinbox(gui, from_=0, to=10, width=5,bg ="bisque", fg="maroon")
-    val_endu_field = Spinbox(gui, from_=0, to=10, width=5, bg="bisque", fg="maroon")
-    defe_field=Spinbox(gui, from_=0, to=10, width=5,bg ="bisque", fg="maroon")
-    shield_field=Spinbox(gui, from_=0, to=999999, bg ="bisque", fg="maroon", width="7")
-    d_endu_field=Spinbox(gui, from_=0, to=10, width=5,bg ="bisque", fg="maroon")
+    pv_field=Spinbox(cadre_statistique, from_=2, to=1000000, bg ="bisque", fg="maroon", width="7")
+    atq_field=Spinbox(cadre_dice, from_=0, to=10, width=5,bg ="bisque", fg="maroon")
+    defe_field=Spinbox(cadre_dice, from_=0, to=10, width=5,bg ="bisque", fg="maroon")
+    shield_field=Spinbox(cadre_statistique, from_=0, to=999999, bg ="bisque", fg="maroon", width="7")
+    val_endu_field = Spinbox(cadre_statistique, from_=0, to=10, width=5, bg="bisque", fg="maroon")
+    d_endu_field=Spinbox(cadre_dice, from_=0, to=10, width=5,bg ="bisque", fg="maroon")
 
-    bonus_field=Spinbox(gui, from_=0, to=99, bg ="bisque", fg="maroon", width="7")
+    bonus_field=Spinbox(cadre_statistique, from_=0, to=99, bg ="bisque", fg="maroon", width="7")
 
     #res_d_field=Entry(gui)
     #res_cuirasse_field=Entry(gui)
@@ -188,16 +203,12 @@ if __name__ == "__main__" :
     #ETAT
 
     stats.grid(row=0, column=1,sticky="nsew")
-
     pv.grid(row=1, column=0,sticky="nsew")
     pv_field.grid(row=1, column=1,sticky="nsew")
-
-    val_endu.grid(row=2, column=0,sticky="nsew")
-    val_endu_field.grid(row=2, column=1,sticky="nsew")
-
-    shield.grid(row=3, column=0,sticky="nsew")
-    shield_field.grid(row=3, column=1,sticky="nsew")
-
+    shield.grid(row=2, column=0, sticky="nsew")
+    shield_field.grid(row=2, column=1, sticky="nsew")
+    val_endu.grid(row=3, column=0,sticky="nsew")
+    val_endu_field.grid(row=3, column=1,sticky="nsew")
     bonus.grid(row=4, column=0,sticky="nsew")
     bonus_field.grid(row=4, column=1,sticky="nsew")
 
@@ -216,8 +227,8 @@ if __name__ == "__main__" :
     defe_field.grid(row=2, column=3,sticky="nsew")
 
     #RESULTAT
-    vide.grid(row=5, column=0,sticky="nsew")
-    resultat.grid(row=6, column=0,pady=1, padx=1)
+    #vide.grid(row=5, column=0,sticky="nsew")
+    resultat.grid(row=6, column=0,ipadx=100, sticky='ns')
 
     #degat_label.grid(row=6, column=0)
     #degat.grid(row=6, column=1)
@@ -228,7 +239,8 @@ if __name__ == "__main__" :
     #res_cuirasse_field.grid(row=7, column=1)
 
     #res_encaissement_label.grid(row=6, column=0)
-    res_encaissement.grid(row=6, column=1)
+    vide.grid(row=6, column=2, sticky="ns",columnspan=4)
+    res_encaissement.grid(row=6, column=5, sticky='s')
     #res_encaissement_field.grid(row=8, column=1)
     #clearEntry.grid(row=8, column=1,sticky="nsew")
 
