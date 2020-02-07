@@ -24,13 +24,13 @@ def checkError() :
 
 def reussite_endurance(endu_de, endu_val, PV,d, SHIELD):
     d = abs(int(d * PV))
-    cuirasse = abs(int(d * (1 - SHIELD)))
+    Bouclier = abs(int(d * (1 - SHIELD)))
     if endu_de > endu_val :
-        finaux = cuirasse
+        finaux = Bouclier
     elif endu_val == 0 :
-        finaux = cuirasse
+        finaux = Bouclier
     else :
-        finaux = cuirasse * (1 - (10 * (abs(endu_val - endu_de) + 1)) / 100)
+        finaux = Bouclier * (1 - (10 * (abs(endu_val - endu_de) + 1)) / 100)
 
     if finaux >= PV :
         finaux = "Overkill  "
@@ -55,12 +55,12 @@ def calculate_degat() :
 
         # Calcul des dégâts
         if ATQ == 0 :  # UltraCC de PJ
-            # Un ultra CC outrepasse TOUTES les défense de l'adversaire, cuirasse et défense compris.
+            # Un ultra CC outrepasse TOUTES les défense de l'adversaire, Bouclier et défense compris.
             d = 0.5 + BONUS
         elif DEFE == 0 : #CC de défense : quelque soit l'attaque, elle ne passera pas, sauf en cas de 0/0, où l'attaquant à priorité
             pass #Permet de sortir de la boucle !
         elif ATQ == 1 :  # CC de Mob/Pj normaux
-            # Ici, on outrepasse la défense de l'adversaire, mais on garde tout de même la cuirasse.
+            # Ici, on outrepasse la défense de l'adversaire, mais on garde tout de même la Bouclier.
             d = 0.5 + BONUS
         else :
             d = abs(ATQ - DEFE)
@@ -110,7 +110,7 @@ if __name__ == "__main__" :
 
     # STATISTIQUES
     pv = Label(cadre_statistique, text="PV")
-    shield = Label(cadre_statistique, text="Cuirasse")
+    shield = Label(cadre_statistique, text="Bouclier")
     val_endu = Label(cadre_statistique, text="Endurance")
     bonus = Label(cadre_statistique, text="Bonus")
 
