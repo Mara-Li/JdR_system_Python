@@ -11,8 +11,8 @@ executables = [
     Executable('CDI_dice.py', base=base, targetName = 'Aide')
 ]
 
-setup(name='CDI_Helper',
-      version = '1.2.5',
+setup(name='Helper',
+      version = '1.3',
       description = 'Une aide pour les joueurs et MJ',
       options = dict(build_exe = buildOptions),
       executables = executables)
