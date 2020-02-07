@@ -87,3 +87,6 @@ A noté où dans le cas où les deux combattant font des UltraCC d'attaque et de
 * Dans le cas où c'est l'endurance qui est utilisé pour la défense, vous devez remplir tous les champs et **les champs DEF et END ont alors les mêmes valeurs**.
 * De manière évidente, vous n'avez pas besoin de calculer les dégâts lorsque le défenseur a esquivé. 
 
+## Screenshot
+
+[Imgur](https://i.imgur.com/imfqtfw.png)
