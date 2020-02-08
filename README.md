@@ -1,4 +1,8 @@
-Ce programme vise à aider les joueurs des chroniques de l'Impérium à calculer leur dégâts.  Il peut cependant être utilisé par d'autres RP en utilisant les règles ci-après.
+Ce programme vise à aider les joueurs des chroniques de l'Impérium à calculer leur dégâts.  Il peut cependant être utilisé par d'autres RP en utilisant les règles ci-après. A noté que nous utilisons donc un système avec un dé de 10, et des caractéristiques. Les titres et descriptions de ses caractéristiques importent peu, tant que vous gardez un système d'endurance et d'esquive. 
+Cependant, il n'est pas possible de changer le système hors du dés 10 sans toucher au code. Cependant, je pense que les calculs devraient être valable avec tous les autres types de dés si on modifie ce dernier.
+Dans tous les cas, vous devez simplement modifier les conditions pour le lancé et voir si les résultats des calculs vous corresponds. Sinon, vous devrez modifié la fonction "calculate_degat" qui gère cela.
+
+En soit, si vous ne touchez pas tkinter, vous devriez pouvoir modifier tous les calculs, valeurs ainsi que les entêtes. 
 
 # Build :
 
