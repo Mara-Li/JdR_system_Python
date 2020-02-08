@@ -20,8 +20,17 @@ Le fichier executable ne marche pour l'instant qu'avec windows. Pour l'utiliser 
 
 # SYSTEME DE COMBAT
 
-Le système de combat du RP est très simple : il se déroule au tour par tour, avec un lancé de dé d'attaque et de défense, qui s'échange après chaque "tour". La réussite des actions est donc déterminé à la fois par votre score et la caractéristiques liés mais aussi par le dé de défense de votre adversaire. La caractéristique que vous lancez pour votre défense est soit un dé d'endurance ou d'agilité.  - L'endurance vous permet d'encaisser le coup  - L'agilité vous permet d'esquiver le coup Choisissez donc bien en fonction de vos caractéristiques ! Vous devez OBLIGATOIREMENT lancé votre dé avant de déterminer votre action. Mais vous n'êtes pas obligé d'attendre le dé de défense de votre adversaire. Dans tous les cas, l'action finale avec les dégâts sera après le lancé des protagoniste de l'action.  Dans le cas où il y aurait un 1 VS plusieurs, la personne en sous nombre doit lancé un dé de défense pour chaque attaque reçu mais ne peut attaquer qu'une seule personne à la fois.
+Le système de combat du RP est très simple : il se déroule au tour par tour, avec un lancé de dé d'attaque et de défense, qui s'échange après chaque "tour". La réussite des actions est donc déterminé à la fois par votre score et la caractéristique liée mais aussi par le dé de défense de votre adversaire. 
 
+La caractéristique que vous lancez pour votre défense est soit un dé d'endurance ou d'agilité. 
+- L'endurance vous permet d'encaisser le coup, il recevra donc moins de dégâts.
+- L'agilité vous permet d'esquiver le coup (et donc de ne pas prendre de dégâts), cependant votre personnage ne pourra pas attaquer au tours suivant, sauf dans le cas d'un coup critique (score de 1 ou moins), où votre personnage peut contre-attaquer.
+
+Choisissez donc bien en fonction de vos caractéristiques !
+
+Vous devez OBLIGATOIREMENT lancé votre dé avant de déterminer votre action. Mais vous n'êtes pas obligé d'attendre le dé de défense de votre adversaire. Dans tous les cas, l'action finale avec les dégâts sera après le lancé des protagonistes de l'action. 
+
+Dans le cas où il y aurait un 1 VS plusieurs, la personne en sous nombre doit lancé un dé de défense pour chaque attaque reçu mais ne peut attaquer qu'une seule personne à la fois.
 
 
 ## Dégâts
@@ -47,15 +56,9 @@ Dans le cas où le défenseur aurait encaissé le coup (dé d'endurance), il per
 En général, sa défense diminue de 10% les dégâts en fonction de la valeur de son dé et donc, de sa caractéristique d'endurance. Ainsi, avec 8 d'endurance, il diminuerait les dégât de 80% dans le cas d'un coup critique (score de 0), et cela diminuerait jusqu'à la valeur seuil de son dé. 
 
 
-
-De plus, lorsque vous attaquez avec une de vos capacités offensive, alors vous rajoutez +25% à tous vos dégâts. De fait, même en cas de différence nulle, l'adversaire prendra 25% de dégât, du coup. 
-
-
-
 ## Cas des duels amicaux
 
 Lors d'un combat entre PJ "amicaux", vous ne perdez pas de pv et vous devez lancer un dé 10 pour déterminer celui qui a l'initiative. La personne avec le plus grand score commence.
-
 
 
 ## Bouclier
