@@ -67,11 +67,11 @@ def calculate_degat(bonus, ATQ, DEFE):
 
 def degat_burst(bonus, ATQ, DEFE):
     if ATQ == 0 :  # UltraCC de PJ
-        d = 0.3+bonus
+        d = 0.5+bonus
     elif DEFE == 0 :  # CC de défense : quelque soit l'attaque, elle ne passera pas, sauf en cas de 0/0, où l'attaquant à priorité
         d = 0  # Permet de sortir de la boucle !
     elif ATQ == 1:
-        d=0.3+bonus
+        d=0.5+bonus
     else:
         d = calculate_degat( bonus, ATQ, DEFE)
     return d

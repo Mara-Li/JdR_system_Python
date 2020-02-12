@@ -116,3 +116,12 @@ A noté où dans le cas où les deux combattant font des UCC d'attaque et de dé
 * Vous n'avez pas besoin de prendre en compte les capacités particulières d'une attaque perforante, d'un UCC et d'un CC, ainsi que les bonus associés aux capacités : le programme s'en charge aussi. Remplissez donc tous les champs sans vous souciez de cela.
 
 ## Screenshot
+
+![Imgur](https://imgur.com/vzi0fB2.png)
+
+![imgur](https://imgur.com/KOdvL4b.png)
+
+![Imgur](https://imgur.com/Gd8G98c.png)
+
+![Imgur](https://imgur.com/ScwLNwS.png)
+
