@@ -65,47 +65,92 @@ def calculate_degat(bonus, ATQ, DEFE):
         d = 0.5 + bonus
     return d
 
+def degat_burst(bonus, ATQ, DEFE):
+    if ATQ == 0 :  # UltraCC de PJ
+        d = 0.3+bonus
+    elif DEFE == 0 :  # CC de défense : quelque soit l'attaque, elle ne passera pas, sauf en cas de 0/0, où l'attaquant à priorité
+        d = 0  # Permet de sortir de la boucle !
+    elif ATQ == 1:
+        d=0.3+bonus
+    else:
+        d = calculate_degat( bonus, ATQ, DEFE)
+    return d
+
+def degat_type_normaux(bonus, ATQ, DEFE):
+    if ATQ == 0 :  # UltraCC de PJ
+        d = 0.5+bonus
+    elif DEFE == 0 :  # CC de défense : quelque soit l'attaque, elle ne passera pas, sauf en cas de 0/0, où l'attaquant à priorité
+        d = 0  # Permet de sortir de la boucle !
+    elif ATQ == 1:
+        d=0.5+bonus
+    else:
+        d = calculate_degat( bonus, ATQ, DEFE)
+    return d
+
+def degat_types():
+    bonus = int( bonus_field.get( ) )
+    PV = int( pv_field.get( ) )
+    ATQ = int( atq_field.get( ) )
+    DEFE = int( defe_field.get( ) )
+    endu_de = int( d_endu_field.get( ) )
+    if type_capa.get( ) == 'Burst' :
+        bonus = bonus + 30
+        bonus = capacite_bonus( bonus )/ 100
+        endu_val = int( val_endu_field.get( ) )
+        d=degat_burst(bonus, ATQ, DEFE)
+        SHIELD = (int( shield_field.get( ) ) *3) / 100
+    elif type_capa.get()=='Autre' :
+        bonus = capacite_bonus( bonus ) / 100
+        endu_val = int( val_endu_field.get( ) )
+        d=degat_type_normaux(bonus, ATQ, DEFE)
+        SHIELD = int( shield_field.get( ) ) / 100
+    elif type_capa.get( ) == 'Perforante' :
+        bonus = bonus + 15
+        bonus = capacite_bonus( bonus ) / 100
+        endu_val = 0
+        SHIELD = 0
+        d = degat_type_normaux( bonus, ATQ, DEFE)
+    finaux = reussite_endurance( endu_de, endu_val, PV, d, SHIELD )
+
+    # insert methode : value in the text entry box
+    res_finaux_field.set( str( finaux ) )
+
+def degat_normaux():
+    bonus = int( bonus_field.get( ) )
+    PV = int( pv_field.get( ) )
+    ATQ = int( atq_field.get( ) )
+    DEFE = int( defe_field.get( ) )
+    endu_de = int( d_endu_field.get( ) )
+    bonus = bonus / 100
+    endu_val = int( val_endu_field.get( ) )
+    SHIELD = int( shield_field.get( ) ) / 100
+    d = calculate_degat( bonus, ATQ, DEFE )
+    # Calcul des dégâts
+    if ATQ == 0 :  # UltraCC de PJ
+        # Un ultra CC outrepasse TOUTES les défense de l'adversaire, Bouclier et défense compris.
+        d = 0.5 + bonus
+        endu_val = 0
+    elif DEFE == 0 :  # CC de défense : quelque soit l'attaque, elle ne passera pas, sauf en cas de 0/0, où l'attaquant à priorité
+        d = 0  # Permet de sortir de la boucle !
+    elif ATQ == 1 :  # CC de Mob/Pj normaux
+        endu_val = 0
+    finaux = reussite_endurance( endu_de, endu_val, PV, d, SHIELD )
+
+    # insert methode : value in the text entry box
+    res_finaux_field.set( str( finaux ) )
+
+
+
 def calculate() :
     value = checkError()
     if value == -1 :
         return
     else :
-        bonus=int(bonus_field.get())
-        selection=int(sel.get())
-        PV = int(pv_field.get())
-        ATQ = int(atq_field.get())
-        DEFE = int(defe_field.get())
-        endu_de = int(d_endu_field.get())
-        SHIELD = int(shield_field.get()) / 10
+        selection = int( sel.get( ) )
         if selection == 2:
-            if type_capa.get() == 'Burst':
-                bonus=bonus+30
-                bonus=capacite_bonus(bonus)/100
-                endu_val = int(val_endu_field.get())
-            elif type_capa.get() == 'Perforante':
-                bonus=bonus+10
-                bonus=capacite_bonus(bonus)/100
-                endu_val = 0
-            else:
-                bonus=capacite_bonus(bonus)/100
-                endu_val = int(val_endu_field.get())
-        else:
-            bonus=bonus/100
-            endu_val=int(val_endu_field.get())
-        d = calculate_degat(bonus, ATQ, DEFE)
-        # Calcul des dégâts
-        if ATQ == 0 :  # UltraCC de PJ
-            # Un ultra CC outrepasse TOUTES les défense de l'adversaire, Bouclier et défense compris.
-            d = 0.5 + bonus
-            endu_val=0
-        elif DEFE == 0 :  # CC de défense : quelque soit l'attaque, elle ne passera pas, sauf en cas de 0/0, où l'attaquant à priorité
-            d=0  # Permet de sortir de la boucle !
-        elif ATQ == 1 :  # CC de Mob/Pj normaux
-            endu_val=0
-        finaux=reussite_endurance(endu_de, endu_val, PV, d,SHIELD)
-
-        # insert methode : value in the text entry box
-        res_finaux_field.set(str(finaux))
+            degat_types()
+        elif selection == 1:
+            degat_normaux()
 
 # driver code
 if __name__ == "__main__" :
@@ -156,7 +201,8 @@ if __name__ == "__main__" :
                       takefocus=1, overrelief=GROOVE
                       , width=3)
     # Remplissage
-    pv_field = Spinbox(cadre_statistique, from_=2, to=1000000, bg="bisque", fg="maroon", width="7")
+    pv_string=IntVar(value=100)
+    pv_field = Spinbox(cadre_statistique, from_=2, to=1000000, textvariable=pv_string, bg="bisque", fg="maroon", width="7")
     atq_field = Spinbox(cadre_dice, from_=0, to=10, width=5, bg="bisque", fg="maroon")
     defe_field = Spinbox(cadre_dice, from_=0, to=10, width=5, bg="bisque", fg="maroon")
     shield_field = Spinbox(cadre_statistique, from_=0, to=999999, bg="bisque", fg="maroon", width="7")

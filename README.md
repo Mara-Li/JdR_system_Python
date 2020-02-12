@@ -28,8 +28,8 @@ Le fichier executable ne marche pour l'instant qu'avec windows. Pour l'utiliser 
 Le système de combat du RP est très simple : il se déroule au tour par tour, avec un lancé de dé d'attaque et de défense, qui s'échange après chaque "tour". La réussite des actions est donc déterminé à la fois par votre score et la caractéristique liée mais aussi par le dé de défense de votre adversaire. 
 
 La caractéristique que vous lancez pour votre défense est soit un dé d'endurance ou d'agilité. 
-- L'endurance vous permet d'encaisser le coup, il recevra donc moins de dégâts.
-- L'agilité vous permet d'esquiver le coup (et donc de ne pas prendre de dégâts), cependant votre personnage ne pourra pas attaquer au tours suivant, sauf dans le cas d'un coup critique (score de 1 ou moins), où votre personnage peut contre-attaquer.
+- L'endurance permet d'encaisser le coup, le défenseur recevra donc moins de dégâts.
+- L'agilité permet d'esquiver le coup (et donc de ne pas prendre de dégâts), cependant le défenseur ne pourra pas attaquer au tour suivant, sauf dans le cas d'un coup critique (score de 1 ou moins), où votre personnage peut contre-attaquer.
 
 Choisissez donc bien en fonction de vos caractéristiques !
 
@@ -80,7 +80,7 @@ Avec la mise à jour 1.4, vous pouvez maintenant introduire directement les capa
 Ainsi :
 
 - Perforant correspond à un bonus de 10%, mais la capacité traversa toute les défense de l'ennemi.
-- Burst correspond à un simple bonus de 30%.
+- Burst correspond à un simple bonus de 30% mais ses capacités traversent très mal les boucliers. 
 - Autre : Tout ce qui ne rentrerait pas dans les deux schémas précédents, mais dont vous souhaitez quand même qu'ils bénéficient de la prime d'un ultra coup-critique ou d'un coup-critique.
 
 ### Les primes
