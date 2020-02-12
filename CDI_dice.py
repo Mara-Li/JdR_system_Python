@@ -39,15 +39,12 @@ def reussite_endurance(endu_de, endu_val, PV,d, SHIELD):
     return finaux
 
 
-def capacite_bonus():
-    bonus=int(bonus_field.get())
+def capacite_bonus(bonus):
     atq = int(atq_field.get())
     if atq == 0:
         bonus=bonus*2
     elif atq == 1:
         bonus=bonus*1.5
-    else:
-        pass
     return bonus
 
 def calculate_degat(bonus, ATQ, DEFE):
@@ -73,24 +70,33 @@ def calculate() :
     if value == -1 :
         return
     else :
+        bonus=int(bonus_field.get())
         selection=int(sel.get())
         PV = int(pv_field.get())
         ATQ = int(atq_field.get())
         DEFE = int(defe_field.get())
         endu_de = int(d_endu_field.get())
-        endu_val = int(val_endu_field.get())
-        SHIELD = int(shield_field.get()) / 100
-
-
+        SHIELD = int(shield_field.get()) / 10
         if selection == 2:
-            BONUS=capacite_bonus()/100
+            if type_capa.get() == 'Burst':
+                bonus=bonus+30
+                bonus=capacite_bonus(bonus)/100
+                endu_val = int(val_endu_field.get())
+            elif type_capa.get() == 'Perçant':
+                bonus=bonus+10
+                bonus=capacite_bonus(bonus)/100
+                endu_val = 0
+            else:
+                bonus=capacite_bonus(bonus)/100
+                endu_val = int(val_endu_field.get())
         else:
-            BONUS=int(bonus_field.get())/100
-        d = calculate_degat(BONUS, ATQ, DEFE)
+            bonus=bonus/100
+            endu_val=int(val_endu_field.get())
+        d = calculate_degat(bonus, ATQ, DEFE)
         # Calcul des dégâts
         if ATQ == 0 :  # UltraCC de PJ
             # Un ultra CC outrepasse TOUTES les défense de l'adversaire, Bouclier et défense compris.
-            d = 0.5 + BONUS
+            d = 0.5 + bonus
             endu_val=0
         elif DEFE == 0 :  # CC de défense : quelque soit l'attaque, elle ne passera pas, sauf en cas de 0/0, où l'attaquant à priorité
             d=0  # Permet de sortir de la boucle !
@@ -101,9 +107,6 @@ def calculate() :
         # insert methode : value in the text entry box
         res_finaux_field.set(str(finaux))
 
-
-
-
 # driver code
 if __name__ == "__main__" :
     # Create a GUI window
@@ -112,7 +115,7 @@ if __name__ == "__main__" :
     gui.title("Helper")
 
     # Set the configuration of GUI window
-    gui.geometry("380x160")
+    gui.geometry("380x200")
     gui.resizable(0, 0)
     gui.rowconfigure(0, weight=1)
     gui.columnconfigure(0, weight=1)
@@ -158,10 +161,6 @@ if __name__ == "__main__" :
     resultat = Button(gui, text="Dégâts finaux :  ", bg="bisque", fg="maroon", command=calculate, relief=GROOVE,
                       takefocus=1, overrelief=GROOVE
                       , width=3)
-
-
-
-
     # Remplissage
     pv_field = Spinbox(cadre_statistique, from_=2, to=1000000, bg="bisque", fg="maroon", width="7")
     atq_field = Spinbox(cadre_dice, from_=0, to=10, width=5, bg="bisque", fg="maroon")
@@ -176,6 +175,26 @@ if __name__ == "__main__" :
         #Valeur par défaut
     normal.select()
 
+
+        #Button Attaque
+    capacite=['Perçant', 'Autre','Burst']
+    capacite=capacite[::-1]
+    var_type=StringVar()
+    type_capa = Spinbox(cadre_statistique, values=capacite,wrap=True, command=lambda: print(var_type.get()),width="10")
+    type_capa.grid(row=6, column=1, sticky='n')
+    type_capa.configure(state='disabled')
+
+    # IntVar
+    sel = IntVar(value=1)
+
+    def type_check():
+        if sel.get() == 2:
+            type_capa.configure(state='readonly',readonlybackground='bisque', fg='maroon')
+        else:
+            type_capa.configure(state='disable')
+
+    normal = Radiobutton(cadre_statistique, text="Attaque normale", variable=sel, value=1, command=type_check).grid(row=5, column=0, sticky='w', columnspan=2,padx=50)
+    capacite = Radiobutton(cadre_statistique, text="Capacité", variable=sel, value=2, command=type_check).grid(row=6, column=0, sticky='w', columnspan=2, padx=50)
 
     # Menu
     # ETAT
