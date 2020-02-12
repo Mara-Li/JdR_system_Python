@@ -37,7 +37,6 @@ Vous devez OBLIGATOIREMENT lancé votre dé avant de déterminer votre action. M
 
 Dans le cas où il y aurait un 1 VS plusieurs, la personne en sous nombre doit lancé un dé de défense pour chaque attaque reçu mais ne peut attaquer qu'une seule personne à la fois.
 
-
 ## Dégâts
 
 Les dégâts sont déterminés en fonction de l'écart de dé entre l'attaquant et le défenseur dans le cas où le défenseur n'a pas réussi à esquiver l'attaque. Ainsi :
@@ -74,19 +73,36 @@ Les boucliers protègent des dégâts. Dans les faits, cela fonctionne exactemen
 - Armure moyenne : Diminution de 25%
 - Armure lourde : Diminution de 50%.
 
-Si votre personnage fait un coup critique (0 ou 1), ou si vous utilisez une capacité, la cuirasse est ignorée.
+## CAPACITE
+
+Avec la mise à jour 1.4, vous pouvez maintenant introduire directement les capacités aux calculs du programme.
+
+Ainsi :
+
+- Perforant correspond à un bonus de 10%, mais la capacité traversa toute les défense de l'ennemi.
+- Burst correspond à un simple bonus de 30%.
+- Autre : Tout ce qui ne rentrerait pas dans les deux schémas précédents, mais dont vous souhaitez quand même qu'ils bénéficient de la prime d'un ultra coup-critique ou d'un coup-critique.
+
+### Les primes
+
+Dans le cas où votre personnage fait : 
+
+- Un coup critique : Son bonus sera multiplié par 1,5. 
+- Un Ultra critique : Son bonus sera multiplié par 2.
+
+:warning: Lorsque l'on multiplie, on ne prend pas en compte le "pourcent" (la division par 100).
 
 ## Exception
 
 Il existe TROIS exceptions aux systèmes de dégâts : 
 
-- Les UltraCC *d'attaque* : Lorsqu'un PJ a un score de dés égal à 0, il obtient automatiquement le bonus de 50% et outrepasse **toutes** les défenses de son adversaires, que ce soit d'endurance, ou de cuirasse. 
+- Les Ultra coup-critiques *d'attaque* :  Lorsqu'un PJ a un score de dés égal à 0, il obtient automatiquement le bonus de 50% et outrepasse la défense par endurance de son adversaire. 
 
-- Les UltraCC *de défense *: Lorsqu'un combattant a un score de dés d'endurance égal à 0, il annule automatiquement l'attaque de son adversaire, quelque soit la valeur de son dé. 
+- Les Ultra coup-critiques *de défense* : Lorsqu'un combattant a un score de dés d'endurance égal à 0, il annule automatiquement l'attaque de son adversaire, quelque soit la valeur de son dé. 
 
-- Les CC d'attaque : Lorsqu'un combattant a un score de dés égal à 1, il annule la défense de son adversaire, **mais pas sa cuirasse**. 
+- Les coup-critiques d'attaque :  Lorsqu'un combattant a un score de dés égal à 1, il annule la défense par endurance de son adversaire.
 
-A noté où dans le cas où les deux combattant font des UltraCC d'attaque et de défense (La probabilité est mince), c'est l'attaquant qui aura l'avantage.
+A noté où dans le cas où les deux combattant font des UCC d'attaque et de défense (La probabilité est mince), c'est l'attaquant qui aura l'avantage.
 
 # Utilisation
 
@@ -94,10 +110,9 @@ A noté où dans le cas où les deux combattant font des UltraCC d'attaque et de
 * Lorsque vous avez une esquive raté, il n'est pas nécessaire de remplir la partie "Endurance" : vous pouvez laisser à 0. Vous devez tout de même remplir la partie **DEF** qui correspond à la valeur que vous avez. 
 * Dans le cas où c'est l'endurance qui est utilisé pour la défense, vous devez remplir tous les champs et **les champs DEF et END ont alors les mêmes valeurs**.
 * De manière évidente, vous n'avez pas besoin de calculer les dégâts lorsque le défenseur a esquivé. 
+* Vous devez choisir si votre personnages attaque avec une capacité ou non. Par défaut, ce sont les attaques normales. En effet, un coup critique avec une capacité a un bonus différent qu'un coup critique avec une attaque normale. Pour changer cela, il suffit de cliquer sur le bouton radio. 
+* Le bouton radio permet d'activer un champ qui vous permet de choisir entre les capacités 'Burst', 'perforant' ou 'Autre'. Autre, sans aucun bonus, aura le même résultat qu'une attaque normale.
+*  Il n'est malheureusement pas possible de calculer les actions de soutiens ou de malus avec le programme, vous devez donc multiplier vos bonus par vous même en suivant la table.
+* Vous n'avez pas besoin de prendre en compte les capacités particulières d'une attaque perforante, d'un UCC et d'un CC, ainsi que les bonus associés aux capacités : le programme s'en charge aussi. Remplissez donc tous les champs sans vous souciez de cela.
 
 ## Screenshot
-
-![Imgur](https://i.imgur.com/kuZHZNP.png) 
-![Imgur](https://i.imgur.com/6YTMYN0.png)
-![Imgur](https://i.imgur.com/8lPrLD4.png)
-![Imgur](https://i.imgur.com/7GSZl61.png)

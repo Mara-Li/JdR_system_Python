@@ -82,7 +82,7 @@ def calculate() :
                 bonus=bonus+30
                 bonus=capacite_bonus(bonus)/100
                 endu_val = int(val_endu_field.get())
-            elif type_capa.get() == 'Perçant':
+            elif type_capa.get() == 'Perforante':
                 bonus=bonus+10
                 bonus=capacite_bonus(bonus)/100
                 endu_val = 0
@@ -166,7 +166,7 @@ if __name__ == "__main__" :
 
 
         #Button Attaque
-    capacite=['Perçant', 'Autre','Burst']
+    capacite=['Perforante', 'Autre','Burst']
     capacite=capacite[::-1]
     var_type=StringVar()
     type_capa = Spinbox(cadre_statistique, values=capacite,wrap=True, command=lambda: print(var_type.get()),width="10")
