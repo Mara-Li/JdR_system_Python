@@ -78,16 +78,20 @@ def calculate() :
         endu_de = int(d_endu_field.get())
         SHIELD = int(shield_field.get()) / 10
         if selection == 2:
-            bonus=bonus+30
-            bonus=capacite_bonus(bonus)/100
-            endu_val = int(val_endu_field.get())
-        elif selection == 3:
-            bonus=bonus+10
-            bonus=capacite_bonus(bonus)/100
-            endu_val = 0
+            if type_capa.get() == 'Burst':
+                bonus=bonus+30
+                bonus=capacite_bonus(bonus)/100
+                endu_val = int(val_endu_field.get())
+            elif type_capa.get() == 'Perçant':
+                bonus=bonus+10
+                bonus=capacite_bonus(bonus)/100
+                endu_val = 0
+            else:
+                bonus=capacite_bonus(bonus)/100
+                endu_val = int(val_endu_field.get())
         else:
             bonus=bonus/100
-            endu_val = int(val_endu_field.get())
+            endu_val=int(val_endu_field.get())
         d = calculate_degat(bonus, ATQ, DEFE)
         # Calcul des dégâts
         if ATQ == 0 :  # UltraCC de PJ
@@ -118,11 +122,6 @@ if __name__ == "__main__" :
 
     # StringVar
     res_finaux_field = StringVar()
-
-    #IntVar
-    sel = IntVar()
-    selection=int(sel.get())
-    type_capa=IntVar()
 
     # Frames
     cadre_statistique = Frame(gui)
@@ -165,16 +164,26 @@ if __name__ == "__main__" :
     d_endu_field = Spinbox(cadre_dice, from_=0, to=10, width=5, bg="bisque", fg="maroon")
     bonus_field = Spinbox(cadre_statistique, from_=0, to=99, bg="bisque", fg="maroon", width="7")
 
+
         #Button Attaque
+    capacite=['Perçant', 'Autre','Burst']
+    capacite=capacite[::-1]
+    var_type=StringVar()
+    type_capa = Spinbox(cadre_statistique, values=capacite,wrap=True, command=lambda: print(var_type.get()),width="10")
+    type_capa.grid(row=6, column=1, sticky='n')
+    type_capa.configure(state='disabled')
 
-    normal = Radiobutton(cadre_statistique, text="Attaque normale", variable=sel, value=1)
-    burst = Radiobutton(cadre_statistique, text="Attaque burst", variable=sel, value=2)
-    perce=Radiobutton(cadre_statistique, text="Attaque perçante", variable=sel, value=3)
+    # IntVar
+    sel = IntVar(value=1)
 
+    def type_check():
+        if sel.get() == 2:
+            type_capa.configure(state='readonly',readonlybackground='bisque', fg='maroon')
+        else:
+            type_capa.configure(state='disable')
 
-        #Valeur par défaut
-    normal.select()
-
+    normal = Radiobutton(cadre_statistique, text="Attaque normale", variable=sel, value=1, command=type_check).grid(row=5, column=0, sticky='w', columnspan=2,padx=50)
+    capacite = Radiobutton(cadre_statistique, text="Capacité", variable=sel, value=2, command=type_check).grid(row=6, column=0, sticky='w', columnspan=2, padx=50)
 
     # Menu
     # ETAT
@@ -188,11 +197,6 @@ if __name__ == "__main__" :
     val_endu_field.grid(row=3, column=1, sticky="nsew")
     bonus.grid(row=4, column=0, sticky="nsew")
     bonus_field.grid(row=4, column=1, sticky="nsew")
-        #button
-    normal.grid(row=5, column=1, sticky='w')
-    burst.grid(row=6, column=1, sticky='w')
-    perce.grid(row=7, column=1, sticky='w')
-
 
     # DICES
     dice.grid(row=0, column=3, sticky="nsew")
