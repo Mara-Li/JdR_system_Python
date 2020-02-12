@@ -123,9 +123,6 @@ if __name__ == "__main__" :
     # StringVar
     res_finaux_field = StringVar()
 
-    #IntVar
-    sel = IntVar()
-
     # Frames
     cadre_statistique = Frame(gui)
     cadre_dice = Frame(gui)
@@ -141,13 +138,10 @@ if __name__ == "__main__" :
     val_endu = Label(cadre_statistique, text="Endurance")
     bonus = Label(cadre_statistique, text="Bonus")
 
-
-
     # DICES
     atq = Label(cadre_dice, text="      ATQ")
     defe = Label(cadre_dice, text="      DEF")
     d_endu = Label(cadre_dice, text="      END")
-
 
     # RESULTATS
     helvetica = tkfont.Font(family='Helvetica', size=14)
@@ -169,11 +163,6 @@ if __name__ == "__main__" :
     val_endu_field = Spinbox(cadre_statistique, from_=0, to=10, width=5, bg="bisque", fg="maroon")
     d_endu_field = Spinbox(cadre_dice, from_=0, to=10, width=5, bg="bisque", fg="maroon")
     bonus_field = Spinbox(cadre_statistique, from_=0, to=99, bg="bisque", fg="maroon", width="7")
-        #Button Attaque
-    normal = Radiobutton(cadre_statistique, text="Attaque normale", variable=sel, value=1)
-    capa = Radiobutton(cadre_statistique, text="Capacité", variable=sel, value=2)
-        #Valeur par défaut
-    normal.select()
 
 
         #Button Attaque
@@ -208,10 +197,6 @@ if __name__ == "__main__" :
     val_endu_field.grid(row=3, column=1, sticky="nsew")
     bonus.grid(row=4, column=0, sticky="nsew")
     bonus_field.grid(row=4, column=1, sticky="nsew")
-        #button
-    normal.grid(row=5, column=0, sticky='nsew')
-    capa.grid(row=5, column=1, sticky='nsew')
-
 
     # DICES
     dice.grid(row=0, column=3, sticky="nsew")
