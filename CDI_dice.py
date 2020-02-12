@@ -116,7 +116,7 @@ if __name__ == "__main__" :
 
     # Set the configuration of GUI window
     gui.geometry("380x200")
-    #gui.resizable(0, 0)
+    gui.resizable(0, 0)
     gui.rowconfigure(0, weight=1)
     gui.columnconfigure(0, weight=1)
 
