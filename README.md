@@ -12,7 +12,7 @@ Pour celles et ceux qui aimerait le faire tourner directement avec python, vous 
 Sinon, pour build en .exe vous pouvez utiliser pyinstaller, que vous pouvez installer avec pipWin ! Le setup étant déjà construit, vous n'avez juste qu'à faire, dans le dossier : 
 
 ```bash
-pyinstaller -i logo.ico -w -F CDI_helper.py 
+pyinstaller -i logo.ico -w -F CDI_dice.py 
 ```
 
 Si vous souhaitez avoir un dossier plutôt qu'un executable unique, vous devez retirer l'option "-F"
@@ -87,12 +87,14 @@ Ainsi :
 
 Dans le cas où votre personnage fait : 
 
-- Un coup critique : Son bonus sera multiplié par 1,5. 
+- Un coup critique : Son bonus sera multiplié par 1,5.
 - Un Ultra critique : Son bonus sera multiplié par 2.
+
+De plus, les deux ont un bonus d'attaque très léger, afin d'équilibré par rapport aux attaques normales. 
 
 :warning: Lorsque l'on multiplie, on ne prend pas en compte le "pourcent" (la division par 100).
 
-## Exception
+## Exceptions
 
 Il existe TROIS exceptions aux systèmes de dégâts : 
 
@@ -103,6 +105,7 @@ Il existe TROIS exceptions aux systèmes de dégâts :
 - Les coup-critiques d'attaque :  Lorsqu'un combattant a un score de dés égal à 1, il annule la défense par endurance de son adversaire.
 
 A noté où dans le cas où les deux combattant font des UCC d'attaque et de défense (La probabilité est mince), c'est l'attaquant qui aura l'avantage.
+
 
 # Utilisation
 
