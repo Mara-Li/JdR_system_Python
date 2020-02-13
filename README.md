@@ -1,9 +1,6 @@
 Ce programme vise à aider les joueurs des chroniques de l'Impérium à calculer leur dégâts.  Il peut cependant être utilisé par d'autres RP en utilisant les règles ci-après. A noté que nous utilisons donc un système avec un dé de 10, et des caractéristiques. Les titres et descriptions de ses caractéristiques importent peu, tant que vous gardez un système d'endurance et d'esquive. 
 
-Cependant, il n'est pas possible de changer le système hors du dés 10 sans toucher au code. Cela dit, je pense que les calculs devraient être valable avec tous les autres types de dés si on modifie ce dernier.
-Dans tous les cas, vous devez simplement modifier les conditions pour le lancé et voir si les résultats des calculs vous corresponds. Sinon, vous devrez modifié la fonction "calculate_degat" qui gère cela.
-
-En soit, si vous ne touchez pas tkinter, vous devriez pouvoir modifier tous les calculs, valeurs ainsi que les entêtes. 
+Cependant, il n'est pas possible de changer le système hors du dés 10 sans toucher au code. Cela dit, je pense que les calculs devraient être valable avec tous les autres types de dés si on modifie ce dernier, en modifiant les différences pour y faire correspondre.
 
 # Build :
 
@@ -21,7 +18,7 @@ Pour plus d'information à propos de cxfreeze : https://sourceforge.net/projects
 
 Le fichier executable ne marche pour l'instant qu'avec windows. Pour l'utiliser avec Linux ou Mac, vous devez installer python 3.x (à noter que tkinter est inclus avec python 3.x). Après, vous n'aurez qu'à lancer, dans le dossier du programme (par exemple) un terminal puis `python3 CDI_dice.py`. 
 
-
+<\br>
 
 # SYSTEME DE COMBAT
 
@@ -79,7 +76,7 @@ Avec la mise à jour 1.4, vous pouvez maintenant introduire directement les capa
 
 Ainsi :
 
-- Perforant correspond à un bonus de 10%, mais la capacité traversa toute les défense de l'ennemi.
+- Perforant correspond à un bonus de 15%, mais la capacité traversa toute les défense de l'ennemi.
 - Burst correspond à un simple bonus de 30% mais ses capacités traversent très mal les boucliers. 
 - Autre : Tout ce qui ne rentrerait pas dans les deux schémas précédents, mais dont vous souhaitez quand même qu'ils bénéficient de la prime d'un ultra coup-critique ou d'un coup-critique.
 
