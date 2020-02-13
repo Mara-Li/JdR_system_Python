@@ -1,21 +1,24 @@
 from cx_Freeze import setup, Executable
+import sys
 
 # Dependencies are automatically detected, but it might need
 # fine tuning.
-buildOptions = dict(packages = [], excludes = [],)
+buildOptions = dict(packages = [], excludes = [])
+include_files = ['logo.ico']
 
-import sys
-base = 'Win32GUI' if sys.platform=='win32' else None
+base = None
+
+if sys.platform == "win32":
+    base = "Win32GUI"
 
 target = Executable(
-    script="CDI_dice.py",
+    script='CDI_dice.py',
     base=base,
-    targetName='Helper'
-    )
+    icon='logo.ico',)
 
-setup(name='Helper',
+setup(name='Aide',
       version = '1.4',
       description = 'Une aide pour les joueurs et MJ',
-      options = dict(build_exe = buildOptions),
+      options={'build_exe' : {'include_files' : include_files}},
       executables = [target]
       )

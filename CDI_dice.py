@@ -67,22 +67,22 @@ def calculate_degat(bonus, ATQ, DEFE):
 
 def degat_burst(bonus, ATQ, DEFE):
     if ATQ == 0 :  # UltraCC de PJ
-        d = 0.5+bonus
+        d = 0.15+bonus
     elif DEFE == 0 :  # CC de défense : quelque soit l'attaque, elle ne passera pas, sauf en cas de 0/0, où l'attaquant à priorité
         d = 0  # Permet de sortir de la boucle !
     elif ATQ == 1:
-        d=0.5+bonus
+        d=0.1+bonus
     else:
         d = calculate_degat( bonus, ATQ, DEFE)
     return d
 
 def degat_type_normaux(bonus, ATQ, DEFE):
     if ATQ == 0 :  # UltraCC de PJ
-        d = 0.5+bonus
+        d = 0.2+bonus
     elif DEFE == 0 :  # CC de défense : quelque soit l'attaque, elle ne passera pas, sauf en cas de 0/0, où l'attaquant à priorité
         d = 0  # Permet de sortir de la boucle !
     elif ATQ == 1:
-        d=0.5+bonus
+        d=0.15+bonus
     else:
         d = calculate_degat( bonus, ATQ, DEFE)
     return d
@@ -93,17 +93,21 @@ def degat_types():
     ATQ = int( atq_field.get( ) )
     DEFE = int( defe_field.get( ) )
     endu_de = int( d_endu_field.get( ) )
+    SHIELD = int( shield_field.get( ) ) / 100
     if type_capa.get( ) == 'Burst' :
-        bonus = bonus + 30
+        if SHIELD != 0:
+            bonus = bonus + 20
+        else:
+            bonus= bonus+30
         bonus = capacite_bonus( bonus )/ 100
         endu_val = int( val_endu_field.get( ) )
         d=degat_burst(bonus, ATQ, DEFE)
-        SHIELD = (int( shield_field.get( ) ) *3) / 100
+
     elif type_capa.get()=='Autre' :
         bonus = capacite_bonus( bonus ) / 100
         endu_val = int( val_endu_field.get( ) )
         d=degat_type_normaux(bonus, ATQ, DEFE)
-        SHIELD = int( shield_field.get( ) ) / 100
+
     elif type_capa.get( ) == 'Perforante' :
         bonus = bonus + 15
         bonus = capacite_bonus( bonus ) / 100
@@ -161,7 +165,7 @@ if __name__ == "__main__" :
 
     # Set the configuration of GUI window
     gui.geometry("380x200")
-    gui.resizable(0, 0)
+    #gui.resizable(0, 0)
     gui.rowconfigure(0, weight=1)
     gui.columnconfigure(0, weight=1)
 
