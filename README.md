@@ -18,7 +18,7 @@ Pour plus d'information à propos de cxfreeze : https://sourceforge.net/projects
 
 Le fichier executable ne marche pour l'instant qu'avec windows. Pour l'utiliser avec Linux ou Mac, vous devez installer python 3.x (à noter que tkinter est inclus avec python 3.x). Après, vous n'aurez qu'à lancer, dans le dossier du programme (par exemple) un terminal puis `python3 CDI_dice.py`. 
 
-<\br>
+-----
 
 # SYSTEME DE COMBAT
 
