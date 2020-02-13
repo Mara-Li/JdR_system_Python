@@ -101,13 +101,13 @@ def degat_types():
             bonus= bonus+30
         bonus = capacite_bonus( bonus )/ 100
         endu_val = int( val_endu_field.get( ) )
-        d=degat_burst(bonus, ATQ, DEFE)
-
+        d = degat_burst( bonus, ATQ, DEFE )
+        SHIELD = int( shield_field.get( ) ) / 100
     elif type_capa.get()=='Autre' :
         bonus = capacite_bonus( bonus ) / 100
         endu_val = int( val_endu_field.get( ) )
-        d=degat_type_normaux(bonus, ATQ, DEFE)
-
+        d = degat_burst( bonus, ATQ, DEFE )
+        SHIELD = int( shield_field.get( ) ) / 100
     elif type_capa.get( ) == 'Perforante' :
         bonus = bonus + 15
         bonus = capacite_bonus( bonus ) / 100
