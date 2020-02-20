@@ -5,6 +5,18 @@ from tkinter import *
 from tkinter import messagebox
 
 
+def clearAll() :
+    # deleting the content from the entry box
+    pv_field.delete(0, END)
+    atq_field.delete(0, END)
+    defe_field.delete(0, END)
+    shield_field.delete(0, END)
+    d_endu_field.delete(0, END)
+    val_endu_field.delete(0,END)
+    bonus_field.delete(0, END)
+    res_finaux_field.set('')
+
+
 # function for checking error
 def checkError() :
     """If any of the entry field is empty, show a error message. This function check also the condition."""
@@ -200,10 +212,12 @@ if __name__ == "__main__" :
     stats = Label(cadre_statistique, text="CARACTÉRISTIQUES", fg="maroon")
     dice = Label(cadre_dice, text="DÉS", fg="maroon")
 
-    # Boutton résultat
+    # Boutton
     resultat = Button(gui, text="Dégâts finaux :  ", bg="bisque", fg="maroon", command=calculate, relief=GROOVE,
                       takefocus=1, overrelief=GROOVE
                       , width=3)
+    reset_bouton = Button(cadre_dice, text="Reset", bitmap="error", bg="bisque", fg="maroon", command=clearAll, relief=GROOVE,
+                          takefocus=1, overrelief=GROOVE)
     # Remplissage
     pv_string=IntVar(value=100)
     pv_field = Spinbox(cadre_statistique, from_=2, to=1000000, textvariable=pv_string, bg="bisque", fg="maroon", width="7")
@@ -248,6 +262,8 @@ if __name__ == "__main__" :
     bonus.grid(row=4, column=0, sticky="nsew")
     bonus_field.grid(row=4, column=1, sticky="nsew")
 
+
+
     # DICES
     dice.grid(row=0, column=3, sticky="nsew")
     atq.grid(row=1, column=2, sticky="nsew")
@@ -256,6 +272,10 @@ if __name__ == "__main__" :
     d_endu_field.grid(row=3, column=3, sticky="nsew")
     defe.grid(row=2, column=2, sticky="nsew")
     defe_field.grid(row=2, column=3, sticky="nsew")
+    reset_bouton.grid(row=6, column=3,sticky='nsew',pady=60,stick='sw')
+
+
+
 
     # RESULTAT
     resultat.grid(row=6, column=0, ipadx=100000, sticky='ns')
