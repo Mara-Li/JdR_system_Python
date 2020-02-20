@@ -4,19 +4,6 @@ from tkinter import *
 # import messagebox class from tkinter
 from tkinter import messagebox
 
-
-def clearAll() :
-    # deleting the content from the entry box
-    pv_field.delete(0, END)
-    atq_field.delete(0, END)
-    defe_field.delete(0, END)
-    shield_field.delete(0, END)
-    d_endu_field.delete(0, END)
-    val_endu_field.delete(0,END)
-    bonus_field.delete(0, END)
-    res_finaux_field.set('')
-
-
 # function for checking error
 def checkError() :
     """If any of the entry field is empty, show a error message. This function check also the condition."""
@@ -183,6 +170,13 @@ if __name__ == "__main__" :
 
     # StringVar
     res_finaux_field = StringVar()
+    pv_string = IntVar( value=100 )
+    shield_string=IntVar(value=0)
+    val_endu_string=IntVar(value=0)
+    bonus_string=IntVar(value=0)
+    atq_string=IntVar(value=0)
+    defe_string=IntVar(value=0)
+    d_endu_string=IntVar(value=0)
 
     # Frames
     cadre_statistique = Frame(gui)
@@ -216,17 +210,37 @@ if __name__ == "__main__" :
     resultat = Button(gui, text="Dégâts finaux :  ", bg="bisque", fg="maroon", command=calculate, relief=GROOVE,
                       takefocus=1, overrelief=GROOVE
                       , width=3)
+    # Remplissage
+
+    pv_field = Spinbox(cadre_statistique, from_=2, to=1000000, textvariable=pv_string, bg="bisque", fg="maroon", width="7")
+    atq_field = Spinbox(cadre_dice, from_=0, to=10, width=5, bg="bisque", fg="maroon", textvariable=atq_string)
+    defe_field = Spinbox(cadre_dice, from_=0, to=10, width=5, bg="bisque", fg="maroon",textvariable=defe_string)
+    shield_field = Spinbox(cadre_statistique, from_=0, to=999999, bg="bisque", fg="maroon", width="7",textvariable=shield_string)
+    val_endu_field = Spinbox(cadre_statistique, from_=0, to=10, width=5, bg="bisque", fg="maroon",textvariable=val_endu_string)
+    d_endu_field = Spinbox(cadre_dice, from_=0, to=10, width=5, bg="bisque", fg="maroon",textvariable=d_endu_string)
+    bonus_field = Spinbox(cadre_statistique, from_=0, to=99, bg="bisque", fg="maroon", width="7",textvariable=bonus_string)
+
+
+    def clearAll() :
+        # deleting the content from the entry box
+        pv_field.delete( 0, END )
+        atq_field.delete( 0, END )
+        defe_field.delete( 0, END )
+        shield_field.delete( 0, END )
+        d_endu_field.delete( 0, END )
+        val_endu_field.delete( 0, END )
+        bonus_field.delete( 0, END )
+        pv_field.insert(0, 100)
+        atq_field.insert(0,0)
+        defe_field.insert(0,0)
+        shield_field.insert(0, 0)
+        d_endu_field.insert(0,0)
+        val_endu_field.insert(0,0)
+        bonus_field.insert(0,0)
+        res_finaux_field.set('')
+
     reset_bouton = Button(cadre_dice, text="Reset", bitmap="error", bg="bisque", fg="maroon", command=clearAll, relief=GROOVE,
                           takefocus=1, overrelief=GROOVE)
-    # Remplissage
-    pv_string=IntVar(value=100)
-    pv_field = Spinbox(cadre_statistique, from_=2, to=1000000, textvariable=pv_string, bg="bisque", fg="maroon", width="7")
-    atq_field = Spinbox(cadre_dice, from_=0, to=10, width=5, bg="bisque", fg="maroon")
-    defe_field = Spinbox(cadre_dice, from_=0, to=10, width=5, bg="bisque", fg="maroon")
-    shield_field = Spinbox(cadre_statistique, from_=0, to=999999, bg="bisque", fg="maroon", width="7")
-    val_endu_field = Spinbox(cadre_statistique, from_=0, to=10, width=5, bg="bisque", fg="maroon")
-    d_endu_field = Spinbox(cadre_dice, from_=0, to=10, width=5, bg="bisque", fg="maroon")
-    bonus_field = Spinbox(cadre_statistique, from_=0, to=99, bg="bisque", fg="maroon", width="7")
 
 
         #Button Attaque
