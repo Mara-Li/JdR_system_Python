@@ -30,6 +30,13 @@ jobs:
         name: CDI_Help
         # Directory containing files to upload
         path: ./dist
+    - name: Zip Release
+      uses: TheDoctor0/zip-release@v0.2.1
+      with:
+        # Filename for archive
+        filename: CDI_Help.zip
+        # Base path for archive files
+        path: ./dist
     - name: Automatic Releases
       uses: marvinpinto/action-automatic-releases@v0.2.2
       with:
