@@ -188,7 +188,7 @@ if __name__ == "__main__" :
     cadre_dice.config(bd=1, relief="groove")
     cadre_dice.grid(row=0, column=3, rowspan=3, columnspan=5, sticky='nsew', ipadx=3)
     cadre_attaquant.config(bd=1, relief="groove")
-    cadre_attaquant.grid(row=1, column=0,  rowspan=2, columnspan=3, sticky='nsew')
+    cadre_attaquant.grid(row=1, column=0,  rowspan=2, columnspan=1, sticky='nsew',ipadx=1000)
 
 
     # STATISTIQUES
@@ -281,7 +281,7 @@ if __name__ == "__main__" :
 
     attaquant.grid(row=1, column=0, columnspan=3, padx=100)
     bonus.grid(row=2, column=0,sticky='nw',padx=40, rowspan=2)
-    bonus_field.grid(row=2, column=1, columnspan=2,ipadx=10, sticky='nw')
+    bonus_field.grid(row=2, column=1, columnspan=2, sticky='ew')
 
 
 
