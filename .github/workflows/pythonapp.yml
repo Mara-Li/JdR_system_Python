@@ -21,9 +21,8 @@ jobs:
         pip install pyinstaller
     - name: build with pyinstaller
       run: |
-@echo off
-pyinstaller -y -F -w -i "logo.ico" --add-data "reset.png";"."  "CDI_dice.py"
-pyinstaller -y -w -i "logo.ico" --add-data "reset.png";"."  "CDI_dice.py""CDI_dice.py"
+	pyinstaller -y -F -w -i "logo.ico" --add-data "reset.png";"."  "CDI_dice.py"
+	pyinstaller -y -w -i "logo.ico" --add-data "reset.png";"."  "CDI_dice.py""CDI_dice.py"
     - name: Upload artifact
       uses: actions/upload-artifact@v1.0.0
       with:
