@@ -266,7 +266,6 @@ if __name__ == "__main__" :
 
     def clearAll() :
         # deleting the content from the entry box
-        pv_field.delete( 0, END )
         atq_field.delete( 0, END )
         defe_field.delete( 0, END )
         shield_field.delete( 0, END )
@@ -275,7 +274,6 @@ if __name__ == "__main__" :
         type_check()
         val_endu_field.delete( 0, END )
         bonus_field.delete( 0, END )
-        pv_field.insert(0, 100)
         atq_field.insert(0,0)
         defe_field.insert(0,0)
         shield_field.insert(0, 0)
