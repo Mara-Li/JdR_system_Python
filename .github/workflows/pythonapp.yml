@@ -1,4 +1,4 @@
-name: PyInstaller
+name: Build
 
 on: [push]
 
@@ -20,3 +20,23 @@ jobs:
     - name: build with pyinstaller
       run: |
         pyinstaller -i logo.ico -w -F CDI_dice.py 
+        pyinstaller -i logo.ico -w CDI_dice.py
+    - name: Upload artifact
+      uses: actions/upload-artifact@v1.0.0
+      with:
+        # Artifact name
+        name: CDI_Help
+        # Directory containing files to upload
+        path: .
+    - name: Zip Release
+      uses: TheDoctor0/zip-release@v0.2.1
+      with:
+        # Filename for archive
+        filename: CDI_Help.zip
+        # Base path for archive files
+        path: .
+    - name: Github Release
+      uses: elgohr/Github-Release-Action@v3.1
+      with:
+        # The name of the release to publish
+        release: CDI_Help
