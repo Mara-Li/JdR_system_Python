@@ -163,10 +163,11 @@ if __name__ == "__main__" :
     gui.title("Helper")
 
     # Set the configuration of GUI window
-    gui.geometry("380x200")
+    gui.geometry("380x210")
     #gui.resizable(0, 0)
     gui.rowconfigure(0, weight=1)
     gui.columnconfigure(0, weight=1)
+
 
     # StringVar
     res_finaux_field = StringVar()
@@ -181,17 +182,20 @@ if __name__ == "__main__" :
     # Frames
     cadre_statistique = Frame(gui)
     cadre_dice = Frame(gui)
+    cadre_attaquant = Frame( gui)
     cadre_statistique.config(bd=1, relief="groove")
     cadre_statistique.grid(row=0, column=0, rowspan=3, columnspan=5, sticky='nwes')
     cadre_dice.config(bd=1, relief="groove")
-    cadre_dice.grid(row=0, column=3, rowspan=3, columnspan=6, sticky='nsew', ipadx=3)
+    cadre_dice.grid(row=0, column=3, rowspan=3, columnspan=5, sticky='nsew', ipadx=3)
+    cadre_attaquant.config(bd=1, relief="groove")
+    cadre_attaquant.grid(row=1, column=0,  rowspan=2, columnspan=3, sticky='nsew')
 
 
     # STATISTIQUES
     pv = Label(cadre_statistique, text="PV")
     shield = Label(cadre_statistique, text="Bouclier")
     val_endu = Label(cadre_statistique, text="Endurance")
-    bonus = Label(cadre_statistique, text="Bonus")
+    bonus = Label(cadre_attaquant, text="Bonus")
 
     # DICES
     atq = Label(cadre_dice, text="      ATQ")
@@ -203,8 +207,9 @@ if __name__ == "__main__" :
     res_finaux = Label(gui, textvariable=res_finaux_field, fg="maroon", font=helvetica)
 
     # TITRE
-    stats = Label(cadre_statistique, text="CARACTÉRISTIQUES", fg="maroon")
+    stats = Label(cadre_statistique, text="DEFENSEUR", fg="maroon")
     dice = Label(cadre_dice, text="DÉS", fg="maroon")
+    attaquant = Label(cadre_attaquant, text="ATTAQUANT", fg="maroon")
 
     # Boutton
     resultat = Button(gui, text="Dégâts finaux :  ", bg="bisque", fg="maroon", command=calculate, relief=GROOVE,
@@ -218,7 +223,7 @@ if __name__ == "__main__" :
     shield_field = Spinbox(cadre_statistique, from_=0, to=999999, bg="bisque", fg="maroon", width="7",textvariable=shield_string)
     val_endu_field = Spinbox(cadre_statistique, from_=0, to=10, width=5, bg="bisque", fg="maroon",textvariable=val_endu_string)
     d_endu_field = Spinbox(cadre_dice, from_=0, to=10, width=5, bg="bisque", fg="maroon",textvariable=d_endu_string)
-    bonus_field = Spinbox(cadre_statistique, from_=0, to=99, bg="bisque", fg="maroon", width="7",textvariable=bonus_string)
+    bonus_field = Spinbox(cadre_attaquant, from_=0, to=99, bg="bisque", fg="maroon", width="10",textvariable=bonus_string)
 
 
     def clearAll() :
@@ -247,8 +252,8 @@ if __name__ == "__main__" :
     capacite=['Perforante', 'Autre','Burst']
     capacite=capacite[::-1]
     var_type=StringVar()
-    type_capa = Spinbox(cadre_statistique, values=capacite,wrap=True, command=lambda: print(var_type.get()),width="10")
-    type_capa.grid(row=6, column=1, sticky='n')
+    type_capa = Spinbox(cadre_attaquant, values=capacite,wrap=True, command=lambda: print(var_type.get()),width="10")
+    type_capa.grid(row=4, column=1, columnspan=2,ipadx=10)
     type_capa.configure(state='disabled')
 
     # IntVar
@@ -260,8 +265,8 @@ if __name__ == "__main__" :
         else:
             type_capa.configure(state='disable')
 
-    normal = Radiobutton(cadre_statistique, text="Attaque normale", variable=sel, value=1, command=type_check).grid(row=5, column=0, sticky='w', columnspan=2,padx=50)
-    capacite = Radiobutton(cadre_statistique, text="Capacité", variable=sel, value=2, command=type_check).grid(row=6, column=0, sticky='w', columnspan=2, padx=50)
+    normal = Radiobutton(cadre_attaquant, text="Attaque normale", variable=sel, value=1, command=type_check).grid(row=3, column=0, sticky='nw', columnspan=2,padx=40)
+    capacite = Radiobutton(cadre_attaquant, text="Capacité", variable=sel, value=2, command=type_check).grid(row=4, column=0, sticky='nw', padx=40)
 
     # Menu
     # ETAT
@@ -273,8 +278,10 @@ if __name__ == "__main__" :
     shield_field.grid(row=2, column=1, sticky="nsew")
     val_endu.grid(row=3, column=0, sticky="nsew")
     val_endu_field.grid(row=3, column=1, sticky="nsew")
-    bonus.grid(row=4, column=0, sticky="nsew")
-    bonus_field.grid(row=4, column=1, sticky="nsew")
+
+    attaquant.grid(row=1, column=0, columnspan=3, padx=100)
+    bonus.grid(row=2, column=0,sticky='nw',padx=40, rowspan=2)
+    bonus_field.grid(row=2, column=1, columnspan=2,ipadx=10, sticky='nw')
 
 
 
