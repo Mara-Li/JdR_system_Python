@@ -3,16 +3,17 @@ import tkinter.font as tkfont
 from tkinter import *
 # import messagebox class from tkinter
 from tkinter import messagebox
+from PIL import Image, ImageTk
+
 
 # function for checking error
 def checkError() :
     """If any of the entry field is empty, show a error message. This function check also the condition."""
     if (pv_field.get() == "" or atq_field.get() == ""
         or defe_field.get() == "" or shield_field.get() == ""
-        or d_endu_field.get() == "" or bonus_field.get() == ""
+        or bonus_field.get() == ""
         or val_endu_field.get() == ""
-        or int(atq_field.get()) > 10 or int(defe_field.get()) > 10 or int(d_endu_field.get()) > 10 or int(
-                val_endu_field.get()) > 10) \
+        or int(atq_field.get()) > 10 or int(defe_field.get()) > 10 or int(val_endu_field.get()) > 10) \
             or int(pv_field.get()) <= int(shield_field.get()) \
             or int(bonus_field.get()) > 100 \
             or int(pv_field.get() == 0) :
@@ -91,7 +92,11 @@ def degat_types():
     PV = int( pv_field.get( ) )
     ATQ = int( atq_field.get( ) )
     DEFE = int( defe_field.get( ) )
-    endu_de = int( d_endu_field.get( ) )
+    if sel_def.get()==1:
+        endu_de=DEFE
+    else:
+        endu_val = 0
+        endu_de = 10
     SHIELD = int( shield_field.get( ) ) / 100
     if type_capa.get( ) == 'Burst' :
         if SHIELD != 0:
@@ -123,11 +128,15 @@ def degat_normaux():
     PV = int( pv_field.get( ) )
     ATQ = int( atq_field.get( ) )
     DEFE = int( defe_field.get( ) )
-    endu_de = int( d_endu_field.get( ) )
     bonus = bonus / 100
     endu_val = int( val_endu_field.get( ) )
     SHIELD = int( shield_field.get( ) ) / 100
     d = calculate_degat( bonus, ATQ, DEFE )
+    if sel_def.get() == 1 :
+        endu_de = DEFE
+    else :
+        endu_val = 0
+        endu_de=10
     # Calcul des dégâts
     if ATQ == 0 :  # UltraCC de PJ
         # Un ultra CC outrepasse TOUTES les défense de l'adversaire, Bouclier et défense compris.
@@ -163,11 +172,12 @@ if __name__ == "__main__" :
     gui.title("Helper")
 
     # Set the configuration of GUI window
-    gui.geometry("380x210")
-    #gui.resizable(0, 0)
+    gui.geometry("460x240")
     gui.rowconfigure(0, weight=1)
     gui.columnconfigure(0, weight=1)
 
+    reset_img=PhotoImage(file='reset.png')
+    reset_img=reset_img.subsample(4,4)
 
     # StringVar
     res_finaux_field = StringVar()
@@ -177,7 +187,7 @@ if __name__ == "__main__" :
     bonus_string=IntVar(value=0)
     atq_string=IntVar(value=0)
     defe_string=IntVar(value=0)
-    d_endu_string=IntVar(value=0)
+    sel_def=IntVar(value=1)
 
     # Frames
     cadre_statistique = Frame(gui)
@@ -200,53 +210,32 @@ if __name__ == "__main__" :
     # DICES
     atq = Label(cadre_dice, text="      ATQ")
     defe = Label(cadre_dice, text="      DEF")
-    d_endu = Label(cadre_dice, text="      END")
+    #d_endu = Label(cadre_dice, text="      END")
 
     # RESULTATS
-    helvetica = tkfont.Font(family='Helvetica', size=14)
-    res_finaux = Label(gui, textvariable=res_finaux_field, fg="maroon", font=helvetica)
+    helvetica = tkfont.Font(family='Pangolin', size=16)
+    titre=tkfont.Font(family='Concert One',size=15)
+    res_finaux = Label(gui, textvariable=res_finaux_field, fg="#16356d", font=helvetica)
 
     # TITRE
-    stats = Label(cadre_statistique, text="DEFENSEUR", fg="maroon")
-    dice = Label(cadre_dice, text="DÉS", fg="maroon")
-    attaquant = Label(cadre_attaquant, text="ATTAQUANT", fg="maroon")
+    stats = Label(cadre_statistique, text="DEFENSEUR", fg="#2e57a0", font=titre)
+    dice = Label(cadre_dice, text="DÉS", fg="#2e57a0", font=titre)
+    attaquant = Label(cadre_attaquant, text="ATTAQUANT", fg="#2e57a0", font=titre)
 
     # Boutton
-    resultat = Button(gui, text="Dégâts finaux :  ", bg="bisque", fg="maroon", command=calculate, relief=GROOVE,
+    resultat = Button(gui, text="Dégâts finaux :  ", bg="#a8c9ca", fg="#253a61", command=calculate, relief=GROOVE,
                       takefocus=1, overrelief=GROOVE
                       , width=3)
     # Remplissage
 
-    pv_field = Spinbox(cadre_statistique, from_=2, to=1000000, textvariable=pv_string, bg="bisque", fg="maroon", width="7")
-    atq_field = Spinbox(cadre_dice, from_=0, to=10, width=5, bg="bisque", fg="maroon", textvariable=atq_string)
-    defe_field = Spinbox(cadre_dice, from_=0, to=10, width=5, bg="bisque", fg="maroon",textvariable=defe_string)
-    shield_field = Spinbox(cadre_statistique, from_=0, to=999999, bg="bisque", fg="maroon", width="7",textvariable=shield_string)
-    val_endu_field = Spinbox(cadre_statistique, from_=0, to=10, width=5, bg="bisque", fg="maroon",textvariable=val_endu_string)
-    d_endu_field = Spinbox(cadre_dice, from_=0, to=10, width=5, bg="bisque", fg="maroon",textvariable=d_endu_string)
-    bonus_field = Spinbox(cadre_attaquant, from_=0, to=99, bg="bisque", fg="maroon", width="10",textvariable=bonus_string)
-
-
-    def clearAll() :
-        # deleting the content from the entry box
-        pv_field.delete( 0, END )
-        atq_field.delete( 0, END )
-        defe_field.delete( 0, END )
-        shield_field.delete( 0, END )
-        d_endu_field.delete( 0, END )
-        val_endu_field.delete( 0, END )
-        bonus_field.delete( 0, END )
-        pv_field.insert(0, 100)
-        atq_field.insert(0,0)
-        defe_field.insert(0,0)
-        shield_field.insert(0, 0)
-        d_endu_field.insert(0,0)
-        val_endu_field.insert(0,0)
-        bonus_field.insert(0,0)
-        res_finaux_field.set('')
-
-    reset_bouton = Button(cadre_dice, text="Reset", bitmap="error", bg="bisque", fg="maroon", command=clearAll, relief=GROOVE,
-                          takefocus=1, overrelief=GROOVE)
-
+    pv_field = Spinbox(cadre_statistique, from_=2, to=1000000, textvariable=pv_string, bg="#a8c9ca", fg="#566c6c", width="7")
+    atq_field = Spinbox(cadre_dice, from_=0, to=10, width=5, bg="#a8c9ca", fg="#566c6c", textvariable=atq_string)
+    defe_field = Spinbox(cadre_dice, from_=0, to=10, width=5, bg="#a8c9ca", fg="#566c6c",textvariable=defe_string)
+    shield_field = Spinbox(cadre_statistique, from_=0, to=999999, bg="#a8c9ca", fg="#566c6c", width="7",textvariable=shield_string)
+    val_endu_field = Spinbox(cadre_statistique, from_=0, to=10, width=5, bg="#a8c9ca", fg="#566c6c",textvariable=val_endu_string)
+    endurance=Radiobutton(cadre_dice, text="Endurance", variable=sel_def, value=1)
+    esquive=Radiobutton(cadre_dice, text="Esquive raté", variable=sel_def, value=2)
+    bonus_field = Spinbox(cadre_attaquant, from_=0, to=99, bg="#a8c9ca", fg="#566c6c", width="10",textvariable=bonus_string)
 
         #Button Attaque
     capacite=['Perforante', 'Autre','Burst']
@@ -259,14 +248,39 @@ if __name__ == "__main__" :
     # IntVar
     sel = IntVar(value=1)
 
+
     def type_check():
         if sel.get() == 2:
-            type_capa.configure(state='readonly',readonlybackground='bisque', fg='maroon')
+            type_capa.configure(state='readonly',readonlybackground='#a8c9ca', fg='#566c6c')
         else:
             type_capa.configure(state='disable')
 
     normal = Radiobutton(cadre_attaquant, text="Attaque normale", variable=sel, value=1, command=type_check).grid(row=3, column=0, sticky='nw', columnspan=2,padx=40)
     capacite = Radiobutton(cadre_attaquant, text="Capacité", variable=sel, value=2, command=type_check).grid(row=4, column=0, sticky='nw', padx=40)
+
+    def clearAll() :
+        # deleting the content from the entry box
+        pv_field.delete( 0, END )
+        atq_field.delete( 0, END )
+        defe_field.delete( 0, END )
+        shield_field.delete( 0, END )
+        sel_def.set(1)
+        sel.set(1)
+        type_check()
+        val_endu_field.delete( 0, END )
+        bonus_field.delete( 0, END )
+        pv_field.insert(0, 100)
+        atq_field.insert(0,0)
+        defe_field.insert(0,0)
+        shield_field.insert(0, 0)
+
+        val_endu_field.insert(0,0)
+        bonus_field.insert(0,0)
+        res_finaux_field.set('')
+
+    reset_bouton = Button(cadre_dice, text="Reset", image=reset_img, bg="#b1b3b3", command=clearAll, relief=GROOVE,
+                          takefocus=1, overrelief=GROOVE)
+
 
     # Menu
     # ETAT
@@ -289,11 +303,11 @@ if __name__ == "__main__" :
     dice.grid(row=0, column=3, sticky="nsew")
     atq.grid(row=1, column=2, sticky="nsew")
     atq_field.grid(row=1, column=3, sticky="nsew")
-    d_endu.grid(row=3, column=2, sticky="nsew")
-    d_endu_field.grid(row=3, column=3, sticky="nsew")
+    endurance.grid(row=3, column=3,sticky='nw')
+    esquive.grid(row=4, column=3, sticky='nw')
     defe.grid(row=2, column=2, sticky="nsew")
     defe_field.grid(row=2, column=3, sticky="nsew")
-    reset_bouton.grid(row=6, column=3,sticky='nsew',pady=60,stick='sw')
+    reset_bouton.grid(row=5, column=3,pady=40,stick='sw',padx=20)
 
 
 
