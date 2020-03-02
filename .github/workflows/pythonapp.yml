@@ -30,22 +30,3 @@ jobs:
         name: CDI_Help
         # Directory containing files to upload
         path: ./dist
-    - name: Zip Release
-      uses: TheDoctor0/zip-release@v0.2.1
-      with:
-        # Filename for archive
-        filename: CDI_Help.zip
-        # Base path for archive files
-        path: ./dist
-    - name: Automatic Releases
-      uses: marvinpinto/action-automatic-releases@v0.2.2
-      with:
-        # GitHub secret token
-        repo_token: ${{ secrets.GITHUB_TOKEN }}
-        # Git tag (for automatic releases)
-        automatic_release_tag: latest
-        
-        # Release title (for automatic releases)
-        title: Update
-        # Assets to upload to the release
-        files: ./dist
