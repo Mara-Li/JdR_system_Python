@@ -1,7 +1,9 @@
 name: Build
 
-on: [push]
-
+on: 
+  push:
+    branches:
+        - master
 jobs:
   build:
 
@@ -34,6 +36,8 @@ jobs:
         # GitHub secret token
         repo_token: ${{ secrets.GITHUB_TOKEN }}
         # Git tag (for automatic releases)
+        automatic_release_tag: latest
+        
         # Release title (for automatic releases)
         title: Update
         # Assets to upload to the release
