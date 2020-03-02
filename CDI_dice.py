@@ -248,7 +248,7 @@ if __name__ == "__main__" :
     capacite=capacite[::-1]
     var_type=StringVar()
     type_capa = Spinbox(cadre_attaquant, values=capacite,wrap=True, command=lambda: print(var_type.get()),width="10")
-    type_capa.grid(row=4, column=1, columnspan=2,ipadx=10)
+    type_capa.grid(row=4, column=1, columnspan=2,ipadx=10,sticky='ew')
     type_capa.configure(state='disabled')
 
     # IntVar
@@ -279,7 +279,6 @@ if __name__ == "__main__" :
         atq_field.insert(0,0)
         defe_field.insert(0,0)
         shield_field.insert(0, 0)
-
         val_endu_field.insert(0,0)
         bonus_field.insert(0,0)
         res_finaux_field.set('')
@@ -301,7 +300,7 @@ if __name__ == "__main__" :
 
     attaquant.grid(row=1, column=0, columnspan=3, padx=100)
     bonus.grid(row=2, column=0,sticky='nw',padx=40, rowspan=2)
-    bonus_field.grid(row=2, column=1, columnspan=2, sticky='ew')
+    bonus_field.grid(row=2, column=1, columnspan=2, sticky='ew', ipadx=10)
 
 
 
