@@ -3,7 +3,13 @@ import tkinter.font as tkfont
 from tkinter import *
 # import messagebox class from tkinter
 from tkinter import messagebox
-from PIL import Image, ImageTk
+import os
+
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    base_path = getattr( sys, '_MEIPASS', os.path.dirname( os.path.abspath( __file__ ) ) )
+    return os.path.join( base_path, relative_path )
+
 
 
 # function for checking error
@@ -176,8 +182,9 @@ if __name__ == "__main__" :
     gui.rowconfigure(0, weight=1)
     gui.columnconfigure(0, weight=1)
 
-    reset_img=PhotoImage(file='reset.png')
+    reset_img=PhotoImage(file=resource_path('reset.png'))
     reset_img=reset_img.subsample(4,4)
+    gui.iconbitmap(r"C:\\Users\\Lili\\Documents\\GitHub\\CDI_Dice_Help\\logo.ico")
 
     # StringVar
     res_finaux_field = StringVar()
@@ -210,7 +217,6 @@ if __name__ == "__main__" :
     # DICES
     atq = Label(cadre_dice, text="      ATQ")
     defe = Label(cadre_dice, text="      DEF")
-    #d_endu = Label(cadre_dice, text="      END")
 
     # RESULTATS
     helvetica = tkfont.Font(family='Pangolin', size=16)
