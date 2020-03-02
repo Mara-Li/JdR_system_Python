@@ -27,7 +27,7 @@ jobs:
         # Artifact name
         name: CDI_Help
         # Directory containing files to upload
-        path: .
+        path: ./dist
     - name: Github Release
       uses: elgohr/Github-Release-Action@v3.1
       with:
