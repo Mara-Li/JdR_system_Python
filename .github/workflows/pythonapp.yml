@@ -28,8 +28,13 @@ jobs:
         name: CDI_Help
         # Directory containing files to upload
         path: ./dist
-    - name: Github Release
-      uses: elgohr/Github-Release-Action@v3.1
-      with:
-        # The name of the release to publish
-        release: Update
+        - name: Automatic Releases
+  uses: marvinpinto/action-automatic-releases@v0.2.2
+  with:
+    # GitHub secret token
+    repo_token: ${{ secrets.GITHUB_TOKEN }}
+    # Git tag (for automatic releases)
+    # Release title (for automatic releases)
+    title: Update
+    # Assets to upload to the release
+    files: ./dist
