@@ -120,11 +120,4 @@ A noté où dans le cas où les deux combattant font des UCC d'attaque et de dé
 
 ## Screenshot
 
-![Imgur](https://imgur.com/vzi0fB2.png)
-
-![imgur](https://imgur.com/KOdvL4b.png)
-
-![Imgur](https://imgur.com/Gd8G98c.png)
-
-![Imgur](https://imgur.com/ScwLNwS.png)
-
+![Imgur](https://imgur.com/wkfwGiH.png)
