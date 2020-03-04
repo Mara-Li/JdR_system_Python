@@ -1,5 +1,6 @@
 # import all functions from the tkinter
 import os
+import sys
 import tkinter.font as tkfont
 from tkinter import *
 # import messagebox class from tkinter
@@ -265,9 +266,9 @@ if __name__ == "__main__" :
     gui.rowconfigure(0, weight=1)
     gui.columnconfigure(0, weight=1)
 
-    reset_img=PhotoImage(file=resource_path('reset.png'))
+    reset_img=PhotoImage(file=resource_path('data\\reset.png'))
     reset_img=reset_img.subsample(4,4)
-    gui.iconbitmap(r"C:\\Users\\Lili\\Documents\\GitHub\\CDI_Dice_Help\\logo.ico")
+    gui.iconbitmap(r"C:\\Users\\Lili\\Documents\\GitHub\\CDI_Dice_Help\\data\\logo.ico")
 
     # StringVar
     res_finaux_field = StringVar()
