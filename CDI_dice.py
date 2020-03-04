@@ -176,7 +176,7 @@ def degat_type_normaux(bonus, ATQ, DEFE):
     return d
 
 def degat_types():
-    bonus = int( bonus_field.get( ) )
+    bonus = int ( bonus_field.get ( ) )
     PV = int( pv_field.get( ) )
     ATQ = int( atq_field.get( ) )
     DEFE = int( defe_field.get( ) )
@@ -197,9 +197,10 @@ def degat_types():
         d = degat_burst( bonus, ATQ, DEFE )
         SHIELD = int( shield_field.get( ) ) / 100
     elif type_capa.get()=='Autre' :
+        bonus = int( bonus_field.get( ) )
         bonus = capacite_bonus( bonus ) / 100
         endu_val = int( val_endu_field.get( ) )
-        d = degat_burst( bonus, ATQ, DEFE )
+        d = degat_type_normaux( bonus, ATQ, DEFE )
         SHIELD = int( shield_field.get( ) ) / 100
     elif type_capa.get( ) == 'Perforante' :
         bonus = bonus + 15
