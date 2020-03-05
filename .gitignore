@@ -126,3 +126,5 @@ dmypy.json
 
 #script
 script.bat
+
+.DS_Store
