@@ -291,9 +291,9 @@ if __name__ == "__main__" :
     cadre_defenseur.config(bd=1, relief="groove")
     cadre_defenseur.grid(row=0, column=0, rowspan=3, columnspan=5, sticky='nwes')
     cadre_dice.config(bd=1, relief="groove")
-    cadre_dice.grid(row=0, column=3, rowspan=3, columnspan=5, sticky='nsew', ipadx=3)
+    cadre_dice.grid(row=0, column=3, rowspan=3, columnspan=3, sticky='nsew')
     cadre_attaquant.config(bd=1, relief="groove")
-    cadre_attaquant.grid(row=1, column=0,  rowspan=2, columnspan=1, sticky='nsew',ipadx=1000)
+    cadre_attaquant.grid(row=1, column=0, sticky='nwes')
 
     # FONT
     helvetica = tkfont.Font(family='Pangolin', size=16)
@@ -323,26 +323,26 @@ if __name__ == "__main__" :
     attaquant = Label(cadre_attaquant, text="ATTAQUANT", fg="#2e57a0", font=titre)
 
     # Boutton
-    resultat = Button(gui, text="Dégâts finaux :", bg="#a8c9ca", fg="#253a61", command=calculate, relief=GROOVE,
+    resultat = Button(gui, text="Dégâts finaux :", highlightcolor="#a8c9ca", fg="#253a61", command=calculate, relief=GROOVE,
                       takefocus=1, overrelief=GROOVE
                       , width=3)
     # SPINBOX
         #DEFENSEUR
 
-    pv_field = Spinbox(cadre_defenseur, from_=2, to=1000000, textvariable=pv_string, bg="#a8c9ca", fg="#566c6c", width="7")
-    pv_restant_field = Spinbox( cadre_defenseur, from_=2, to=1000000, textvariable=pv_restant, bg="#a8c9ca",
+    pv_field = Spinbox(cadre_defenseur, from_=2, to=1000000, textvariable=pv_string, highlightcolor="#a8c9ca", fg="#566c6c", width="7")
+    pv_restant_field = Spinbox( cadre_defenseur, from_=2, to=1000000, textvariable=pv_restant, highlightcolor="#a8c9ca",
                                 fg="#566c6c", width="7" )
-    shield_field = Spinbox( cadre_defenseur, from_=0, to=999999, bg="#a8c9ca", fg="#566c6c", width="7",
+    shield_field = Spinbox( cadre_defenseur, from_=0, to=999999, highlightcolor="#a8c9ca", fg="#566c6c", width="7",
                             textvariable=shield_string )
-    val_endu_field = Spinbox( cadre_defenseur, from_=0, to=10, width=5, bg="#a8c9ca", fg="#566c6c",
+    val_endu_field = Spinbox( cadre_defenseur, from_=0, to=10, width=5, highlightcolor="#a8c9ca", fg="#566c6c",
                               textvariable=val_endu_string )
 
         #ATTAQUANT
-    bonus_field = Spinbox( cadre_attaquant, from_=0, to=99, bg="#a8c9ca", fg="#566c6c", width="10",
+    bonus_field = Spinbox( cadre_attaquant, from_=0, to=99, highlightcolor="#a8c9ca", fg="#566c6c", width="10",
                            textvariable=bonus_string )
         #DICE
-    atq_field = Spinbox(cadre_dice, from_=0, to=10, width=5, bg="#a8c9ca", fg="#566c6c", textvariable=atq_string)
-    defe_field = Spinbox(cadre_dice, from_=0, to=10, width=5, bg="#a8c9ca", fg="#566c6c",textvariable=defe_string)
+    atq_field = Spinbox(cadre_dice, from_=0, to=10, width=5, highlightcolor="#a8c9ca", fg="#566c6c", textvariable=atq_string)
+    defe_field = Spinbox(cadre_dice, from_=0, to=10, width=5, highlightcolor="#a8c9ca", fg="#566c6c",textvariable=defe_string)
 
     endurance=Radiobutton(cadre_dice, text="Endurance", variable=sel_def, value=1)
     esquive=Radiobutton(cadre_dice, text="Esquive raté", variable=sel_def, value=2)
@@ -354,7 +354,7 @@ if __name__ == "__main__" :
     capacite=capacite[::-1]
     var_type=StringVar()
     type_capa = Spinbox(cadre_attaquant, values=capacite,wrap=True, command=lambda: print(var_type.get()),width="10")
-    type_capa.grid(row=4, column=1, columnspan=2,ipadx=10,sticky='ew')
+    type_capa.grid(row=4, column=0, columnspan=2,padx=130, sticky='ew')
     type_capa.configure(state='disabled')
 
     # IntVar
@@ -362,14 +362,14 @@ if __name__ == "__main__" :
 
     def type_check():
         if sel.get() == 2:
-            type_capa.configure(state='readonly',readonlybackground='#a8c9ca', fg='#566c6c')
+            type_capa.configure(state='readonly', fg='#566c6c')
         else:
             type_capa.configure(state='disable')
 
     normal = Radiobutton(cadre_attaquant, text="Attaque normale", variable=sel, value=1, command=type_check).grid(row=3, column=0, sticky='nw', columnspan=2,padx=40)
     capacite = Radiobutton(cadre_attaquant, text="Capacité", variable=sel, value=2, command=type_check).grid(row=4, column=0, sticky='nw', padx=40)
-    reset_bouton = Button(cadre_dice, text="Reset", image=reset_img, bg="#b1b3b3", command=clearAll, relief=GROOVE,
-                          takefocus=1, overrelief=GROOVE)
+    reset_bouton = Button(cadre_dice, text="Reset", image=reset_img, command=clearAll,
+                          takefocus=1)
 
 
     # AFFICHAGE / GRID :
@@ -387,9 +387,9 @@ if __name__ == "__main__" :
     val_endu_field.grid(row=4, column=1, sticky="nsew")
 
     #ATTAQUANT
-    attaquant.grid(row=1, column=0, columnspan=3, padx=100)
-    bonus.grid(row=2, column=0,sticky='nw',padx=40, rowspan=2)
-    bonus_field.grid(row=2, column=1, columnspan=2, sticky='ew', ipadx=10)
+    attaquant.grid(row=0, column=0, columnspan=3, padx=100)
+    bonus.grid(row=1, column=0,sticky='nw', rowspan=2, padx=40)
+    bonus_field.grid(row=1, column=0, padx=121, ipadx=0, sticky='ew')
 
 
 

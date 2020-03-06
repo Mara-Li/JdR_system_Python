@@ -269,7 +269,8 @@ if __name__ == "__main__" :
 
     reset_img=PhotoImage(file=resource_path('data\\reset.png'))
     reset_img=reset_img.subsample(4,4)
-    gui.iconbitmap(r"C:\\Users\\Lili\\Documents\\GitHub\\CDI_Dice_Help\\data\\logo.ico")
+    logo=resource_path('data\\logo.ico')
+    gui.iconbitmap(logo)
 
     # StringVar
     res_finaux_field = StringVar()
@@ -353,7 +354,7 @@ if __name__ == "__main__" :
     capacite=capacite[::-1]
     var_type=StringVar()
     type_capa = Spinbox(cadre_attaquant, values=capacite,wrap=True, command=lambda: print(var_type.get()),width="10")
-    type_capa.grid(row=4, column=1, columnspan=2,ipadx=10,sticky='ew')
+    type_capa.grid(row=4, column=0, columnspan=2,padx=130, sticky='ew')
     type_capa.configure(state='disabled')
 
     # IntVar
@@ -386,9 +387,9 @@ if __name__ == "__main__" :
     val_endu_field.grid(row=4, column=1, sticky="nsew")
 
     #ATTAQUANT
-    attaquant.grid(row=1, column=0, columnspan=3, padx=100)
-    bonus.grid(row=2, column=0,sticky='nw',padx=40, rowspan=2)
-    bonus_field.grid(row=2, column=1, columnspan=2, sticky='ew', ipadx=10)
+    attaquant.grid(row=0, column=0, columnspan=3, padx=100)
+    bonus.grid(row=1, column=0, sticky='nw', rowspan=2, padx=40)
+    bonus_field.grid(row=1, column=0, padx=121, ipadx=0, sticky='ew')
 
 
 
