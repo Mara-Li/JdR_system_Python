@@ -1,15 +1,8 @@
-# import all functions from the tkinter
-import os
-import sys
-import tkinter.font as tkfont
 from tkinter import *
-# import messagebox class from tkinter
-from tkinter import messagebox
 
+def someotherfunction(e=None):
+    print('It works !')
 
-def resource_path(relative_path):
-    """ Get absolute path to resource, works for dev and for PyInstaller """
-    base_path = getattr( sys, '_MEIPASS', os.path.dirname( os.path.abspath( __file__ ) ) )
-    return os.path.join( base_path, relative_path )
-
-print(resource_path('data\\pouet'))
+root = Tk()
+root.bind('<Control-n>', someotherfunction)
+root.mainloop()

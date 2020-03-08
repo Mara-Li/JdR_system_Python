@@ -21,7 +21,7 @@ def test_none(t):
 def clearAll ( ) :
     # deleting the content from the entry box
     atq_field.delete ( 0, END )
-    pv_field.delete ( 0, END )
+    #pv_field.delete ( 0, END )
     pv_restant_field.delete ( 0, END )
     defe_field.delete ( 0, END )
     shield_field.delete ( 0, END )
@@ -33,7 +33,7 @@ def clearAll ( ) :
     atq_field.insert ( 0, 0 )
     defe_field.insert ( 0, 0 )
     shield_field.insert ( 0, 0 )
-    pv_field.insert ( 0, 100 )
+    #pv_field.insert ( 0, 100 )
     pv_restant.set ( pv_string.get ( ) )
     val_endu_field.insert ( 0, 0 )
     bonus_field.insert ( 0, 0 )
@@ -300,6 +300,21 @@ if __name__ == "__main__" :
     titre=tkfont.Font(family='Concert One',size=15)
     pangolin=tkfont.Font(family='Pangolin', size=13)
 
+
+    # Fonction lien PV max - restant
+
+    def setting_entry (event) :
+        pv_restant.set ( pv_string.get ( ) )
+
+
+    def setting_arrow ( ) :
+        pv_restant.set ( pv_string.get ( ) )
+
+
+    # Fonction entry - start (même fonction que le bouton)
+    def final_entry (e=None) :
+        calculate ( )
+
 #LABEL :
 
     # STATISTIQUES
@@ -329,20 +344,20 @@ if __name__ == "__main__" :
     # SPINBOX
         #DEFENSEUR
 
-    pv_field = Spinbox(cadre_defenseur, from_=2, to=1000000, textvariable=pv_string, highlightcolor="#a8c9ca", fg="#566c6c", width="7")
+    pv_field = Spinbox(cadre_defenseur, from_=2, to=1000000, textvariable=pv_string, highlightcolor="#a8c9ca", fg="#566c6c", width="7", command=setting_arrow,wrap=True)
     pv_restant_field = Spinbox( cadre_defenseur, from_=2, to=1000000, textvariable=pv_restant, highlightcolor="#a8c9ca",
-                                fg="#566c6c", width="7" )
-    shield_field = Spinbox( cadre_defenseur, from_=0, to=999999, highlightcolor="#a8c9ca", fg="#566c6c", width="7",
-                            textvariable=shield_string )
+                                fg="#566c6c", width="7" ,wrap=True)
+    shield_field = Spinbox( cadre_defenseur, from_=0, to=99, highlightcolor="#a8c9ca", fg="#566c6c", width="7",
+                            textvariable=shield_string ,wrap=True)
     val_endu_field = Spinbox( cadre_defenseur, from_=0, to=10, width=5, highlightcolor="#a8c9ca", fg="#566c6c",
-                              textvariable=val_endu_string )
+                              textvariable=val_endu_string ,wrap=True)
 
         #ATTAQUANT
-    bonus_field = Spinbox( cadre_attaquant, from_=0, to=99, highlightcolor="#a8c9ca", fg="#566c6c", width="10",
-                           textvariable=bonus_string )
+    bonus_field = Spinbox( cadre_attaquant, from_=0, to=99, highlightcolor="#a8c9ca", fg="#566c6c", width="17",
+                           textvariable=bonus_string ,wrap=True)
         #DICE
-    atq_field = Spinbox(cadre_dice, from_=0, to=10, width=5, highlightcolor="#a8c9ca", fg="#566c6c", textvariable=atq_string)
-    defe_field = Spinbox(cadre_dice, from_=0, to=10, width=5, highlightcolor="#a8c9ca", fg="#566c6c",textvariable=defe_string)
+    atq_field = Spinbox(cadre_dice, from_=0, to=10, width=5, highlightcolor="#a8c9ca", fg="#566c6c", textvariable=atq_string,wrap=True)
+    defe_field = Spinbox(cadre_dice, from_=0, to=10, width=5, highlightcolor="#a8c9ca", fg="#566c6c",textvariable=defe_string,wrap=True)
 
     endurance=Radiobutton(cadre_dice, text="Endurance", variable=sel_def, value=1)
     esquive=Radiobutton(cadre_dice, text="Esquive raté", variable=sel_def, value=2)
@@ -353,8 +368,8 @@ if __name__ == "__main__" :
     capacite=['Perforante', 'Autre','Burst']
     capacite=capacite[::-1]
     var_type=StringVar()
-    type_capa = Spinbox(cadre_attaquant, values=capacite,wrap=True, command=lambda: print(var_type.get()),width="10")
-    type_capa.grid(row=4, column=0, columnspan=2,padx=130, sticky='ew')
+    type_capa = Spinbox(cadre_attaquant, values=capacite,wrap=True, command=lambda: print(var_type.get()),width="16")
+    type_capa.grid(row=4, column=0, columnspan=2,padx=126, sticky='w',ipadx=3)
     type_capa.configure(state='disabled')
 
     # IntVar
@@ -362,7 +377,7 @@ if __name__ == "__main__" :
 
     def type_check():
         if sel.get() == 2:
-            type_capa.configure(state='readonly', fg='#566c6c')
+            type_capa.configure(state='readonly', fg='#566c6c',readonlybackground='white')
         else:
             type_capa.configure(state='disable')
 
@@ -389,7 +404,7 @@ if __name__ == "__main__" :
     #ATTAQUANT
     attaquant.grid(row=0, column=0, columnspan=3, padx=100)
     bonus.grid(row=1, column=0,sticky='nw', rowspan=2, padx=40)
-    bonus_field.grid(row=1, column=0, padx=121, ipadx=0, sticky='ew')
+    bonus_field.grid(row=1, column=0, padx=126, sticky='w')
 
 
 
@@ -409,6 +424,11 @@ if __name__ == "__main__" :
     pv_finaux_titre=Label(gui, text="PV restant : ", fg='grey', anchor='e').grid(row=7, column=0, ipadx=100000, sticky='e')
     res_finaux.grid(row=6, column=5, sticky='sw')
     pv_finaux.grid(row=7, column=4, sticky='sw')
+
+    # Binding button
+    pv_field.bind ( "<Button-1>", setting_entry )
+    pv_field.bind ( "<FocusOut>", setting_entry )
+    gui.bind ( '<Return>', final_entry )
 
     # start
     gui.mainloop()
