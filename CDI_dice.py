@@ -112,20 +112,21 @@ def reussite_endurance(endu_de, endu_val, PV,d, SHIELD):
         finaux = Bouclier * (1 - (10 * (abs(endu_val - endu_de) + 1)) / 100)
 
     if finaux >= PV :
-        finaux = "Overkill  "
+        finaux = PV
     else :
         finaux = int(finaux)
     return finaux
 
 def vie_restante(finaux):
     vie = int( pv_restant_field.get( ) )
-    vie=vie-finaux
+    vie = vie - finaux
+    msg_pv=vie
     if vie <= 0:
         vie='0'
+        msg_pv="X"
     pv_restant_field.delete(0, END)
     pv_restant_field.insert( 0, vie )
-    res_pv.set(vie)
-
+    res_pv.set(msg_pv)
 
 def capacite_bonus(bonus):
     atq = int(atq_field.get())
@@ -155,25 +156,48 @@ def calculate_degat(bonus, ATQ, DEFE):
 
 def degat_burst(bonus, ATQ, DEFE):
     if ATQ == 0 :  # UltraCC de PJ
-        d = 0.15+bonus
+        d = 0.25+bonus
     elif DEFE == 0 :  # CC de défense : quelque soit l'attaque, elle ne passera pas, sauf en cas de 0/0, où l'attaquant à priorité
         d = 0  # Permet de sortir de la boucle !
     elif ATQ == 1:
-        d=0.1+bonus
+        d=0.35+bonus
     else:
         d = calculate_degat( bonus, ATQ, DEFE)
     return d
 
-def degat_type_normaux(bonus, ATQ, DEFE):
+def degat_burst_bouclier(bonus, ATQ, DEFE):
+    if ATQ==0:
+        d=0.38+bonus
+    elif DEFE==0:
+        d=0
+    elif ATQ==1:
+        d=0.40+bonus
+    else:
+        d=calculate_degat(bonus, ATQ, DEFE)
+    return d
+
+def degat_perforant(bonus, ATQ, DEFE):
     if ATQ == 0 :  # UltraCC de PJ
-        d = 0.2+bonus
+        d = 0.40+bonus
     elif DEFE == 0 :  # CC de défense : quelque soit l'attaque, elle ne passera pas, sauf en cas de 0/0, où l'attaquant à priorité
         d = 0  # Permet de sortir de la boucle !
     elif ATQ == 1:
-        d=0.15+bonus
+        d=0.42+bonus
     else:
         d = calculate_degat( bonus, ATQ, DEFE)
     return d
+
+def degat_autre(bonus, ATQ, DEFE):
+    if ATQ == 0 :  # UltraCC de PJ
+        d = 0.43+bonus
+    elif DEFE == 0 :  # CC de défense : quelque soit l'attaque, elle ne passera pas, sauf en cas de 0/0, où l'attaquant à priorité
+        d = 0  # Permet de sortir de la boucle !
+    elif ATQ == 1:
+        d=0.42+bonus
+    else:
+        d = calculate_degat( bonus, ATQ, DEFE)
+    return d
+
 
 def degat_types():
     bonus = int ( bonus_field.get ( ) )
@@ -187,27 +211,32 @@ def degat_types():
         endu_val = 0
         endu_de = 10
     SHIELD = int( shield_field.get( ) ) / 100
+
     if type_capa.get( ) == 'Burst' :
+        endu_val = int( val_endu_field.get( ) )
+        SHIELD = int ( shield_field.get ( ) ) / 100
         if SHIELD != 0:
-            bonus = bonus + 20
+            bonus = bonus + 12
+            bonus = capacite_bonus ( bonus ) / 100
+            d=degat_burst_bouclier(bonus, ATQ, DEFE)
         else:
             bonus= bonus+30
-        bonus = capacite_bonus( bonus )/ 100
-        endu_val = int( val_endu_field.get( ) )
-        d = degat_burst( bonus, ATQ, DEFE )
-        SHIELD = int( shield_field.get( ) ) / 100
+            bonus = capacite_bonus ( bonus ) / 100
+            d = degat_burst( bonus, ATQ, DEFE )
+
     elif type_capa.get()=='Autre' :
         bonus = int( bonus_field.get( ) )
         bonus = capacite_bonus( bonus ) / 100
         endu_val = int( val_endu_field.get( ) )
-        d = degat_type_normaux( bonus, ATQ, DEFE )
+        d = degat_autre( bonus, ATQ, DEFE )
         SHIELD = int( shield_field.get( ) ) / 100
+
     elif type_capa.get( ) == 'Perforante' :
         bonus = bonus + 15
         bonus = capacite_bonus( bonus ) / 100
         endu_val = 0
         SHIELD = 0
-        d = degat_type_normaux( bonus, ATQ, DEFE)
+        d = degat_perforant( bonus, ATQ, DEFE)
     finaux = reussite_endurance( endu_de, endu_val, PV, d, SHIELD )
 
     # insert methode : value in the text entry box
@@ -231,7 +260,7 @@ def degat_normaux():
     # Calcul des dégâts
     if ATQ == 0 :  # UltraCC de PJ
         # Un ultra CC outrepasse TOUTES les défense de l'adversaire, Bouclier et défense compris.
-        d = 0.5 + bonus
+        d = 0.50 + bonus
         endu_val = 0
     elif DEFE == 0 :  # CC de défense : quelque soit l'attaque, elle ne passera pas, sauf en cas de 0/0, où l'attaquant à priorité
         d = 0  # Permet de sortir de la boucle !
