@@ -29,14 +29,14 @@ def clearAll ( ) :
     sel.set ( 1 )
     type_check ( )
     val_endu_field.delete ( 0, END )
-    bonus_field.delete ( 0, END )
+    bonus_entry.delete ( 0, END )
     atq_field.insert ( 0, 0 )
     defe_field.insert ( 0, 0 )
     shield_field.insert ( 0, 0 )
     #pv_field.insert ( 0, 100 )
     pv_restant.set ( pv_string.get ( ) )
     val_endu_field.insert ( 0, 0 )
-    bonus_field.insert ( 0, 0 )
+    bonus_entry.insert ( 0, 0 )
     res_finaux_field.set ( '' )
     res_pv.set ( '' )
 # function for checking error
@@ -46,9 +46,9 @@ def checkError() :
     if pv_field.get().isalpha( ) \
             or atq_field.get( ).isalpha( ) \
             or shield_field.get( ).isalpha( ) \
-            or bonus_field.get( ).isalpha( ) \
             or val_endu_field.get( ).isalpha( ) \
             or pv_restant_field.get( ).isalpha( )\
+            or bonus_entry.get().isalpha()\
             or defe_field.get().isalpha():
         messagebox.showerror ( "Erreur", "Les variables ne sont pas numériques")
         clearAll ( )
@@ -57,6 +57,7 @@ def checkError() :
             or test_none(atq_field.get( ))\
             or test_none(shield_field.get( ))\
             or test_none(bonus_field.get( ))\
+            or test_none(bonus_entry.get())\
             or test_none(val_endu_field.get( ))\
             or test_none(pv_restant_field.get( ))\
             or test_none(defe_field.get()):
@@ -83,8 +84,13 @@ def checkError() :
         messagebox.showerror ( "Erreur", x )
         clearAll ( )
         return -1
-    elif int(bonus_field.get()) > 100:
-        x='Le bouclier est supérieur à 100'
+    elif int(bonus_entry.get())>100:
+        x='Le bonus est supérieur à 100%'
+        messagebox.showerror("Erreur", x)
+        clearAll()
+        return -1
+    elif int(shield_field.get()) > 100:
+        x='Le bouclier est supérieur à 100.'
         messagebox.showerror ( "Erreur", x )
         clearAll ( )
         return -1
@@ -100,6 +106,30 @@ def checkError() :
         clearAll()
         return -1
     return 1
+
+def choix_bonus():
+    bonus=bonus_field.get ( )
+    bonus_val=int(bonus_entry.get())
+    if bonus=='Pouvoir':
+        b=10+bonus_val
+    if bonus=='Fusil':
+        b=10+bonus_val
+    if bonus=='Projectile':
+        b=5+bonus_val
+    if bonus=='Epée':
+        b=10+bonus_val
+    if bonus=='Contondant':
+        b=15+bonus_val
+    if bonus=='Couteau':
+        b=5+bonus_val
+    if bonus=='Pistolet':
+        b=8+bonus_val
+    if bonus=='Artillerie':
+        b=15+bonus_val
+    if bonus=='Autre':
+        b=bonus_val
+    b=int(b)
+    return b
 
 def reussite_endurance(endu_de, endu_val, PV,d, SHIELD):
     d = abs(int(d * PV))
@@ -206,7 +236,7 @@ def degat_autre(bonus, ATQ, DEFE, endu_val):
 
 
 def degat_types():
-    bonus = int ( bonus_field.get ( ) )
+    bonus = choix_bonus()
     PV = int( pv_field.get( ) )
     ATQ = int( atq_field.get( ) )
     DEFE = int( defe_field.get( ) )
@@ -231,7 +261,7 @@ def degat_types():
             d, endu_val = degat_burst( bonus, ATQ, DEFE, endu_val )
 
     elif type_capa.get()=='Autre' :
-        bonus = int( bonus_field.get( ) )
+        bonus = choix_bonus()
         bonus = capacite_bonus( bonus ) / 100
         endu_val = int( val_endu_field.get( ) )
         d, endu_val = degat_autre( bonus, ATQ, DEFE , endu_val)
@@ -254,7 +284,7 @@ def degat_types():
     vie_restante(finaux)
 
 def degat_normaux():
-    bonus = int( bonus_field.get( ) )
+    bonus = choix_bonus()
     PV = int( pv_field.get( ) )
     ATQ = int( atq_field.get( ) )
     DEFE = int( defe_field.get( ) )
@@ -285,7 +315,6 @@ def degat_normaux():
     # insert methode : value in the text entry box
     res_finaux_field.set( str( finaux ) )
     vie_restante(finaux)
-
 
 
 def calculate() :
@@ -395,22 +424,23 @@ if __name__ == "__main__" :
                               textvariable=val_endu_string ,wrap=True)
 
         #ATTAQUANT
-    bonus_field = Spinbox( cadre_attaquant, from_=0, to=99, bg="#a8c9ca", fg="#566c6c", width="17",
-                           textvariable=bonus_string ,wrap=True)
-        #DICE
-    atq_field = Spinbox(cadre_dice, from_=0, to=10, width=5, bg="#a8c9ca", fg="#566c6c", textvariable=atq_string,wrap=True)
-    defe_field = Spinbox(cadre_dice, from_=0, to=10, width=5, bg="#a8c9ca", fg="#566c6c",textvariable=defe_string,wrap=True)
+    bonus_type=['Pouvoir', 'Autre','Artillerie','Fusil','Pistolet','Contondant','Epée','Projectile','Couteau']
+    var_bonus=StringVar()
+    bonus_field = Spinbox ( cadre_attaquant, readonlybackground='#a8c9ca', fg='#566c6c', values=bonus_type, command=lambda:print(var_bonus.get()),
+                     width=13, wrap=True)
+    bonus_entry = Spinbox ( cadre_attaquant, from_=0, to=99, width=4, wrap=True, bg='#a8c9ca', fg='#566c6c' )
 
-    endurance=Radiobutton(cadre_dice, text="Endurance", variable=sel_def, value=1)
-    esquive=Radiobutton(cadre_dice, text="Esquive raté", variable=sel_def, value=2)
-
+    #Type d'attaquant :
+    sel_attaquant=IntVar(value=1)
+    actif=Radiobutton(cadre_attaquant, text="Actif", variable=sel_attaquant, value=1)
+    monstre = Radiobutton ( cadre_attaquant, text="Monstre", variable=sel_attaquant, value=2 )
 
 
         #Button Attaque
     capacite=['Perforante', 'Autre','Burst']
     capacite=capacite[::-1]
     var_type=StringVar()
-    type_capa = Spinbox(cadre_attaquant, values=capacite,wrap=True, command=lambda: print(var_type.get()),width="16")
+    type_capa = Spinbox(cadre_attaquant, values=capacite,wrap=True, command=lambda: print(var_type.get()),width="19")
     type_capa.grid(row=4, column=0,padx=126, sticky='w',ipadx=3)
     type_capa.configure(state='disabled')
 
@@ -425,15 +455,17 @@ if __name__ == "__main__" :
 
     normal = Radiobutton(cadre_attaquant, text="Attaque normale", variable=sel, value=1, command=type_check).grid(row=3, column=0, sticky='nw', columnspan=2,padx=40)
     capacite = Radiobutton(cadre_attaquant, text="Capacité", variable=sel, value=2, command=type_check).grid(row=4, column=0, sticky='nw', padx=40)
-    reset_bouton = Button(cadre_dice, text="Reset", image=reset_img, bg="#b1b3b3", command=clearAll, relief=GROOVE,
-                          takefocus=1, overrelief=GROOVE)
 
-    #Type d'attaquant :
-    sel_attaquant=IntVar(value=1)
+    # DICE
+    atq_field = Spinbox ( cadre_dice, from_=0, to=10, width=5, bg="#a8c9ca", fg="#566c6c", textvariable=atq_string,
+                          wrap=True )
+    defe_field = Spinbox ( cadre_dice, from_=0, to=10, width=5, bg="#a8c9ca", fg="#566c6c", textvariable=defe_string,
+                           wrap=True )
 
-
-    actif=Radiobutton(cadre_attaquant, text="Actif", variable=sel_attaquant, value=1)
-    monstre=Radiobutton(cadre_attaquant, text="Monstre", variable=sel_attaquant, value=2)
+    endurance = Radiobutton ( cadre_dice, text="Endurance", variable=sel_def, value=1 )
+    esquive = Radiobutton ( cadre_dice, text="Esquive raté", variable=sel_def, value=2 )
+    reset_bouton = Button ( cadre_dice, text="Reset", image=reset_img, bg="#b1b3b3", command=clearAll, relief=GROOVE,
+                            takefocus=1, overrelief=GROOVE )
 
     # AFFICHAGE / GRID :
 
@@ -452,9 +484,11 @@ if __name__ == "__main__" :
     #ATTAQUANT
     attaquant.grid(row=0, column=0, columnspan=3, padx=100, sticky="w")
     bonus.grid(row=1, column=0, sticky='nw', rowspan=2, padx=40)
-    bonus_field.grid(row=1, column=0, padx=126, sticky='w')
-    actif.grid(row=1, column=0, sticky="nw", columnspan=2,padx=250)
-    monstre.grid(row=4, column=0, sticky="nw", padx=250)
+    bonus_field.grid ( row=1, column=0, padx=126, sticky='w' )
+    bonus_field.configure ( state='readonly' )
+    bonus_entry.grid ( row=1, column=0, sticky='w', padx=220 )
+    actif.grid(row=1, column=0, sticky="nw",padx=270)
+    monstre.grid(row=4, column=0, sticky="nw", padx=270)
 
 
     # DICES
