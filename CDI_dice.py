@@ -154,49 +154,55 @@ def calculate_degat(bonus, ATQ, DEFE):
         d = 0.5 + bonus
     return d
 
-def degat_burst(bonus, ATQ, DEFE):
+def degat_burst(bonus, ATQ, DEFE, endu_val):
     if ATQ == 0 :  # UltraCC de PJ
         d = 0.25+bonus
+        endu_val=0
     elif DEFE == 0 :  # CC de défense : quelque soit l'attaque, elle ne passera pas, sauf en cas de 0/0, où l'attaquant à priorité
         d = 0  # Permet de sortir de la boucle !
     elif ATQ == 1:
         d=0.35+bonus
     else:
         d = calculate_degat( bonus, ATQ, DEFE)
-    return d
+    return d, endu_val
 
-def degat_burst_bouclier(bonus, ATQ, DEFE):
+def degat_burst_bouclier(bonus, ATQ, DEFE, endu_val):
     if ATQ==0:
         d=0.38+bonus
+        endu_val = 0
     elif DEFE==0:
         d=0
     elif ATQ==1:
         d=0.40+bonus
     else:
         d=calculate_degat(bonus, ATQ, DEFE)
-    return d
+    return d, endu_val
 
-def degat_perforant(bonus, ATQ, DEFE):
+def degat_perforant(bonus, ATQ, DEFE,endu_val):
     if ATQ == 0 :  # UltraCC de PJ
         d = 0.40+bonus
+        endu_val = 0
     elif DEFE == 0 :  # CC de défense : quelque soit l'attaque, elle ne passera pas, sauf en cas de 0/0, où l'attaquant à priorité
         d = 0  # Permet de sortir de la boucle !
     elif ATQ == 1:
         d=0.42+bonus
     else:
         d = calculate_degat( bonus, ATQ, DEFE)
-    return d
+    return d, endu_val
 
-def degat_autre(bonus, ATQ, DEFE):
+def degat_autre(bonus, ATQ, DEFE, endu_val):
     if ATQ == 0 :  # UltraCC de PJ
         d = 0.43+bonus
+        endu_val = 0
     elif DEFE == 0 :  # CC de défense : quelque soit l'attaque, elle ne passera pas, sauf en cas de 0/0, où l'attaquant à priorité
-        d = 0  # Permet de sortir de la boucle !
+        d = 0
+        # Permet de sortir de la boucle !
     elif ATQ == 1:
         d=0.42+bonus
     else:
         d = calculate_degat( bonus, ATQ, DEFE)
-    return d
+    return d, endu_val
+
 
 
 def degat_types():
@@ -218,17 +224,17 @@ def degat_types():
         if SHIELD != 0:
             bonus = bonus + 12
             bonus = capacite_bonus ( bonus ) / 100
-            d=degat_burst_bouclier(bonus, ATQ, DEFE)
+            d, endu_val=degat_burst_bouclier(bonus, ATQ, DEFE, endu_val)
         else:
-            bonus= bonus+30
+            bonus= bonus+25
             bonus = capacite_bonus ( bonus ) / 100
-            d = degat_burst( bonus, ATQ, DEFE )
+            d, endu_val = degat_burst( bonus, ATQ, DEFE, endu_val )
 
     elif type_capa.get()=='Autre' :
         bonus = int( bonus_field.get( ) )
         bonus = capacite_bonus( bonus ) / 100
         endu_val = int( val_endu_field.get( ) )
-        d = degat_autre( bonus, ATQ, DEFE )
+        d, endu_val = degat_autre( bonus, ATQ, DEFE , endu_val)
         SHIELD = int( shield_field.get( ) ) / 100
 
     elif type_capa.get( ) == 'Perforante' :
@@ -236,9 +242,13 @@ def degat_types():
         bonus = capacite_bonus( bonus ) / 100
         endu_val = 0
         SHIELD = 0
-        d = degat_perforant( bonus, ATQ, DEFE)
-    finaux = reussite_endurance( endu_de, endu_val, PV, d, SHIELD )
-
+        d, endu_val = degat_perforant( bonus, ATQ, DEFE, endu_val)
+    finaux = reussite_endurance ( endu_de, endu_val, PV, d, SHIELD )
+    if sel_attaquant.get ( ) == 1 :
+        finaux=int(finaux/1.4)
+        max=200
+        if finaux > max:
+            finaux=max
     # insert methode : value in the text entry box
     res_finaux_field.set( str( finaux ) )
     vie_restante(finaux)
@@ -267,6 +277,11 @@ def degat_normaux():
     elif ATQ == 1 :  # CC de Mob/Pj normaux
         endu_val = 0
     finaux = reussite_endurance( endu_de, endu_val, PV, d, SHIELD )
+    if sel_attaquant.get()==1:
+        finaux=int(finaux/1.4)
+        max=200
+        if finaux > max:
+            finaux=max
     # insert methode : value in the text entry box
     res_finaux_field.set( str( finaux ) )
     vie_restante(finaux)
@@ -292,7 +307,7 @@ if __name__ == "__main__" :
     gui.title("Helper")
 
     # Set the configuration of GUI window
-    gui.geometry("460x300")
+    gui.geometry("500x300")
     gui.rowconfigure(0, weight=1)
     gui.columnconfigure(0, weight=1)
 
@@ -413,6 +428,12 @@ if __name__ == "__main__" :
     reset_bouton = Button(cadre_dice, text="Reset", image=reset_img, bg="#b1b3b3", command=clearAll, relief=GROOVE,
                           takefocus=1, overrelief=GROOVE)
 
+    #Type d'attaquant :
+    sel_attaquant=IntVar(value=1)
+
+
+    actif=Radiobutton(cadre_attaquant, text="Actif", variable=sel_attaquant, value=1)
+    monstre=Radiobutton(cadre_attaquant, text="Monstre", variable=sel_attaquant, value=2)
 
     # AFFICHAGE / GRID :
 
@@ -429,10 +450,11 @@ if __name__ == "__main__" :
     val_endu_field.grid(row=4, column=1, sticky="nsew")
 
     #ATTAQUANT
-    attaquant.grid(row=0, column=0, columnspan=3, padx=100)
+    attaquant.grid(row=0, column=0, columnspan=3, padx=100, sticky="w")
     bonus.grid(row=1, column=0, sticky='nw', rowspan=2, padx=40)
     bonus_field.grid(row=1, column=0, padx=126, sticky='w')
-
+    actif.grid(row=1, column=0, sticky="nw", columnspan=2,padx=250)
+    monstre.grid(row=4, column=0, sticky="nw", padx=250)
 
 
     # DICES
