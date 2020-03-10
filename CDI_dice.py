@@ -35,7 +35,7 @@ def clearAll ( ) :
     atq_field.insert ( 0, 0 )
     var_bonus.set('Aucun')
     annulation ( )
-    bonus_entry.insert(0,0)
+    var_bonus_entry.set(value=0)
     defe_field.insert ( 0, 0 )
     shield_field.insert ( 0, 0 )
     #pv_field.insert ( 0, 100 )
@@ -434,7 +434,7 @@ if __name__ == "__main__" :
         #ATTAQUANT
     bonus_type=['Aucun', 'Autre','Artillerie','Fusil','Pistolet','Contondant','Epée','Projectile','Couteau','Pouvoir']
     var_bonus_entry=IntVar(value=0)
-    bonus_entry = Spinbox ( cadre_attaquant, from_=0, to=99, width=4, wrap=True)
+    bonus_entry = Spinbox ( cadre_attaquant, from_=0, to=99, width=4, wrap=True, textvariable=var_bonus_entry)
     bonus_entry.grid ( row=1, column=0, sticky='w', padx=220 )
     bonus_entry.configure(state='disabled')
     var_bonus=StringVar()
