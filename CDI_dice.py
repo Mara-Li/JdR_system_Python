@@ -27,10 +27,15 @@ def clearAll ( ) :
     shield_field.delete ( 0, END )
     sel_def.set ( 1 )
     sel.set ( 1 )
+    sel_attaquant.set(1)
     type_check ( )
     val_endu_field.delete ( 0, END )
     bonus_entry.delete ( 0, END )
+    bonus_field.delete(0, END)
     atq_field.insert ( 0, 0 )
+    var_bonus.set('Aucun')
+    annulation ( )
+    bonus_entry.insert(0,0)
     defe_field.insert ( 0, 0 )
     shield_field.insert ( 0, 0 )
     #pv_field.insert ( 0, 100 )
@@ -39,6 +44,7 @@ def clearAll ( ) :
     bonus_entry.insert ( 0, 0 )
     res_finaux_field.set ( '' )
     res_pv.set ( '' )
+    var_type.set('Burst')
 # function for checking error
 
 def checkError() :
@@ -112,22 +118,24 @@ def choix_bonus():
     bonus_val=int(bonus_entry.get())
     if bonus=='Pouvoir':
         b=10+bonus_val
-    if bonus=='Fusil':
+    elif bonus=='Fusil':
         b=10+bonus_val
-    if bonus=='Projectile':
+    elif bonus=='Projectile':
         b=5+bonus_val
-    if bonus=='Epée':
+    elif bonus=='Epée':
         b=10+bonus_val
-    if bonus=='Contondant':
+    elif bonus=='Contondant':
         b=15+bonus_val
-    if bonus=='Couteau':
+    elif bonus=='Couteau':
         b=5+bonus_val
-    if bonus=='Pistolet':
+    elif bonus=='Pistolet':
         b=8+bonus_val
-    if bonus=='Artillerie':
+    elif bonus=='Artillerie':
         b=15+bonus_val
-    if bonus=='Autre':
+    elif bonus=='Autre':
         b=bonus_val
+    else:
+        b=0
     b=int(b)
     return b
 
@@ -424,11 +432,23 @@ if __name__ == "__main__" :
                               textvariable=val_endu_string ,wrap=True)
 
         #ATTAQUANT
-    bonus_type=['Pouvoir', 'Autre','Artillerie','Fusil','Pistolet','Contondant','Epée','Projectile','Couteau']
+    bonus_type=['Aucun', 'Autre','Artillerie','Fusil','Pistolet','Contondant','Epée','Projectile','Couteau','Pouvoir']
+    var_bonus_entry=IntVar(value=0)
+    bonus_entry = Spinbox ( cadre_attaquant, from_=0, to=99, width=4, wrap=True)
+    bonus_entry.grid ( row=1, column=0, sticky='w', padx=220 )
+    bonus_entry.configure(state='disabled')
     var_bonus=StringVar()
-    bonus_field = Spinbox ( cadre_attaquant, readonlybackground='#a8c9ca', fg='#566c6c', values=bonus_type, command=lambda:print(var_bonus.get()),
-                     width=13, wrap=True)
-    bonus_entry = Spinbox ( cadre_attaquant, from_=0, to=99, width=4, wrap=True, bg='#a8c9ca', fg='#566c6c' )
+    def annulation():
+        if bonus_field.get()!='Aucun':
+            bonus_entry.configure(state="normal",bg='#a8c9ca', fg='#566c6c')
+        else:
+            bonus_entry.configure(state='disable')
+
+    bonus_field = Spinbox ( cadre_attaquant, readonlybackground='#a8c9ca', fg='#566c6c', values=bonus_type,
+                            command=annulation, textvariable=var_bonus,
+                            width=13, wrap=True )
+    bonus_field.configure ( state='readonly' )
+
 
     #Type d'attaquant :
     sel_attaquant=IntVar(value=1)
@@ -440,7 +460,7 @@ if __name__ == "__main__" :
     capacite=['Perforante', 'Autre','Burst']
     capacite=capacite[::-1]
     var_type=StringVar()
-    type_capa = Spinbox(cadre_attaquant, values=capacite,wrap=True, command=lambda: print(var_type.get()),width="19")
+    type_capa = Spinbox(cadre_attaquant, values=capacite,wrap=True, textvariable=var_type,width="19")
     type_capa.grid(row=4, column=0,padx=126, sticky='w',ipadx=3)
     type_capa.configure(state='disabled')
 
@@ -485,8 +505,7 @@ if __name__ == "__main__" :
     attaquant.grid(row=0, column=0, columnspan=3, padx=100, sticky="w")
     bonus.grid(row=1, column=0, sticky='nw', rowspan=2, padx=40)
     bonus_field.grid ( row=1, column=0, padx=126, sticky='w' )
-    bonus_field.configure ( state='readonly' )
-    bonus_entry.grid ( row=1, column=0, sticky='w', padx=220 )
+
     actif.grid(row=1, column=0, sticky="nw",padx=270)
     monstre.grid(row=4, column=0, sticky="nw", padx=270)
 
