@@ -1,6 +1,5 @@
 # import all functions from the tkinter
 import os
-import sys
 import tkinter.font as tkfont
 from tkinter import *
 # import messagebox class from tkinter
@@ -45,6 +44,9 @@ def clearAll ( ) :
     res_finaux_field.set ( '' )
     res_pv.set ( '' )
     var_type.set('Burst')
+    log_file=open('dice.log','w')
+    log_file.write('')
+    log_file.close()
 # function for checking error
 
 def checkError() :
@@ -324,6 +326,65 @@ def degat_normaux():
     res_finaux_field.set( str( finaux ) )
     vie_restante(finaux)
 
+def log_ecriture():
+    PV =  pv_field.get ( )
+    pv_restant=pv_restant_field.get()
+    ATQ = atq_field.get ( )
+    DEFE = defe_field.get ( )
+    bonus=bonus_entry.get()
+    bonus_type=bonus_field.get()
+    endu_val = val_endu_field.get ( )
+    SHIELD = shield_field.get ( )
+    log_file=open('dice.log','a')
+    selection_type=int(sel.get())
+    attaquant=sel_attaquant.get()
+    defense=sel_def.get()
+    type_cap=type_capa.get()
+    resultat=res_finaux_field.get()
+    if int(pv_restant)<=0:
+        pv_restant='X'
+    if selection_type==1:
+        selection_type='Attaque normale'
+    else:
+        if type_cap=='Burst':
+            selection_type='Burst'
+        elif type_cap=='Perforante':
+            selection_type='Perforante'
+        else:
+            selection_type='Autre'
+    if attaquant==1:
+        attaquant='Actif'
+    else:
+        attaquant='Monstre'
+    if defense==1:
+        defense='Endurance'
+    else:
+        defense='Esquive ratée'
+
+    log_file.write ( '=================\n' )
+    log_file.write ( selection_type + '\n' )
+    log_file.write ( "\n" )
+    log_file.write ( "DEFENSEUR\n" )
+    log_file.write ( "PV MAX : " + PV + '\n' )
+    log_file.write ( "BOUCLIER : " + SHIELD + '\n' )
+    log_file.write ( "ENDURANCE : " + endu_val + '\n' )
+    log_file.write ( '\n' )
+    log_file.write ( "ATTAQUANT\n" )
+    log_file.write ( 'BONUS : ' + bonus_type + '\n' )
+    log_file.write ( 'VALEUR DU BONUS : ' + bonus + '\n' )
+    log_file.write ( 'ATTAQUANT : ' + attaquant + '\n' )
+    log_file.write ( '\n' )
+    log_file.write ( 'DES\n' )
+    log_file.write ( 'ATQ : ' + ATQ + '\n' )
+    log_file.write ( 'DEF : ' + DEFE + '\n' )
+    log_file.write ( 'TYPE DE DEFENSE : ' + defense + '\n' )
+    log_file.write ( '\n' )
+    log_file.write ( 'RESULTAT\n' )
+    log_file.write ( 'DEGATS : ' + resultat + '\n' )
+    log_file.write ( "PV RESTANT : " + pv_restant + '\n' )
+    log_file.write ( '\n' )
+
+    log_file.close()
 
 def calculate() :
     value = checkError()
@@ -335,7 +396,7 @@ def calculate() :
             degat_types()
         elif selection == 1:
             degat_normaux()
-
+    log_ecriture()
 # driver code
 if __name__ == "__main__" :
     # Create a GUI window
