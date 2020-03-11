@@ -5,27 +5,36 @@ Cependant, il n'est pas possible de changer le système hors du dés 10 sans tou
 
 # Build :
 
+## Windows
+
 Les joueurs n'auront accès qu'à un menu codé avec tkinter.
 
 Pour celles et ceux qui aimerait le faire tourner directement avec python, vous avez besoin de Python3 et de Tktinter.
 
-Sinon, pour build en .exe vous pouvez utiliser pyinstaller, que vous pouvez installer avec pipWin ! Le setup étant déjà construit, vous n'avez juste qu'à faire, dans le dossier : 
+Sinon, pour build en .exe vous pouvez utiliser pyinstaller, que vous pouvez installer avec pip! Ensuite, vous n'aurez qu'à lancer le script qui permettra de build les programmes.
 
-```bash
-pyinstaller -i logo.ico -w -F CDI_dice.py 
-```
 
-Si vous souhaitez avoir un dossier plutôt qu'un executable unique, vous devez retirer l'option "-F"
 
 Pour plus d'information à propos de pyInstaller : https://www.pyinstaller.org/
 
+## Mac / Linux :
+
 Le fichier executable ne marche pour l'instant qu'avec windows. Pour l'utiliser avec Linux ou Mac, vous devez installer python 3.x (à noter que tkinter est inclus avec python 3.x). Après, vous n'aurez qu'à lancer, dans le dossier du programme (par exemple) un terminal puis `python3 CDI_dice.py`. 
+
+Attention, pour mac, il semblerait qu'il y ait des problèmes :
+
+- D'affichage
+- De lancement, car le programmes utilisent des liens de fichier qui ont une écriture différente sous mac.
+
+Actuellement, je cherche à build sous mac ou éditer le code pour permettre le lancement du programme en fonction de l'OS utilisé. 
 
 -----
 
 # SYSTEME DE COMBAT
 
-Le système de combat du RP est très simple : il se déroule au tour par tour, avec un lancé de dé d'attaque et de défense, qui s'échange après chaque "tour". La réussite des actions est donc déterminé à la fois par votre score et la caractéristique liée mais aussi par le dé de défense de votre adversaire. 
+Le système de combat du RP est très simple : il se déroule au tour par tour, avec un lancé de dé d'attaque et de défense. 
+
+La réussite des actions est donc déterminé à la fois par votre score et la caractéristique liée mais aussi par le dé de défense de votre adversaire. 
 
 La caractéristique que vous lancez pour votre défense est soit un dé d'endurance ou d'agilité. 
 - L'endurance permet d'encaisser le coup, le défenseur recevra donc moins de dégâts.
@@ -60,6 +69,18 @@ Dans le cas où le défenseur aurait encaissé le coup (dé d'endurance), il per
 En général, sa défense diminue de 10% les dégâts en fonction de la valeur de son dé et donc, de sa caractéristique d'endurance. Ainsi, avec 8 d'endurance, il diminuerait les dégât de 80% dans le cas d'un coup critique (score de 0), et cela diminuerait jusqu'à la valeur seuil de son dé. 
 
 
+
+**IMPORTANT** : Dans des soucis d'équilibrage des dégâts, ceux infligés par les actifs (les humains) sont diminués, ce qui n'est pas le cas des monstres. Ainsi, les dégâts des humains sont automatiquement divisé par 1,4. En outre, une valeur maximale de dégât a été placé : un humain ne peut faire que 200 points de dégât au maximum.
+
+
+
+Ce n'est pas le cas lorsque l'on choisit d'utiliser de lancer pour un "monstre" : les dégâts prennent une valeur normale, et il n'y a pas de dégât maximum. 
+
+
+
+Dans ce système, les monstres font donc beaucoup plus de dégâts que les humains ("actif" ici). 
+
+
 ## Cas des duels amicaux
 
 Lors d'un combat entre PJ "amicaux", vous ne perdez pas de pv et vous devez lancer un dé 10 pour déterminer celui qui a l'initiative. La personne avec le plus grand score commence.
@@ -80,8 +101,27 @@ Avec la mise à jour 1.4, vous pouvez maintenant introduire directement les capa
 Ainsi :
 
 - Perforant correspond à un bonus de 15%, mais la capacité traversa toute les défense de l'ennemi.
-- Burst correspond à un simple bonus de 30% mais ses capacités traversent très mal les boucliers. 
-- Autre : Tout ce qui ne rentrerait pas dans les deux schémas précédents, mais dont vous souhaitez quand même qu'ils bénéficient de la prime d'un ultra coup-critique ou d'un coup-critique.
+- Burst correspond à un simple bonus de 25% mais ses capacités traversent très mal les boucliers (Le bonus descendra à 12% à ce moment)
+- Autre : Tout ce qui ne rentrerait pas dans les deux schémas précédents, mais dont vous souhaitez quand même qu'ils bénéficient de la prime d'un ultra coup-critique ou d'un coup-critique. 
+
+Il est à noté qu'il y a de nombreux équilibrage vis à vis des dégâts qui ne sont pas détaillés ici. Vous les retrouverez dans le code dans les fonctions `degat_burst`, `degat_burst_bouclier`, `degat_perforant` et `degat_autre`.
+
+### Bonus
+
+Certaines attaques ont des bonus très légers, ainsi :
+
+- Pouvoir : 10%
+- Pistolet : 8%
+- Fusil : 10%
+- Artillerie : 15%
+- Couteau: 5%
+- Projectile : 5%
+- Epée : 10%
+- Contondant : 15%
+- Autre : 0% - Mais vous pouvez choisir le bonus que vous voulez entrer
+- Aucun : Absence de bonus - c'est la valeur par défaut du programme.
+
+Evidemment, pour toutes les attaques, vous pouvez rajouter des bonus extérieur avec le champ correspondant. 
 
 ### Les primes
 
@@ -109,12 +149,15 @@ A noté où dans le cas où les deux combattant font des UCC d'attaque et de dé
 
 # Utilisation
 
-* A droite, vous remplissez vos caractéristiques, à gauche, les dés qui ont été lancé. Vous n'avez pas besoin de faire de calcul : le programme est là pour ça. Ainsi, pour le bouclier et les bonus, vous avez juste à marquer le pourcentage qui correspond (sans évidemment, diviser par 100, le programme s'en occupe aussi). 
-* Lorsque vous avez une esquive raté, il n'est pas nécessaire de remplir la partie "Endurance" : vous pouvez laisser à 0. Vous devez tout de même remplir la partie **DEF** qui correspond à la valeur que vous avez. 
-* Dans le cas où c'est l'endurance qui est utilisé pour la défense, vous devez remplir tous les champs et **les champs DEF et END ont alors les mêmes valeurs**.
-* De manière évidente, vous n'avez pas besoin de calculer les dégâts lorsque le défenseur a esquivé. 
+* **Défenseur** : Les caractéristiques qui correspondent à la personne attaquée. Notons que la partie des PV restant se rempli automatiquement avec les PV max, puis se mettra à jour au fur et à mesure
+* **Attaquant** : Le type d'attaque, si elle est lancé par une personne ou un monstre, et si c'est ou non une capacité. 
+* **Dés** : Simplement le type de défense et les dés qui correspondent à l'attaque et la défense.
+* Vous pouvez lancer le programme en appuyant sur le bouton mais aussi avec enter.
+* **Résultat** : Les PV restant (et le champ correspondant ce met à jour) ainsi que les dégâts infligés. Vous pouvez donc enchainé sur plusieurs attaques sans avoir à reset entièrement le programme, si le défenseur est le même. 
+* Le bouton avec la flèche correspond à un reset du programme : les PV reviennent à leur maximum, et les autres champs à leurs valeurs par défauts. 
+* De manière évidente, vous n'avez pas besoin de calculer les dégâts lorsque le défenseur a réussi son esquive. 
 * Vous devez choisir si votre personnages attaque avec une capacité ou non. Par défaut, ce sont les attaques normales. En effet, un coup critique avec une capacité a un bonus différent qu'un coup critique avec une attaque normale. Pour changer cela, il suffit de cliquer sur le bouton radio. 
-* Le bouton radio permet d'activer un champ qui vous permet de choisir entre les capacités 'Burst', 'perforant' ou 'Autre'. Autre, sans aucun bonus, aura le même résultat qu'une attaque normale.
+* Le bouton radio permet d'activer un champ qui vous permet de choisir entre les capacités 'Burst', 'perforant' ou 'Autre'. 
 *  Il n'est malheureusement pas possible de calculer les actions de soutiens ou de malus avec le programme, vous devez donc multiplier vos bonus par vous même en suivant la table.
 * Vous n'avez pas besoin de prendre en compte les capacités particulières d'une attaque perforante, d'un UCC et d'un CC, ainsi que les bonus associés aux capacités : le programme s'en charge aussi. Remplissez donc tous les champs sans vous souciez de cela.
 
