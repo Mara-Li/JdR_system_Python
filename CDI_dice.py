@@ -244,7 +244,7 @@ def degat_autre(bonus, ATQ, DEFE, endu_val):
 
 
 def degat_types():
-    bonus = choix_bonus()
+    bonus = int(bonus_entry.get())
     PV = int( pv_field.get( ) )
     ATQ = int( atq_field.get( ) )
     DEFE = int( defe_field.get( ) )
@@ -260,7 +260,7 @@ def degat_types():
         endu_val = int( val_endu_field.get( ) )
         SHIELD = int ( shield_field.get ( ) ) / 100
         if SHIELD != 0:
-            bonus = bonus + 12
+            bonus = bonus + 15
             bonus = capacite_bonus ( bonus ) / 100
             d, endu_val=degat_burst_bouclier(bonus, ATQ, DEFE, endu_val)
         else:
