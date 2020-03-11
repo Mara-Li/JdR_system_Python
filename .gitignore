@@ -129,3 +129,5 @@ script.bat
 test.py
 *.zip
 .DS_Store
+log.txt
+*.log
