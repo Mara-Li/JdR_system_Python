@@ -44,9 +44,12 @@ def clearAll ( ) :
     res_finaux_field.set ( '' )
     res_pv.set ( '' )
     var_type.set('Burst')
+
+def clear_log():
     log_file=open('dice.log','w')
     log_file.write('')
     log_file.close()
+
 # function for checking error
 
 def checkError() :
@@ -87,11 +90,6 @@ def checkError() :
         messagebox.showerror ( "Erreur", x )
         clearAll ( )
         return -1
-    elif int(pv_field.get()) <= int(shield_field.get()) :
-        x='Le bouclier est supérieur au PV'
-        messagebox.showerror ( "Erreur", x )
-        clearAll ( )
-        return -1
     elif int(bonus_entry.get())>100:
         x='Le bonus est supérieur à 100%'
         messagebox.showerror("Erreur", x)
@@ -118,10 +116,13 @@ def checkError() :
 def choix_bonus():
     bonus=bonus_field.get ( )
     bonus_val=int(bonus_entry.get())
+    dist=sel_rang.get()
     if bonus=='Pouvoir':
         b=10+bonus_val
     elif bonus=='Fusil':
         b=10+bonus_val
+        if dist==1:
+            b=b+5
     elif bonus=='Projectile':
         b=5+bonus_val
     elif bonus=='Epée':
@@ -134,9 +135,11 @@ def choix_bonus():
         b=8+bonus_val
     elif bonus=='Artillerie':
         b=15+bonus_val
+        if dist==1:
+            b=b+10
     elif bonus=='Autre':
         b=bonus_val
-    else:
+    elif bonus=='Aucun':
         b=0
     b=int(b)
     return b
@@ -193,7 +196,6 @@ def calculate_degat(bonus, ATQ, DEFE):
     elif d >= 9 :
         d = 0.5 + bonus
     return d
-
 def degat_burst(bonus, ATQ, DEFE, endu_val):
     if ATQ == 0 :  # UltraCC de PJ
         d = 0.25+bonus
@@ -243,8 +245,6 @@ def degat_autre(bonus, ATQ, DEFE, endu_val):
         d = calculate_degat( bonus, ATQ, DEFE)
     return d, endu_val
 
-
-
 def degat_types():
     bonus = int(bonus_entry.get())
     PV = int( pv_field.get( ) )
@@ -262,33 +262,44 @@ def degat_types():
         endu_val = int( val_endu_field.get( ) )
         SHIELD = int ( shield_field.get ( ) ) / 100
         if SHIELD != 0:
-            bonus = bonus + 15
-            bonus = capacite_bonus ( bonus ) / 100
+            bonus_type = capacite_bonus ( 15 )
+            bonus = (bonus_type+bonus) / 100
             d, endu_val=degat_burst_bouclier(bonus, ATQ, DEFE, endu_val)
         else:
-            bonus= bonus+25
-            bonus = capacite_bonus ( bonus ) / 100
+
+            bonus_type = capacite_bonus ( 25 )
+            bonus= (bonus+bonus_type)/ 100
             d, endu_val = degat_burst( bonus, ATQ, DEFE, endu_val )
 
     elif type_capa.get()=='Autre' :
-        bonus = choix_bonus()
-        bonus = capacite_bonus( bonus ) / 100
+        bonus_attaque = choix_bonus()
+        bonus = capacite_bonus( bonus )
+        bonus= (bonus_attaque+bonus)/ 100
         endu_val = int( val_endu_field.get( ) )
         d, endu_val = degat_autre( bonus, ATQ, DEFE , endu_val)
         SHIELD = int( shield_field.get( ) ) / 100
 
     elif type_capa.get( ) == 'Perforante' :
-        bonus = bonus + 15
-        bonus = capacite_bonus( bonus ) / 100
+        bonus_type = capacite_bonus ( 15 )
+        bonus = (bonus_type + bonus) / 100
         endu_val = 0
         SHIELD = 0
         d, endu_val = degat_perforant( bonus, ATQ, DEFE, endu_val)
     finaux = reussite_endurance ( endu_de, endu_val, PV, d, SHIELD )
     if sel_attaquant.get ( ) == 1 :
         finaux=int(finaux/1.4)
-        max=200
+        max = finaux
+        if PV >= 1000 :
+            max = 200
+        elif PV > 100 and PV < 1000 :
+            max = 100
+        elif PV <= 100 :
+            max = 80
         if finaux > max:
             finaux=max
+    else:
+        finaux=int(finaux/1.8)
+
     # insert methode : value in the text entry box
     res_finaux_field.set( str( finaux ) )
     vie_restante(finaux)
@@ -319,9 +330,17 @@ def degat_normaux():
     finaux = reussite_endurance( endu_de, endu_val, PV, d, SHIELD )
     if sel_attaquant.get()==1:
         finaux=int(finaux/1.4)
-        max=200
+        max=finaux
+        if PV >= 1000:
+            max=200
+        elif PV > 100 and PV < 1000:
+            max=100
+        elif PV <=100:
+            max=80
         if finaux > max:
             finaux=max
+    else:
+        finaux=int(finaux/1.8)
     # insert methode : value in the text entry box
     res_finaux_field.set( str( finaux ) )
     vie_restante(finaux)
@@ -405,12 +424,14 @@ if __name__ == "__main__" :
     gui.title("Helper")
 
     # Set the configuration of GUI window
-    gui.geometry("500x300")
+    gui.geometry("510x320")
     gui.rowconfigure(0, weight=1)
     gui.columnconfigure(0, weight=1)
 
     reset_img=PhotoImage(file=resource_path('data\\reset.png'))
+    reset_log=PhotoImage(file=resource_path('data\\log_file.png'))
     reset_img=reset_img.subsample(4,4)
+    reset_log=reset_log.subsample(4,4)
     gui.iconbitmap(r"C:\\Users\\Lili\\Documents\\GitHub\\CDI_Dice_Help\\data\\logo.ico")
 
     # StringVar
@@ -516,6 +537,11 @@ if __name__ == "__main__" :
     actif=Radiobutton(cadre_attaquant, text="Actif", variable=sel_attaquant, value=1)
     monstre = Radiobutton ( cadre_attaquant, text="Monstre", variable=sel_attaquant, value=2 )
 
+    #rang :
+    sel_rang=IntVar(value=1)
+    rang1=Radiobutton(cadre_attaquant, text='Corps-à-corps', variable=sel_rang, value=1)
+    rang2=Radiobutton(cadre_attaquant, text='Distance', variable=sel_rang, value=2)
+    #rang3=Radiobutton(cadre_attaquant, text='Distance', variable=sel_rang, value=3)
 
         #Button Attaque
     capacite=['Perforante', 'Autre','Burst']
@@ -547,6 +573,7 @@ if __name__ == "__main__" :
     esquive = Radiobutton ( cadre_dice, text="Esquive raté", variable=sel_def, value=2 )
     reset_bouton = Button ( cadre_dice, text="Reset", image=reset_img, bg="#b1b3b3", command=clearAll, relief=GROOVE,
                             takefocus=1, overrelief=GROOVE )
+    reset_log_button=Button(cadre_dice, text='Log', image=reset_log, bg="#b1b3b3", command=clear_log, relief=GROOVE, takefocus=1, overrelief=GROOVE)
 
     # AFFICHAGE / GRID :
 
@@ -570,6 +597,10 @@ if __name__ == "__main__" :
     actif.grid(row=1, column=0, sticky="nw",padx=270)
     monstre.grid(row=4, column=0, sticky="nw", padx=270)
 
+    rang1.grid(row=5, column=0, sticky='nw', padx=80)
+    rang2.grid(row=5, column=0, sticky='nw', padx=200)
+    #rang3.grid(row=5, column=0, sticky='nw', padx=270)
+
 
     # DICES
     dice.grid(row=0, column=3, sticky="nsew")
@@ -579,7 +610,8 @@ if __name__ == "__main__" :
     esquive.grid(row=4, column=3, sticky='nw')
     defe.grid(row=2, column=2, sticky="nsew")
     defe_field.grid(row=2, column=3, sticky="nsew")
-    reset_bouton.grid(row=5, column=3,pady=40,stick='sw',padx=20)
+    reset_bouton.grid(row=5, column=3,pady=40,stick='sw',padx=10)
+    reset_log_button.grid(row=5, column=3, pady=40, padx=40, stick='sw')
 
 
     # RESULTAT
