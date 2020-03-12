@@ -286,20 +286,16 @@ def degat_types():
         SHIELD = 0
         d, endu_val = degat_perforant( bonus, ATQ, DEFE, endu_val)
     finaux = reussite_endurance ( endu_de, endu_val, PV, d, SHIELD )
-    if sel_attaquant.get ( ) == 1 :
-        finaux=int(finaux/1.4)
-        max = finaux
-        if PV >= 1000 :
-            max = 200
-        elif PV > 100 and PV < 1000 :
-            max = 100
-        elif PV <= 100 :
-            max = 80
-        if finaux > max:
-            finaux=max
-    else:
-        finaux=int(finaux/1.8)
-
+    finaux=int(finaux/1.4)
+    max = finaux
+    if PV >= 1000 :
+        max = 200
+    elif PV > 100 and PV < 1000 :
+        max = 100
+    elif PV <= 100 :
+        max = 80
+    if finaux > max:
+        finaux=max
     # insert methode : value in the text entry box
     res_finaux_field.set( str( finaux ) )
     vie_restante(finaux)
@@ -328,19 +324,17 @@ def degat_normaux():
     elif ATQ == 1 :  # CC de Mob/Pj normaux
         endu_val = 0
     finaux = reussite_endurance( endu_de, endu_val, PV, d, SHIELD )
-    if sel_attaquant.get()==1:
-        finaux=int(finaux/1.4)
-        max=finaux
-        if PV >= 1000:
-            max=200
-        elif PV > 100 and PV < 1000:
-            max=100
-        elif PV <=100:
-            max=80
-        if finaux > max:
-            finaux=max
-    else:
-        finaux=int(finaux/1.8)
+    finaux=int(finaux/1.4)
+    max=finaux
+    if PV >= 1000:
+        max=200
+    elif PV > 100 and PV < 1000:
+        max=100
+    elif PV <=100:
+        max=80
+    if finaux > max:
+        finaux=max
+
     # insert methode : value in the text entry box
     res_finaux_field.set( str( finaux ) )
     vie_restante(finaux)
@@ -424,7 +418,7 @@ if __name__ == "__main__" :
     gui.title("Helper")
 
     # Set the configuration of GUI window
-    gui.geometry("510x320")
+    gui.geometry("450x320")
     gui.rowconfigure(0, weight=1)
     gui.columnconfigure(0, weight=1)
 
@@ -534,8 +528,8 @@ if __name__ == "__main__" :
 
     #Type d'attaquant :
     sel_attaquant=IntVar(value=1)
-    actif=Radiobutton(cadre_attaquant, text="Actif", variable=sel_attaquant, value=1)
-    monstre = Radiobutton ( cadre_attaquant, text="Monstre", variable=sel_attaquant, value=2 )
+    #actif=Radiobutton(cadre_attaquant, text="Actif", variable=sel_attaquant, value=1)
+    #monstre = Radiobutton ( cadre_attaquant, text="Monstre", variable=sel_attaquant, value=2 )
 
     #rang :
     sel_rang=IntVar(value=1)
@@ -594,8 +588,8 @@ if __name__ == "__main__" :
     bonus.grid(row=1, column=0, sticky='nw', rowspan=2, padx=40)
     bonus_field.grid ( row=1, column=0, padx=126, sticky='w' )
 
-    actif.grid(row=1, column=0, sticky="nw",padx=270)
-    monstre.grid(row=4, column=0, sticky="nw", padx=270)
+    #actif.grid(row=1, column=0, sticky="nw",padx=270)
+    #monstre.grid(row=4, column=0, sticky="nw", padx=270)
 
     rang1.grid(row=5, column=0, sticky='nw', padx=80)
     rang2.grid(row=5, column=0, sticky='nw', padx=200)
