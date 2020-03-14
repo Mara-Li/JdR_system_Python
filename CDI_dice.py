@@ -44,6 +44,7 @@ def clearAll ( ) :
     res_finaux_field.set ( '' )
     res_pv.set ( '' )
     var_type.set('Burst')
+    kanji.deselect()
 
 def clear_log():
     log_file=open('dice.log','w')
@@ -147,17 +148,25 @@ def choix_bonus():
 def reussite_endurance(endu_de, endu_val, PV,d, SHIELD):
     d = abs(int(d * PV))
     Bouclier = abs(int(d * (1 - SHIELD)))
-    if endu_de > endu_val :
-        finaux = Bouclier
-    elif endu_val == 0 :
-        finaux = Bouclier
-    else :
-        finaux = Bouclier * (1 - (10 * (abs(endu_val - endu_de) + 1)) / 100)
+    if kanji_var.get()==1:
+        if endu_de > endu_val or endu_de==endu_val:
+            finaux = Bouclier
+        elif endu_val == 0 :
+            finaux = Bouclier
+        else :
+            finaux = Bouclier * (1 - (10 * (abs(endu_val - endu_de) + 1)) / 100)
+    else:
+        if endu_de > endu_val :
+            finaux = Bouclier
+        elif endu_val == 0 :
+            finaux = Bouclier
+        else :
+            finaux = Bouclier * (1 - (10 * (abs ( endu_val - endu_de ) + 1)) / 100)
 
     if finaux >= PV :
         finaux = PV
     else :
-        finaux = int(finaux)
+        finaux = int ( finaux )
     return finaux
 
 def vie_restante(finaux):
@@ -174,9 +183,9 @@ def vie_restante(finaux):
 def capacite_bonus(bonus):
     atq = int(atq_field.get())
     if atq == 0:
-        bonus=bonus*2
+        bonus=bonus*1.8
     elif atq == 1:
-        bonus=bonus*1.5
+        bonus=bonus*1.4
     return bonus
 
 def calculate_degat(bonus, ATQ, DEFE):
@@ -203,7 +212,7 @@ def degat_burst(bonus, ATQ, DEFE, endu_val):
     elif DEFE == 0 :  # CC de défense : quelque soit l'attaque, elle ne passera pas, sauf en cas de 0/0, où l'attaquant à priorité
         d = 0  # Permet de sortir de la boucle !
     elif ATQ == 1:
-        d=0.35+bonus
+        d=calculate_degat(bonus, ATQ, DEFE)
     else:
         d = calculate_degat( bonus, ATQ, DEFE)
     return d, endu_val
@@ -215,7 +224,7 @@ def degat_burst_bouclier(bonus, ATQ, DEFE, endu_val):
     elif DEFE==0:
         d=0
     elif ATQ==1:
-        d=0.40+bonus
+        d=calculate_degat(bonus, ATQ, DEFE)
     else:
         d=calculate_degat(bonus, ATQ, DEFE)
     return d, endu_val
@@ -227,20 +236,20 @@ def degat_perforant(bonus, ATQ, DEFE,endu_val):
     elif DEFE == 0 :  # CC de défense : quelque soit l'attaque, elle ne passera pas, sauf en cas de 0/0, où l'attaquant à priorité
         d = 0  # Permet de sortir de la boucle !
     elif ATQ == 1:
-        d=0.42+bonus
+        d=calculate_degat(bonus, ATQ, DEFE)
     else:
         d = calculate_degat( bonus, ATQ, DEFE)
     return d, endu_val
 
 def degat_autre(bonus, ATQ, DEFE, endu_val):
     if ATQ == 0 :  # UltraCC de PJ
-        d = 0.43+bonus
+        d = 0.5+bonus
         endu_val = 0
     elif DEFE == 0 :  # CC de défense : quelque soit l'attaque, elle ne passera pas, sauf en cas de 0/0, où l'attaquant à priorité
         d = 0
         # Permet de sortir de la boucle !
     elif ATQ == 1:
-        d=0.42+bonus
+        d=calculate_degat(bonus, ATQ, DEFE)
     else:
         d = calculate_degat( bonus, ATQ, DEFE)
     return d, endu_val
@@ -373,6 +382,10 @@ def log_ecriture():
         defense='Endurance'
     else:
         defense='Esquive ratée'
+    if kanji_var.get()==1:
+        Kanji="KANJI UTILISE"
+    else:
+        Kanji=''
 
     log_file.write ( '=================\n' )
     log_file.write ( selection_type + '\n' )
@@ -390,6 +403,7 @@ def log_ecriture():
     log_file.write ( 'DES\n' )
     log_file.write ( 'ATQ : ' + ATQ + '\n' )
     log_file.write ( 'DEF : ' + DEFE + '\n' )
+    log_file.write (Kanji + '\n')
     log_file.write ( 'TYPE DE DEFENSE : ' + defense + '\n' )
     log_file.write ( '\n' )
     log_file.write ( 'RESULTAT\n' )
@@ -418,7 +432,7 @@ if __name__ == "__main__" :
     gui.title("Helper")
 
     # Set the configuration of GUI window
-    gui.geometry("450x320")
+    gui.geometry("480x320")
     gui.rowconfigure(0, weight=1)
     gui.columnconfigure(0, weight=1)
 
@@ -447,7 +461,7 @@ if __name__ == "__main__" :
     cadre_defenseur.config(bd=1, relief="groove")
     cadre_defenseur.grid(row=0, column=0, rowspan=3, columnspan=5, sticky='nwes')
     cadre_dice.config(bd=1, relief="groove")
-    cadre_dice.grid(row=0, column=3, rowspan=3, columnspan=5, sticky='nsew', ipadx=3)
+    cadre_dice.grid(row=0, column=3, rowspan=3, columnspan=3, sticky='nsew', ipadx=3)
     cadre_attaquant.config(bd=1, relief="groove")
     cadre_attaquant.grid(row=1, column=0,  rowspan=2, columnspan=1, sticky='nsew',ipadx=1000)
 
@@ -547,6 +561,7 @@ if __name__ == "__main__" :
 
     # IntVar
     sel = IntVar(value=1)
+    kanji_var=IntVar()
 
     def type_check():
         if sel.get() == 2:
@@ -568,6 +583,8 @@ if __name__ == "__main__" :
     reset_bouton = Button ( cadre_dice, text="Reset", image=reset_img, bg="#b1b3b3", command=clearAll, relief=GROOVE,
                             takefocus=1, overrelief=GROOVE )
     reset_log_button=Button(cadre_dice, text='Log', image=reset_log, bg="#b1b3b3", command=clear_log, relief=GROOVE, takefocus=1, overrelief=GROOVE)
+    kanji=Checkbutton(cadre_dice, text="Kanji", variable=kanji_var)
+
 
     # AFFICHAGE / GRID :
 
@@ -597,15 +614,16 @@ if __name__ == "__main__" :
 
 
     # DICES
-    dice.grid(row=0, column=3, sticky="nsew")
-    atq.grid(row=1, column=2, sticky="nsew")
-    atq_field.grid(row=1, column=3, sticky="nsew")
-    endurance.grid(row=3, column=3,sticky='nw')
-    esquive.grid(row=4, column=3, sticky='nw')
-    defe.grid(row=2, column=2, sticky="nsew")
-    defe_field.grid(row=2, column=3, sticky="nsew")
-    reset_bouton.grid(row=5, column=3,pady=40,stick='sw',padx=10)
-    reset_log_button.grid(row=5, column=3, pady=40, padx=40, stick='sw')
+    dice.grid(row=0, column=2, sticky='nw', padx=40)
+    atq.grid(row=1, column=1, sticky="nsew")
+    atq_field.grid(row=1, column=2, sticky="nw", ipadx=30)
+    endurance.grid(row=3, column=2,sticky='nw')
+    esquive.grid(row=4, column=2, sticky='nw')
+    defe.grid(row=2, column=1, sticky="nsew")
+    defe_field.grid(row=2, column=2, sticky="nw")
+    kanji.grid(row=2, column=2, sticky="nsew", padx=45)
+    reset_bouton.grid(row=5, column=2,pady=40,stick='sw',padx=20)
+    reset_log_button.grid(row=5, column=2, pady=40, padx=50, stick='sw')
 
 
     # RESULTAT
