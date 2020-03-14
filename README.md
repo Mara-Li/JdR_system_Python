@@ -3,6 +3,8 @@ Ce programme vise à aider les joueurs des chroniques de l'Impérium à calculer
 A noté que nous utilisons donc un système avec un dé de 10, et des caractéristiques. Les titres et descriptions de ses caractéristiques importent peu, tant que vous gardez un système d'endurance et d'esquive. 
 Cependant, il n'est pas possible de changer le système hors du dés 10 sans toucher au code. Cela dit, je pense que les calculs devraient être valable avec tous les autres types de dés si on modifie ce dernier, en modifiant les différences pour y faire correspondre.
 
+:warning: Il est possible que votre antivirus signale le programme. Je peux vous assurer qu'il n'y a AUCUN virus dans ce code. Ce sont des faux positifs qui sont causé par les paramètres de build de pyinstaller, et je ne peux donc pas y faire grand chose. Le mieux c'est d'utiliser le fichier zip dans un dossier qui aura été mis en liste blanche auparavant, sinon, votre antivirus mettra en quarantaine (ou supprimera) le programme. 
+
 # Build :
 
 ## Windows
@@ -82,7 +84,7 @@ En général, sa défense diminue de 10% les dégâts en fonction de la valeur d
 
 
 
-:warning: Attention, dans le cas où la personne posséderait un kanji (diminution du dé), la valeur seuil n'est plus la même que la caractéristique : le dé doit avoir une valeur strictement inférieure pour que l'endurance soit validé. 
+:warning: Attention, dans le cas où la personne posséderait un kanji (diminution du dé), la valeur seuil n'est plus la même que la caractéristique : le dé doit avoir une valeur strictement inférieure pour que l'endurance soit validé. 
 
 
 ## Cas des duels amicaux
