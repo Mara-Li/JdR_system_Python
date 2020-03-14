@@ -32,19 +32,31 @@ Actuellement, je cherche à build sous mac ou éditer le code pour permettre le 
 
 # SYSTEME DE COMBAT
 
-Le système de combat du RP est très simple : il se déroule au tour par tour, avec un lancé de dé d'attaque et de défense. 
-
-La réussite des actions est donc déterminé à la fois par votre score et la caractéristique liée mais aussi par le dé de défense de votre adversaire. 
 
 La caractéristique que vous lancez pour votre défense est soit un dé d'endurance ou d'agilité. 
-- L'endurance permet d'encaisser le coup, le défenseur recevra donc moins de dégâts.
-- L'agilité permet d'esquiver le coup (et donc de ne pas prendre de dégâts), cependant le défenseur ne pourra pas attaquer au tour suivant, sauf dans le cas d'un coup critique (score de 1 ou moins), où votre personnage peut contre-attaquer.
+- L'endurance vous permet d'encaisser le coup, il recevra donc moins de dégâts.
+
+- L'agilité vous permet d'esquiver le coup (et donc de ne pas prendre de dégâts). De plus, pour réussir votre esquive, vous devez faire moitié moins que l'adversaire. Ainsi, s'il fait une attaque de 8, vous devez faire 4 ou moins. Certaines attaques deviennent donc impossible à esquiver à partir d'un certains scores (1 et 0).
+
+
+Il existe cependant des attaques qui ne rentrent dans cette catégorie : les altérations d'état.
+
+:white_small_square: Les attaques mentales (parleur, liseur) : Elles nécessitent une défense avec un dé d'intelligence.
+
+:white_small_square: Les attaques liés aux poisons et maladies (cheval pâle) : Elles nécessitent un dé de karma.
+
+
+
 
 Choisissez donc bien en fonction de vos caractéristiques !
 
-Vous devez OBLIGATOIREMENT lancé votre dé avant de déterminer votre action. Mais vous n'êtes pas obligé d'attendre le dé de défense de votre adversaire. Dans tous les cas, l'action finale avec les dégâts sera après le lancé des protagonistes de l'action. 
 
-Dans le cas où il y aurait un 1 VS plusieurs, la personne en sous nombre doit lancé un dé de défense pour chaque attaque reçu mais ne peut attaquer qu'une seule personne à la fois.
+
+Vous devez OBLIGATOIREMENT lancer votre dé avant de déterminer votre action. Mais vous n'êtes pas obligé d'attendre le dé de défense de votre adversaire. Dans tous les cas, l'action finale avec les dégâts sera après le lancé des protagonistes de l'action. 
+
+
+
+Dans le cas où il y aurait un 1 VS plusieurs, la personne en sous nombre doit lancé un dé de défense pour chaque attaque reçu et peut attaquer un certain nombre de personne en fonction de son rang.
 
 ## Dégâts
 
@@ -70,15 +82,7 @@ En général, sa défense diminue de 10% les dégâts en fonction de la valeur d
 
 
 
-**IMPORTANT** : Dans des soucis d'équilibrage des dégâts, ceux infligés par les actifs (les humains) sont diminués, ce qui n'est pas le cas des monstres. Ainsi, les dégâts des humains sont automatiquement divisé par 1,4. En outre, une valeur maximale de dégât a été placé : un humain ne peut faire que 200 points de dégât au maximum.
-
-
-
-Ce n'est pas le cas lorsque l'on choisit d'utiliser de lancer pour un "monstre" : les dégâts prennent une valeur normale, et il n'y a pas de dégât maximum. 
-
-
-
-Dans ce système, les monstres font donc beaucoup plus de dégâts que les humains ("actif" ici). 
+:warning: Attention, dans le cas où la personne posséderait un kanji (diminution du dé), la valeur seuil n'est plus la même que la caractéristique : le dé doit avoir une valeur strictement inférieure pour que l'endurance soit validé. 
 
 
 ## Cas des duels amicaux
@@ -127,8 +131,8 @@ Evidemment, pour toutes les attaques, vous pouvez rajouter des bonus extérieur 
 
 Dans le cas où votre personnage fait : 
 
-- Un coup critique : Son bonus sera multiplié par 1,5.
-- Un Ultra critique : Son bonus sera multiplié par 2.
+- Un coup critique : Son bonus sera multiplié par 1,4.
+- Un Ultra critique : Son bonus sera multiplié par 1.8.
 
 De plus, les deux ont un bonus d'attaque très léger, afin d'équilibré par rapport aux attaques normales. 
 
@@ -151,16 +155,12 @@ A noté où dans le cas où les deux combattant font des UCC d'attaque et de dé
 
 * **Défenseur** : Les caractéristiques qui correspondent à la personne attaquée. Notons que la partie des PV restant se rempli automatiquement avec les PV max, puis se mettra à jour au fur et à mesure
 * **Attaquant** : Le type d'attaque, si elle est lancé par une personne ou un monstre, et si c'est ou non une capacité. 
-* **Dés** : Simplement le type de défense et les dés qui correspondent à l'attaque et la défense.
+* **Dés** : Simplement le type de défense et les dés qui correspondent à l'attaque et la défense. De plus, vous pouvez cocher ou non si la personne possède un kanji pour sa défense (endurance, surtout)
 * Vous pouvez lancer le programme en appuyant sur le bouton mais aussi avec enter.
 * **Résultat** : Les PV restant (et le champ correspondant ce met à jour) ainsi que les dégâts infligés. Vous pouvez donc enchainé sur plusieurs attaques sans avoir à reset entièrement le programme, si le défenseur est le même. 
-* Le bouton avec la flèche correspond à un reset du programme : les PV reviennent à leur maximum, et les autres champs à leurs valeurs par défauts. 
+* Le bouton avec la flèche correspond à un reset du programme : les PV reviennent à leur maximum, et les autres champs à leurs valeurs par défauts. Le bouton avec le fichier permet de vider le fichier des logs.
 * De manière évidente, vous n'avez pas besoin de calculer les dégâts lorsque le défenseur a réussi son esquive. 
 * Vous devez choisir si votre personnages attaque avec une capacité ou non. Par défaut, ce sont les attaques normales. En effet, un coup critique avec une capacité a un bonus différent qu'un coup critique avec une attaque normale. Pour changer cela, il suffit de cliquer sur le bouton radio. 
 * Le bouton radio permet d'activer un champ qui vous permet de choisir entre les capacités 'Burst', 'perforant' ou 'Autre'. 
 *  Il n'est malheureusement pas possible de calculer les actions de soutiens ou de malus avec le programme, vous devez donc multiplier vos bonus par vous même en suivant la table.
 * Vous n'avez pas besoin de prendre en compte les capacités particulières d'une attaque perforante, d'un UCC et d'un CC, ainsi que les bonus associés aux capacités : le programme s'en charge aussi. Remplissez donc tous les champs sans vous souciez de cela.
-
-## Screenshot
-
-![Imgur](https://imgur.com/wkfwGiH.png)
