@@ -1,7 +1,13 @@
+[Archive des events](https://mara-li.github.io/Archive-RP/CDI)
+
+[Lien du discord](https://discord.gg/N2XqRgr)
+
+
 Ce programme vise à aider les joueurs des chroniques de l'Impérium à calculer leur dégâts.  Il peut cependant être utilisé par d'autres RP en utilisant les règles ci-après. 
 
-A noté que nous utilisons donc un système avec un dé de 10, et des caractéristiques. Les titres et descriptions de ses caractéristiques importent peu, tant que vous gardez un système d'endurance et d'esquive. 
-Cependant, il n'est pas possible de changer le système hors du dés 10 sans toucher au code. Cela dit, je pense que les calculs devraient être valable avec tous les autres types de dés si on modifie ce dernier, en modifiant les différences pour y faire correspondre.
+A noter que nous utilisons donc un système avec un dé de 10, et des caractéristiques. Les titres et descriptions de ses caractéristiques importent peu, tant que vous gardez un système d'endurance et d'esquive. 
+
+Cependant, il n'est pas possible de changer le système hors du dés 10 !
 
 :warning: Il est possible que votre antivirus signale le programme. Je peux vous assurer qu'il n'y a AUCUN virus dans ce code. Ce sont des faux positifs qui sont causé par les paramètres de build de pyinstaller, et je ne peux donc pas y faire grand chose. Le mieux c'est d'utiliser le fichier zip dans un dossier qui aura été mis en liste blanche auparavant, sinon, votre antivirus mettra en quarantaine (ou supprimera) le programme. 
 
@@ -18,6 +24,10 @@ Sinon, pour build en .exe vous pouvez utiliser pyinstaller, que vous pouvez inst
 
 
 Pour plus d'information à propos de pyInstaller : https://www.pyinstaller.org/
+
+
+
+Note : IL EST TRES IMPORTANT DE MODIFIER LA LIGNE `gui.iconbitmap(r"D:\\Documents\\GitHub\\CDI_Dice_Help\\data\\logo.ico")` avec le chemin du logo si vous voulez le build. 
 
 ## Mac / Linux :
 
@@ -151,6 +161,22 @@ Il existe TROIS exceptions aux systèmes de dégâts :
 - Les coup-critiques d'attaque :  Lorsqu'un combattant a un score de dés égal à 1, il annule la défense par endurance de son adversaire.
 
 A noté où dans le cas où les deux combattant font des UCC d'attaque et de défense (La probabilité est mince), c'est l'attaquant qui aura l'avantage.
+
+# Résumé
+
+* Lancé de dés d'attaque et de défense
+>* L'endurance permet d'encaisser les dégâts. 
+>* L'esquive permet de ne pas prendre de dégât. Elle est réussit si le dé est moitié moins du dé d'attaque de l'adversaire.
+
+* Dés de 10 lié à votre caractéristiques
+>* Kanji : Valeur seuil = strictement inférieure à votre caractéristique (7 pour 8, 6 pour 7, etc).
+* Pas de kanji : Seuil = caractéristique
+
+* Meilleur jet : 0, pire jet : 10
+>Un 0 correspond à un "Ultra coup critique" et un 1 à un "coup critique". 
+
+* Quand vous utilisez votre capacité ou quand vous attaquez avec votre pouvoir, vous devez lancer le dé lié à votre pouvoir.
+* De même, si vous attaquez en utilisant une arme, vous devez lancé la caractéristique liée.
 
 
 # Utilisation

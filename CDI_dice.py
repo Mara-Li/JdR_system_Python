@@ -11,7 +11,6 @@ def resource_path(relative_path):
     base_path = getattr( sys, '_MEIPASS', os.path.dirname( os.path.abspath( __file__ ) ) )
     return os.path.join( base_path, relative_path )
 
-
 def test_none(t):
     if not t or len(t.strip())==0:
         return True
@@ -440,7 +439,11 @@ if __name__ == "__main__" :
     reset_log=PhotoImage(file=resource_path('data\\log_file.png'))
     reset_img=reset_img.subsample(4,4)
     reset_log=reset_log.subsample(4,4)
-    gui.iconbitmap(r"C:\\Users\\Lili\\Documents\\GitHub\\CDI_Dice_Help\\data\\logo.ico")
+    # change to your folder !!!!!!!!!! !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    gui.iconbitmap(r"D:\\Documents\\GitHub\\CDI_Dice_Help\\data\\logo.ico")
+
+
+
 
     # StringVar
     res_finaux_field = StringVar()
