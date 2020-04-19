@@ -428,7 +428,7 @@ if __name__ == "__main__" :
     # Create a GUI window
     gui = Tk()
     # set the name of tkinter GUI window
-    gui.title("Helper")
+    gui.title("JDR System")
 
     # Set the configuration of GUI window
     gui.geometry("500x330")
