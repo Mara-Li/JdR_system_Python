@@ -43,7 +43,7 @@ def clearAll ( ) :
     res_finaux_field.set ( '' )
     res_pv.set ( '' )
     var_type.set('Burst')
-    kanji.deselect()
+    remise.deselect()
 
 def clear_log():
     log_file=open('dice.log','w')
@@ -147,7 +147,7 @@ def choix_bonus():
 def reussite_endurance(endu_de, endu_val, PV,d, SHIELD):
     d = abs(int(d * PV))
     Bouclier = abs(int(d * (1 - SHIELD)))
-    if kanji_var.get()==1:
+    if remise_var.get()==1:
         if endu_de > endu_val or endu_de==endu_val:
             finaux = Bouclier
         elif endu_val == 0 :
@@ -381,10 +381,10 @@ def log_ecriture():
         defense='Endurance'
     else:
         defense='Esquive ratée'
-    if kanji_var.get()==1:
-        Kanji="KANJI UTILISE"
+    if remise_var.get()==1:
+        remise="REMISE UTILISE"
     else:
-        Kanji=''
+        remise=''
 
     log_file.write ( '=================\n' )
     log_file.write ( selection_type + '\n' )
@@ -402,7 +402,7 @@ def log_ecriture():
     log_file.write ( 'DES\n' )
     log_file.write ( 'ATQ : ' + ATQ + '\n' )
     log_file.write ( 'DEF : ' + DEFE + '\n' )
-    log_file.write (Kanji + '\n')
+    log_file.write ('REMISE' + '\n')
     log_file.write ( 'TYPE DE DEFENSE : ' + defense + '\n' )
     log_file.write ( '\n' )
     log_file.write ( 'RESULTAT\n' )
@@ -431,7 +431,7 @@ if __name__ == "__main__" :
     gui.title("Helper")
 
     # Set the configuration of GUI window
-    gui.geometry("480x320")
+    gui.geometry("500x330")
     gui.rowconfigure(0, weight=1)
     gui.columnconfigure(0, weight=1)
 
@@ -564,7 +564,7 @@ if __name__ == "__main__" :
 
     # IntVar
     sel = IntVar(value=1)
-    kanji_var=IntVar()
+    remise_var=IntVar()
 
     def type_check():
         if sel.get() == 2:
@@ -586,7 +586,7 @@ if __name__ == "__main__" :
     reset_bouton = Button ( cadre_dice, text="Reset", image=reset_img, bg="#b1b3b3", command=clearAll, relief=GROOVE,
                             takefocus=1, overrelief=GROOVE )
     reset_log_button=Button(cadre_dice, text='Log', image=reset_log, bg="#b1b3b3", command=clear_log, relief=GROOVE, takefocus=1, overrelief=GROOVE)
-    kanji=Checkbutton(cadre_dice, text="Kanji", variable=kanji_var)
+    remise=Checkbutton(cadre_dice, text="Remise", variable=remise_var)
 
 
     # AFFICHAGE / GRID :
@@ -624,7 +624,7 @@ if __name__ == "__main__" :
     esquive.grid(row=4, column=2, sticky='nw')
     defe.grid(row=2, column=1, sticky="nsew")
     defe_field.grid(row=2, column=2, sticky="nw")
-    kanji.grid(row=2, column=2, sticky="nsew", padx=45)
+    remise.grid(row=2, column=2, sticky="nsew", padx=45)
     reset_bouton.grid(row=5, column=2,pady=40,stick='sw',padx=20)
     reset_log_button.grid(row=5, column=2, pady=40, padx=50, stick='sw')
 

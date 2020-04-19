@@ -87,7 +87,7 @@ En général, sa défense diminue de 10% les dégâts en fonction de la valeur d
 
 
 
-:warning: Attention, dans le cas où la personne posséderait un bonus (diminution du dé), la valeur seuil n'est plus la même que la caractéristique : le dé doit avoir une valeur strictement inférieure pour que l'endurance soit validé. 
+:warning: Attention, dans le cas où la personne posséderait une "remise"(diminution du dé), la valeur seuil n'est plus la même que la caractéristique : le dé doit avoir une valeur strictement inférieure pour que l'endurance soit validé. 
 
 
 ## Cas des duels amicaux
@@ -162,9 +162,8 @@ A noté où dans le cas où les deux combattant font des UCC d'attaque et de dé
 >* L'esquive permet de ne pas prendre de dégât. Elle est réussit si le dé est moitié moins du dé d'attaque de l'adversaire.
 
 * Dés de 10 lié à votre caractéristiques
->* Bonus : Valeur seuil = strictement inférieure à votre caractéristique (7 pour 8, 6 pour 7, etc).
-* Pas de bonus : Seuil = caractéristique
-
+>* Remise : Valeur seuil = strictement inférieure à votre caractéristique (7 pour 8, 6 pour 7, etc).
+>* Pas de remise : Seuil = caractéristique
 * Meilleur jet : 0, pire jet : 10
 >Un 0 correspond à un "Ultra coup critique" et un 1 à un "coup critique". 
 
@@ -177,9 +176,11 @@ A noté où dans le cas où les deux combattant font des UCC d'attaque et de dé
 * **Défenseur** : Les caractéristiques qui correspondent à la personne attaquée. Notons que la partie des PV restant se rempli automatiquement avec les PV max, puis se mettra à jour au fur et à mesure
 * **Attaquant** : Le type d'attaque, si elle est lancé par une personne ou un monstre, et si c'est ou non une capacité. 
 * **Dés** : Simplement le type de défense et les dés qui correspondent à l'attaque et la défense. De plus, vous pouvez cocher ou non si la personne possède un bonus pour sa défense (endurance, surtout)
+* **Remise** : Un bonus de départ sur les personnages, qui diminue la valeur des dés lancés. Voir plus haut pour l'impact de ce bouton. 
 * Vous pouvez lancer le programme en appuyant sur le bouton mais aussi avec enter.
 * **Résultat** : Les PV restant (et le champ correspondant ce met à jour) ainsi que les dégâts infligés. Vous pouvez donc enchainé sur plusieurs attaques sans avoir à reset entièrement le programme, si le défenseur est le même. 
-* Le bouton avec la flèche correspond à un reset du programme : les PV reviennent à leur maximum, et les autres champs à leurs valeurs par défauts. Le bouton avec le fichier permet de vider le fichier des logs.
+* Le bouton avec la flèche correspond à un reset du programme : les PV reviennent à leur maximum, et les autres champs à leurs valeurs par défauts. 
+* Le bouton avec le fichier permet de vider le fichier des logs.
 * De manière évidente, vous n'avez pas besoin de calculer les dégâts lorsque le défenseur a réussi son esquive. 
 * Vous devez choisir si votre personnages attaque avec une capacité ou non. Par défaut, ce sont les attaques normales. En effet, un coup critique avec une capacité a un bonus différent qu'un coup critique avec une attaque normale. Pour changer cela, il suffit de cliquer sur le bouton radio. 
 * Le bouton radio permet d'activer un champ qui vous permet de choisir entre les capacités 'Burst', 'perforant' ou 'Autre'. 
