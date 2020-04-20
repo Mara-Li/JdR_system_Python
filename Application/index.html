@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="res/css/style.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Jdr-system</title>
+    </head>
+    <body>
+        <div class="flex-column">
+            <div id="defense" class="card">
+                <span class="titre-card">Defenseur</span>
+                <form>
+                    <div class="input-zone">
+                        <label for="pv_max">PV (max)</label>
+                        <input type="number" id="pv_max" value="0"  min="0">
+                    </div>
+                    <div class="input-zone">
+                        <label for="pv_reste">PV (restant)</label>
+                        <input type="number" id="pv_reste" value="0" min="0">
+                    </div>
+                    <div class="input-zone">
+                        <label for="bouclier">Bouclier</label>
+                        <input type="number" id="bouclier" value="0"  min="0">
+                    </div>
+                    <div class="input-zone">
+                        <label for="endurance">Endurance</label>
+                        <input type="number" id="endurance" value="0"  min="0">
+                    </div>
+                </form>
+            </div>
+            <div class="flex-break"></div>
+            <div id="dés" class="card">
+                <span class="titre-card">Dés</span>
+                <form>
+                    <div class="input-zone">
+                        <label for="des_atk">ATQ</label>
+                        <input type="number" id="des_atk" min="0" value="0">
+                    </div>
+                    <div class="input-zone">
+                        <label for="des_def">DEF</label>
+                        <input type="number" id="des_def" min="0" value="0">
+                        <input type="checkbox" id="des_bonus_def">
+                        <label for="des_bonus_def">Bonus</label>
+                    </div>
+                    <div class="input-zone">
+                        <input type="radio" name="des_esquive" value="endurance" checked="checked">
+                        <label for="dist">Endurance</label>
+                    </div>
+                    <div class="input-zone">
+                        <input type="radio" name="des_esquive" value="esquive">
+                        <label for="dist">Esquive raté</label>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="flex-column">
+            <div id="attaquant" class="card">
+                <span class="titre-card">Attaquant</span>
+                <form>
+                    <div class="input-zone">
+                        <label for="bonus">Bonus</label>
+                        <select id="arme">
+                            <option value="Aucun">Aucun</option>
+                            <option value="Pouvoir">Pouvoir</option>
+                            <option value="Fusil">Fusil</option>
+                            <option value="Projectile">Projectile</option>
+                            <option value="Épée">Épée</option>
+                            <option value="Contondant">Contondant</option>
+                            <option value="Couteau">Couteau</option>
+                            <option value="Pistolet">Pistolet</option>
+                            <option value="Artillerie">Artillerie</option>
+                            <option value="Autre">Autre</option>
+                        </select>
+                        <input type="number" id="bonus" value="0" min="0">
+                    </div>
+                    <div class="input-zone">
+                        <input type="radio" name="atk_type" value="atk_norm" checked="checked">
+                        <label for="atk_norm">Attaque normale</label>
+                    </div>
+                    <div class="input-zone">
+                        <input type="radio" name="atk_type" value="capacite">
+                        <label for="capacite">Capacité</label>
+                        <select id="capacite_type">
+                            <option value="Burst">Burst</option>
+                            <option value="Perforant">Perforant</option>
+                            <option value="Autre">Autre</option>
+                        </select>
+                    </div>
+                    <div class="input-zone">
+                        <input type="radio" name="dist_atk" value="cac" checked="checked">
+                        <label for="cac">Corps-à-corps</label>
+                        <input type="radio" name="dist_atk" value="dist">
+                        <label for="dist">Distance</label>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="flex-break"></div>
+        <div id="submit" class="card">
+            <span class="titre-card">Résultat</span>
+            <div class="input-zone">
+                <input type="button" value="Calculer !">
+            </div>
+            <label for="res_deg">Dégats finaux :</label>
+            <span id="res_deg">NaN</span><br>
+            <label for="res_pv">PV restant :</label>
+            <span id="res_pv">NaN</span>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,69 @@
+body{
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    color: black;
+    background-color: rgb(207, 207, 207);
+}
+
+@media only screen and (max-width: 800px) {
+    .flex-column{
+        width: 95%;
+    }
+
+    .card{
+        width: 95%;
+    }
+}
+
+@media only screen and (min-width: 801px) {
+    .flex-column{
+        min-width: 50%;
+        max-width: 80%;
+    }
+
+    .card{
+        min-width: 40%;
+        max-width: 80%;
+    }
+}
+
+input[type="number"] {
+    max-width: 20%;
+ }
+
+ input{
+     margin-right: 0;
+ }
+
+.flex-column{
+    margin: auto;
+}
+
+.card{
+    background-color: white;
+    box-shadow: 0.2em 0.2em 0.6em black;
+    text-align: center;
+    margin: 3% auto;
+    padding: 1%;
+}
+
+.input-zone{
+    margin: 1em 0;
+}
+
+.flex-break{
+    flex-basis: 100%;
+}
+
+.titre-card{
+    font-weight: bold;
+    color: teal;
+    font-size: 1.5em;
+}
+
+#submit{
+    width: 90%;
+}
