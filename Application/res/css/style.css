@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Concert+One|Josefin+Sans|Pangolin&display=swap');
+
 body{
     margin: 0;
     width: 100%;
@@ -6,6 +8,7 @@ body{
     flex-wrap: wrap;
     color: black;
     background-color: rgb(207, 207, 207);
+    font-family: 'Josefin Sans', sans-serif;
 }
 
 @media only screen and (max-width: 800px) {
@@ -62,8 +65,13 @@ input[type="number"] {
     font-weight: bold;
     color: teal;
     font-size: 1.5em;
+    font-family: 'Concert One', cursive;
 }
 
 #submit{
     width: 90%;
+}
+
+#res_pv, #res_deg{
+    font-family: 'Pangolin', cursive;
 }
