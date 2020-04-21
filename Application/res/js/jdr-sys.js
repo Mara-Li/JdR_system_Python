@@ -74,49 +74,47 @@ class Elements_getter{
 }
 
 var elem_inputs = new Elements_getter(elemIDs, radioGroupsName);
-document.onload = elem_inputs.refresh();
-
 
 function choix_bonus(){
     let b;
     bonus=elem_inputs.arme.value;
     bonus_val=elem_inputs.bonus.value;
-    dist=elem_inputs.dist_atk.checked ; //récupération du bouton distance sur la boite bonus
+    dist=elem_inputs.dist_atk.value; //récupération du bouton distance sur la boite bonus
     switch (bonus) {
-        case 0: //Aucun
+        case "0": //Aucun
             b = 0;
             break;    
-        case 1: //Pouvoir
+        case "1": //Pouvoir
             b = 10 + bonus_val;
             break;
-        case 2: //Fusil
+        case "2": //Fusil
             b = 10 + bonus_val;
             if (dist) { //est checked
                 b = b + 5;
             };
             break;
-        case 3: //Projectile
+        case "3": //Projectile
             b = 5 + bonus_val;
             break;
-        case 4: //Épée
+        case "4": //Épée
             b = 10 + bonus_val;
             break;
-        case 5: //Contondant
+        case "5": //Contondant
             b = 15 + bonus_val;
             break;
-        case 6: //Couteau
+        case "6": //Couteau
             b = 5 + bonus_val;
             break;
-        case 7: //Pistolet
+        case "7": //Pistolet
             b = 8 + bonus_val;
             break;
-        case 8: //Artillerie
+        case "8": //Artillerie
             b = 15 + bonus_val;
             if (dist) { //est check
                 b = b + 10;
             };
             break;
-        case 9: //Autre
+        case "9": //Autre
             b = bonus_val;
             break;
     }
@@ -313,17 +311,17 @@ function choix_bonus(){
         var endu_val = elem_inputs.endurance.value //valeur champ "endurance" dans stats
         
         switch (sel_defe) {
-            case 0: //Endurance
+            case "0": //Endurance
                 endu_de = defe;
                 break;
-            case 1: //Esquive raté
+            case "1": //Esquive raté
                 endu_val = 0;
                 endu_de = 10;
                 break;
         }
 
         switch (type_capa) {
-            case 0: //burst
+            case "0": //burst
                 if (shield !==0)
                 {
                     bonus_type = capacite_bonus(15);
@@ -337,7 +335,7 @@ function choix_bonus(){
                 }
                 break;
         
-            case 1: //Perforant
+            case "1": //Perforant
                 bonus_type = capacite_bonus(15);
                 bonus = ((bonus_type + bonus) / 100);
                 endu_val = 0;
@@ -345,7 +343,7 @@ function choix_bonus(){
                 [d, endu_val] = degat_perforant(bonus, ATQ, DEFE, endu_val);
                 break;
             
-            case 2: //Autre
+            case "2": //Autre
                 bonus_attaque = choix_bonus();
                 bonus = capacite_bonus(bonus);
                 bonus = ((bonus_attaque + bonus) / 100);
@@ -446,6 +444,7 @@ function choix_bonus(){
     function calculate()
     {
         //test check des erreurs
+        elem_inputs.refresh();
         selection = elem_inputs.atk_type.value //valeur si on choisit une attaque normale ou une Capacité
         if (selection) //est checké ? egale à 1 ?  égale à "Attaque normale" ?)
         {
