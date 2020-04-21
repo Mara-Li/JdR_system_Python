@@ -8,16 +8,16 @@ A faire :
 */
 
 /*Valeurs des boutons radio et selections:
- * 
+ *
  *  des_esquive -> 0 pour Endurance, 1 pour esquive raté
- * 
+ *
  *  arme -> 0 pour aucun, 1 pour pouvoir, 2 fusil, 3 projectile, 4 épée,
  *          5 contondant, 6 couteau, 7 pistolet, 8 artillerie, 9 autre
- *  
+ *
  *  atk_type -> 0 pour atk normale, 1 pour capacité
- *  
+ *
  *  capacite_type -> 0 pour Burst, 1 perforant, 2 autre
- *  
+ *
  *  dist_atk -> 0 pour cac, 1 distance
  */
 
@@ -51,7 +51,7 @@ class Elements_getter{
             this[name] = this.getValueFromRadio(name);
         });
     }
-    
+
     getValueFromRadio(group_name){
         var lst_radio = document.getElementsByName(group_name)
         for(var i = 0; i < lst_radio.length; i++){
@@ -61,7 +61,7 @@ class Elements_getter{
         };
         return undefined;
     }
-    
+
     refresh(){
         this._idLst.forEach(id => {
             this[id] = document.getElementById(id);
@@ -83,7 +83,7 @@ function choix_bonus(){
     switch (bonus) {
         case "0": //Aucun
             b = 0;
-            break;    
+            break;
         case "1": //Pouvoir
             b = 10 + bonus_val;
             break;
@@ -120,8 +120,8 @@ function choix_bonus(){
     }
     return b;
 }
-    
-    
+
+
     function reussite_endurance(endu_de, endu_val, PV, d, shield)
     {
         d=Math.abs(d*PV);
@@ -161,7 +161,7 @@ function choix_bonus(){
             finaux=PV
         }
     }
-    
+
     function vie_restante(finaux)
     {
         vie = elem_inputs.pv_reste.value - finaux //champ pv restant
@@ -175,7 +175,7 @@ function choix_bonus(){
         //inserer la valeur de vie restante
         //inserer msg_pv
     }
-    
+
     function capacite_bonus(bonus)
     {
         atq = elem_inputs.des_atk.value //valeur dé champ Attaque
@@ -187,10 +187,10 @@ function choix_bonus(){
         }
         return bonus;
     }
-    
+
     function calculate_degat(bonus, atq, defe){
         var d;
-        d = Math.abs((ATQ - DEFE));
+        d = Math.abs((atq - DEFE));
         if ((d === 0)) {
             d = (0 + bonus);
         } else if ((d === 1)) {
@@ -212,51 +212,51 @@ function choix_bonus(){
             d = (0.5 + bonus)
         }
         return d;
-        
+
     }
-    
+
     function degat_burst(bonus, atq, defe, endu_val)
     {
         var d;
-        if ((ATQ === 0)) {
+        if ((atq === 0)) {
             d = (0.25 + bonus);
             endu_val = 0;
         } else if ((DEFE === 0)) {
             d = 0;
         }
-        else if ((ATQ === 1))
+        else if ((atq === 1))
         {
-            d = calculate_degat(bonus, ATQ, DEFE)
+            d = calculate_degat(bonus, atq, DEFE)
         }
         else
         {
-            d = calculate_degat(bonus, ATQ, DEFE);
+            d = calculate_degat(bonus, atq, DEFE);
         }
         return [d, endu_val];
     }
-    
+
     function degat_burst_bouclier(bonus, atq, defe, endu_val)
     {
         var d;
-        if ((ATQ === 0)) {
+        if ((atq === 0)) {
             d = (0.38 + bonus);
             endu_val = 0;
         }
         else if ((DEFE === 0)) {
             d = 0;
-        } else if ((ATQ === 1)) {
-            d = calculate_degat(bonus, ATQ, DEFE);
+        } else if ((atq === 1)) {
+            d = calculate_degat(bonus, atq, DEFE);
         }
         else {
-            d = calculate_degat(bonus, ATQ, DEFE);
+            d = calculate_degat(bonus, atq, DEFE);
         }
         return [d, endu_val];
     }
-    
+
     function degat_perforant(bonus, atq, defe, endu_val)
     {
         var d;
-        if ((ATQ === 0))
+        if ((atq === 0))
         {
             d = (0.4 + bonus);
             endu_val = 0;
@@ -265,21 +265,21 @@ function choix_bonus(){
         {
             d = 0;
         }
-        else if ((ATQ === 1))
+        else if ((atq === 1))
         {
-            d = calculate_degat(bonus, ATQ, DEFE);
+            d = calculate_degat(bonus, atq, DEFE);
         }
         else
         {
-            d = calculate_degat(bonus, ATQ, DEFE);
+            d = calculate_degat(bonus, atq, DEFE);
         }
         return [d, endu_val];
     }
-    
+
     function degat_autre(bonus, atq, defe, endu_val)
     {
         var d;
-        if ((ATQ === 0))
+        if ((atq === 0))
         {
             d = (0.5 + bonus);
             endu_val = 0;
@@ -287,17 +287,17 @@ function choix_bonus(){
         else if ((DEFE === 0))
         {
             d = 0;
-        } else if ((ATQ === 1))
+        } else if ((atq === 1))
         {
-            d = calculate_degat(bonus, ATQ, DEFE);
+            d = calculate_degat(bonus, atq, DEFE);
         }
         else
         {
-            d = calculate_degat(bonus, ATQ, DEFE);
+            d = calculate_degat(bonus, atq, DEFE);
         }
         return [d, endu_val];
     }
-    
+
     function degat_type()
     {
         var bonus_attaque, bonus_type, d, endu_de, endu_val, finaux, max;
@@ -309,7 +309,7 @@ function choix_bonus(){
         var type_capa = elem_inputs.capacite_type.value //Valeur de la spinbox dans capacité ["Burst", "Autre", "Perforante"]
         var shield = elem_inputs.bouclier.value/100 //valeur du champ "Bouclier"
         var endu_val = elem_inputs.endurance.value //valeur champ "endurance" dans stats
-        
+
         switch (sel_defe) {
             case "0": //Endurance
                 endu_de = defe;
@@ -334,15 +334,15 @@ function choix_bonus(){
                     [d, endu_val] = degat_burst(bonus, atq, defe, endu_val);
                 }
                 break;
-        
+
             case "1": //Perforant
                 bonus_type = capacite_bonus(15);
                 bonus = ((bonus_type + bonus) / 100);
                 endu_val = 0;
                 shield=0;
-                [d, endu_val] = degat_perforant(bonus, ATQ, DEFE, endu_val);
+                [d, endu_val] = degat_perforant(bonus, atq, defe, endu_val);
                 break;
-            
+
             case "2": //Autre
                 bonus_attaque = choix_bonus();
                 bonus = capacite_bonus(bonus);
@@ -374,7 +374,7 @@ function choix_bonus(){
         //inserer la valeur "finaux" dans le champ concerné dans résultat
         vie_restante(finaux);
     }
-    
+
     function degat_normaux()
     {
         var atq, defe, pv, shield, bonus, d, endu_de, endu_val, finaux, max;
@@ -431,16 +431,16 @@ function choix_bonus(){
         //insérer la valeur final
         vie_restante(finaux);
     }
-    
+
     function log_ecriture()
     {} //A faire plus tard quand le cadre aura été fait, partie 2 du programme
     //s'efface quand on actualise !
-    
+
     function clearAll(){} //Ajouter un bouton d'effacer tous les champs mais NE DOIT PAS EFFACER LES LOGS
-    
+
     function checkError(){} //truc en rouge qui indique quand y'a des erreurs
-    
-    
+
+
     function calculate()
     {
         //test check des erreurs
@@ -455,10 +455,19 @@ function choix_bonus(){
         }
         log_ecriture();
     }
-    
-    function grisage_capacité (){
-        // En gros, quand le radiobutton "attaque normale" est sélectionné, le spinbox "capacité" est grisé et non utilisable !!
-    }
-    
 
-    
+    function grisage_spinbox (){
+        // En gros, quand le radiobutton "attaque normale" est sélectionné, le spinbox "capacité" est grisé et non utilisable !!
+        // de même, quand le bonus est sur aucun, la spinbox a côté est grisé !
+    }
+
+    /*
+      TO DO :
+      - Ecriture des logs => html/CSS + fonction
+      - Grisage des spinbox (IMPORTANT)
+      - Aligner les boites
+      - Faire en sorte qu'entrée lance le programme
+      - Faire en sorte que quand on rempli les PV max, cela remplit les pv restant (IMPORTANT)
+
+
+    */
