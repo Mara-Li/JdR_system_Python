@@ -53,7 +53,7 @@ class Elements_getter{
             this[name] = this.getValueFromRadio(name);
         });
     }
-    
+
     getValueFromRadio(group_name){
         var lst_radio = document.getElementsByName(group_name)
         for(var i = 0; i < lst_radio.length; i++){
@@ -63,7 +63,7 @@ class Elements_getter{
         };
         return undefined;
     }
-    
+
     refresh(){
         this._idLst.forEach(id => {
             this[id] = document.getElementById(id);
@@ -129,7 +129,7 @@ function reussite_endurance(endu_de, endu_val, pv, d, shield){
     var d = Math.abs(Math.trunc(d * pv));
     var bouclier = Math.abs(Math.trunc(d * (1 - shield))); //au besoin, placé des int pour convertir les valeurs
     var remise = elem_inputs.bonus.checked; //checkbox "bonus"
-    
+
     if (remise){ //est check
         if ((endu_de > endu_val) || (endu_de == endu_val)){
             finaux = bouclier;
@@ -159,7 +159,7 @@ function vie_restante(finaux){
         vie = "X"; //au besoin, mettre en caractère
     }
     elem_inputs.res_deg.innerHTML = finaux;
-    elem_inputs.res_pv.innerHTML = vie; 
+    elem_inputs.res_pv.innerHTML = vie;
 }
 
 function capacite_bonus(bonus){
@@ -202,7 +202,7 @@ function calculate_degat(bonus, atq, defe){
             break;
     }
     return d;
-    
+
 }
 
 function degat_burst(bonus, atq, defe, endu_val){
@@ -276,7 +276,7 @@ function degat_type()
     var type_capa = parseInt(elem_inputs.capacite_type.value); //Valeur de la spinbox dans capacité ["Burst", "Autre", "Perforante"]
     var shield = parseInt(elem_inputs.bouclier.value)/100; //valeur du champ "Bouclier"
     var endu_val = parseInt(elem_inputs.endurance.value); //valeur champ "endurance" dans stats
-    
+
     switch (sel_defe) {
         case 0: //Endurance
             endu_de = defe;
@@ -286,7 +286,7 @@ function degat_type()
             endu_de = 10;
             break;
     }
-    
+
     switch (type_capa) {
         case 0: //burst
             if (shield != 0){
@@ -299,7 +299,7 @@ function degat_type()
                 [d, endu_val] = degat_burst(bonus, atq, defe, endu_val);
             }
             break;
-        
+
         case 1: //Perforant
             bonus_type = capacite_bonus(15);
             bonus = ((bonus_type + bonus) / 100);
@@ -307,7 +307,7 @@ function degat_type()
             shield = 0;
             [d, endu_val] = degat_perforant(bonus, atq, defe, endu_val);
             break;
-        
+
         case 2: //Autre
             bonus_attaque = choix_bonus();
             bonus = capacite_bonus(bonus);
@@ -317,7 +317,7 @@ function degat_type()
             [d, endu_val] = degat_autre(bonus, atq, defe, endu_val);
             break;
     }
-    
+
     finaux = reussite_endurance(endu_de, endu_val, pv, d, shield);
     finaux = Math.trunc(finaux/1.4);
     max = finaux;
@@ -372,7 +372,7 @@ function degat_normaux()
     }else if (pv <100){
         max=80;
     }
-    
+
     if (finaux > max){
         finaux = max;
     }
@@ -386,7 +386,46 @@ function log_ecriture()
 
 function clearAll(){} //Ajouter un bouton d'effacer tous les champs mais NE DOIT PAS EFFACER LES LOGS
 
-function checkError(){} //truc en rouge qui indique quand y'a des erreurs
+
+function test_none(val)
+{
+  //parce que j'ai la flemme de marquer un pavé géant
+  if (((! t) || (t.trim().length === 0))) {
+      return true;
+  }
+  return false;
+}
+
+
+/* function checkError()
+{
+  if ((isNaN(pv_max)) || (isNaN(atq)) || (isNaN(shield)) || (isNaN(valeur_dé_endurance)) || (isNaN(pv_restant)) || (isNaN(bonus_entry)) || (isNaN(de_defense)))
+  {
+    //Les valeurs qui ont un problème deviennent rouges
+    //Affichage du message ("Erreur, les variables ne sont pas numériques")
+  }
+  else if (((test_none(pv_max)) || (test_none(atq)) || (test_none(shield)) || (test_none(val_de_endurance)) || (test_none(pv_restant)) || (test_none(de_defense)))
+  { //Même chose
+  //affiche le message d'erreur "Erreur, les variables sont vides"
+  }
+  else if ( (atq > 10) || (defense > 10) || (endurance_dé > 10) || (bonus_entry > 10))
+  {
+    //Même chose
+    //affiche le message ("Erreur, Certaines valeurs sont supérieures à 10.")
+  }
+  else if ((bonus_entry > 100)||(shield > 100))
+  {
+    //"Certaines valeurs sont supérieures à 100"
+  }
+  else if ((pv_max <=0))
+  {
+    //Les PV sont inférieurs ou égaux à 0.
+  }
+  else if ((pv_restant > pv_max))
+  {
+    //Les pv restants sont supérieurs aux PV maximum.
+  }
+} //truc en rouge qui indique quand y'a des erreurs*/
 
 
 function calculate()
