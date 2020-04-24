@@ -31,69 +31,70 @@
                 </form>
             </div>
             <div class="flex-break"></div>
-            <div id="dés" class="card">
-                <span class="titre-card">Dés</span>
-                <form>
-                    <div class="input-zone">
-                        <label for="des_atk">ATQ</label>
-                        <input type="number" id="des_atk" value="0" min="0" max="10">
-                    </div>
-                    <div class="input-zone">
-                        <label for="des_def">DEF</label>
-                        <input type="number" id="des_def" value="0" min="0" max="10">
-                        <input type="checkbox" id="des_bonus_def">
-                        <label for="des_bonus_def">Bonus</label>
-                    </div>
-                    <div class="input-zone">
-                        <input type="radio" name="des_esquive" value="0" checked="checked">
-                        <label for="dist">Endurance</label>
-                    </div>
-                    <div class="input-zone">
-                        <input type="radio" name="des_esquive" value="1">
-                        <label for="dist">Esquive raté</label>
-                    </div>
+            <div id="attaquant" class="card">
+              <span class="titre-card">Attaquant</span>
+              <form>
+                  <div class="input-zone">
+                      <label for="bonus">Bonus</label>
+                      <select id="arme">
+                          <option value="0">Aucun</option>
+                          <option value="1">Pouvoir</option>
+                          <option value="7">Pistolet</option>
+                          <option value="2">Fusil</option>
+                          <option value="8">Artillerie</option>
+                          <option value="3">Projectile</option>
+                          <option value="6">Couteau</option>
+                          <option value="4">Épée</option>
+                          <option value="5">Contondant</option>
+                          <option value="9">Autre</option>
+                      </select>
+                      <input type="number" id="bonus" value="0" min="0" max="10">
+                  </div>
+                  <div class="input-zone">
+                      <input type="radio" name="atk_type" value="0" checked="checked">
+                      <label for="atk_norm">Attaque normale</label>
+                  </div>
+                  <div class="input-zone">
+                      <input type="radio" name="atk_type" value="1">
+                      <label for="capacite">Capacité</label>
+                      <select id="capacite_type">
+                          <option value="0">Burst</option>
+                          <option value="1">Perforant</option>
+                          <option value="2">Autre</option>
+                      </select>
+                  </div>
+                  <div class="input-zone">
+                      <input type="radio" name="dist_atk" value="0" checked="checked">
+                      <label for="cac">Corps-à-corps</label>
+                      <input type="radio" name="dist_atk" value="1">
+                      <label for="dist">Distance</label>
+                  </div>
+              </form>
                 </form>
             </div>
         </div>
         <div class="flex-column">
-            <div id="attaquant" class="card">
-                <span class="titre-card">Attaquant</span>
-                <form>
-                    <div class="input-zone">
-                        <label for="bonus">Bonus</label>
-                        <select id="arme">
-                            <option value="0">Aucun</option>
-                            <option value="1">Pouvoir</option>
-                            <option value="7">Pistolet</option>
-                            <option value="2">Fusil</option>
-                            <option value="8">Artillerie</option>
-                            <option value="3">Projectile</option>
-                            <option value="6">Couteau</option>
-                            <option value="4">Épée</option>
-                            <option value="5">Contondant</option>
-                            <option value="9">Autre</option>
-                        </select>
-                        <input type="number" id="bonus" value="0" min="0" max="10">
-                    </div>
-                    <div class="input-zone">
-                        <input type="radio" name="atk_type" value="0" checked="checked">
-                        <label for="atk_norm">Attaque normale</label>
-                    </div>
-                    <div class="input-zone">
-                        <input type="radio" name="atk_type" value="1">
-                        <label for="capacite">Capacité</label>
-                        <select id="capacite_type">
-                            <option value="0">Burst</option>
-                            <option value="1">Perforant</option>
-                            <option value="2">Autre</option>
-                        </select>
-                    </div>
-                    <div class="input-zone">
-                        <input type="radio" name="dist_atk" value="0" checked="checked">
-                        <label for="cac">Corps-à-corps</label>
-                        <input type="radio" name="dist_atk" value="1">
-                        <label for="dist">Distance</label>
-                    </div>
+            <div id="dés" class="card">
+              <span class="titre-card">Dés</span>
+              <form>
+                  <div class="input-zone">
+                      <label for="des_atk">ATQ</label>
+                      <input type="number" id="des_atk" value="0" min="0" max="10">
+                  </div>
+                  <div class="input-zone">
+                      <label for="des_def">DEF</label>
+                      <input type="number" id="des_def" value="0" min="0" max="10">
+                      <input type="checkbox" id="des_bonus_def">
+                      <label for="des_bonus_def">Bonus</label>
+                  </div>
+                  <div class="input-zone">
+                      <input type="radio" name="des_esquive" value="0" checked="checked">
+                      <label for="dist">Endurance</label>
+                  </div>
+                  <div class="input-zone">
+                      <input type="radio" name="des_esquive" value="1">
+                      <label for="dist">Esquive raté</label>
+                  </div>
                 </form>
             </div>
         </div>
