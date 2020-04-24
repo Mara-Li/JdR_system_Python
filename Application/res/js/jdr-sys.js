@@ -128,7 +128,7 @@ function reussite_endurance(endu_de, endu_val, pv, d, shield){
     var finaux;
     var d = Math.abs(Math.trunc(d * pv));
     var bouclier = Math.abs(Math.trunc(d * (1 - shield))); //au besoin, placé des int pour convertir les valeurs
-    var remise = elem_inputs.bonus.checked; //checkbox "bonus"
+    var remise = elem_inputs.des_bonus_def.checked; //checkbox "bonus"
 
     if (remise){ //est check
         if ((endu_de > endu_val) || (endu_de == endu_val)){
@@ -267,6 +267,7 @@ function degat_autre(bonus, atq, defe, endu_val){
 
 function degat_type()
 {
+    var remise = elem_inputs.des_bonus_def.checked;
     var bonus_attaque, bonus_type, d, endu_de, finaux, max;
     var bonus = parseInt(elem_inputs.bonus.value); //valeur du champ "bonus"
     var pv = parseInt(elem_inputs.pv_max.value); //valeur du champ PV au départ
@@ -282,8 +283,26 @@ function degat_type()
             endu_de = defe;
             break;
         case 1: //Esquive raté
-            endu_val = 0;
-            endu_de = 10;
+        if (remise) {
+          if (defe < (atq/2)){
+            defe=0;
+            endu_de=0;
+          }
+          else {
+            endu_val=0;
+            endu_de=10;
+          }
+        }
+          else {
+            if (defe <= (atq/2)){
+              defe=0;
+              endu_de=0;
+            }
+            else {
+              endu_val=0;
+              endu_de=10;
+            }
+          }
             break;
     }
 
@@ -336,6 +355,7 @@ function degat_type()
 
 function degat_normaux()
 {
+    var remise = elem_inputs.des_bonus_def.checked;
     var d, endu_de, finaux, max;
     var bonus = choix_bonus();
     var bonus = (bonus/100);
@@ -346,11 +366,32 @@ function degat_normaux()
     var shield = parseInt(elem_inputs.bouclier.value)/100; //valeur du champ "bouclier"
     d=calculate_degat(bonus, atq, defe);
     sel_def = parseInt(elem_inputs.des_esquive.value); //insérer le nom qui correspond
-    if (!sel_def){ //Endurance (valeur = 0)
+    if (!sel_def)
+    { //Endurance (valeur = 0)
         endu_de=defe;
-    }else{ //Esquive raté (valeur = 1)
-        endu_val=0;
-        endu_de=10;
+    }
+    else
+    { //Esquive & test (valeur = 1)
+        if (remise) {
+          if (defe < (atq/2)){
+            defe=0;
+            endu_de=0;
+          }
+          else {
+            endu_val=0;
+            endu_de=10;
+          }
+        }
+          else {
+            if (defe <= (atq/2)){
+              defe=0;
+              endu_de=0;
+            }
+            else {
+              endu_val=0;
+              endu_de=10;
+            }
+          }
     }
 
     if (atq == 0){

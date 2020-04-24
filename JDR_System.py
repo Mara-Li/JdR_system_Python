@@ -262,8 +262,20 @@ def degat_types():
     if sel_def.get()==1:
         endu_de=DEFE
     else:
-        endu_val = 0
-        endu_de = 10
+        if remise_var.get() == 0:
+            if DEFE <= ATQ / 2:
+                DEFE = 0
+                endu_de = 0
+            else:
+                endu_val = 0
+                endu_de = 10
+        else:
+            if DEFE < ATQ / 2:
+                DEFE = 0
+                endu_de = 0
+            else:
+                endu_val = 0
+                endu_de = 10
     SHIELD = int( shield_field.get( ) ) / 100
 
     if type_capa.get( ) == 'Burst' :
@@ -320,8 +332,21 @@ def degat_normaux():
     if sel_def.get() == 1 :
         endu_de = DEFE
     else :
-        endu_val = 0
-        endu_de=10
+        if remise_var.get()==0:
+            if DEFE <= ATQ/2 :
+                DEFE=0
+                endu_de=0
+            else:
+                endu_val=0
+                endu_de=10
+        else:
+            if DEFE < ATQ/2 :
+                DEFE=0
+                endu_de=0
+            else:
+                endu_val=0
+                endu_de=10
+
     # Calcul des dégâts
     if ATQ == 0 :  # UltraCC de PJ
         # Un ultra CC outrepasse TOUTES les défense de l'adversaire, Bouclier et défense compris.
@@ -380,11 +405,20 @@ def log_ecriture():
     if defense==1:
         defense='Endurance'
     else:
-        defense='Esquive ratée'
+        if remise_var.get()==1:
+            if int(DEFE) < int(int(ATQ)/2):
+                defense='Esquive réussie'
+            else:
+                defense='Esquive raté'
+        else:
+            if int(DEFE) <= int(int(ATQ)/2):
+                defense='Esquive réussie'
+            else:
+                defense='Esquive ratée'
     if remise_var.get()==1:
-        remise="REMISE UTILISE"
+        remise="UTILISE"
     else:
-        remise=''
+        remise='NON UTILISE'
 
     log_file.write ( '=================\n' )
     log_file.write ( selection_type + '\n' )
@@ -402,7 +436,7 @@ def log_ecriture():
     log_file.write ( 'DES\n' )
     log_file.write ( 'ATQ : ' + ATQ + '\n' )
     log_file.write ( 'DEF : ' + DEFE + '\n' )
-    log_file.write ('REMISE' + '\n')
+    log_file.write ('REMISE : ' + remise + '\n')
     log_file.write ( 'TYPE DE DEFENSE : ' + defense + '\n' )
     log_file.write ( '\n' )
     log_file.write ( 'RESULTAT\n' )
