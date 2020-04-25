@@ -75,3 +75,12 @@ input[type="number"] {
 #res_pv, #res_deg{
     font-family: 'Pangolin', cursive;
 }
+
+#log{
+    width: 90%;
+}
+
+#log_box{
+    max-height: 10em;
+    overflow: auto;
+}

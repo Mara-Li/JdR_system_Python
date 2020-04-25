@@ -5,11 +5,11 @@
 *  arme -> 0 pour aucun, 1 pour pouvoir, 2 fusil, 3 projectile, 4 épée,
 *          5 contondant, 6 couteau, 7 pistolet, 8 artillerie, 9 autre
 *
-*  atk_type -> 0 pour atk normale, 1 pour capacité
+*  atq_type -> 0 pour atq normale, 1 pour capacité
 *
 *  capacite_type -> 0 pour Burst, 1 perforant, 2 autre
 *
-*  dist_atk -> 0 pour cac, 1 distance
+*  dist_atq -> 0 pour cac, 1 distance
 */
 
 const elemIDs = [
@@ -17,20 +17,21 @@ const elemIDs = [
     "pv_reste",
     "bouclier",
     "endurance",
-    "des_atk",
+    "des_atq",
     "des_def",
     "arme",
     "bonus",
     "capacite_type",
     "des_bonus_def",
     "res_deg",
-    "res_pv"
+    "res_pv",
+    "log_box"
 ];
 
 const radioGroupsName = [
     "des_esquive",
-    "atk_type",
-    "dist_atk"
+    "atq_type",
+    "dist_atq"
 ]
 
 class Elements_getter{
@@ -66,12 +67,13 @@ class Elements_getter{
     }
 }
 
+
 var elem_inputs = new Elements_getter(elemIDs, radioGroupsName);
 
 function calculate(){
     //test check des erreurs
     elem_inputs.refresh();
-    selection = parseInt(elem_inputs.atk_type.value); //valeur si on choisit une attaque normale ou une Capacité
+    selection = parseInt(elem_inputs.atq_type.value); //valeur si on choisit une attaque normale ou une Capacité
     if (selection == 0){ //est checké ? egale à 1 ?  égale à "Attaque normale" ?)
         degat_normaux();
     }else {
@@ -86,7 +88,7 @@ function degat_normaux(){
     var bonus = choix_bonus();
     var bonus = (bonus/100);
     var pv = parseInt(elem_inputs.pv_max.value); //champ pv du programme
-    var atq = parseInt(elem_inputs.des_atk.value); //champ attaque dans dé
+    var atq = parseInt(elem_inputs.des_atq.value); //champ attaque dans dé
     var defe = parseInt(elem_inputs.des_def.value); //champ défense dans dé
     var endu_val = parseInt(elem_inputs.endurance.value); //valeur de l'endurance dans les stats
     var shield = parseInt(elem_inputs.bouclier.value)/100; //valeur du champ "bouclier"
@@ -147,7 +149,7 @@ function degat_type(){
     var bonus_attaque, bonus_type, d, endu_de, finaux, max;
     var bonus = parseInt(elem_inputs.bonus.value); //valeur du champ "bonus"
     var pv = parseInt(elem_inputs.pv_max.value); //valeur du champ PV au départ
-    var atq = parseInt(elem_inputs.des_atk.value); //valeur du dés d'Attaque
+    var atq = parseInt(elem_inputs.des_atq.value); //valeur du dés d'Attaque
     var defe = parseInt(elem_inputs.des_def.value); //valeur du dé de défense
     var sel_defe = parseInt(elem_inputs.des_esquive.value); //type de défense - valeur dans dés [Endurance ou Esquive raté]
     var type_capa = parseInt(elem_inputs.capacite_type.value); //Valeur de la spinbox dans capacité ["Burst", "Autre", "Perforante"]
@@ -231,7 +233,7 @@ function choix_bonus(){
     var b;
     var bonus = parseInt(elem_inputs.arme.value);
     var bonus_val = parseInt(elem_inputs.bonus.value);
-    var dist = parseInt(elem_inputs.dist_atk.value); //récupération du bouton distance sur la boite bonus
+    var dist = parseInt(elem_inputs.dist_atq.value); //récupération du bouton distance sur la boite bonus
     switch (bonus) {
         case 0: //Aucun
             b = 0;
@@ -306,7 +308,7 @@ function reussite_endurance(endu_de, endu_val, pv, d, shield){
 
 
 function capacite_bonus(bonus){
-    var atq = parseInt(elem_inputs.des_atk.value) //valeur dé champ Attaque
+    var atq = parseInt(elem_inputs.des_atq.value) //valeur dé champ Attaque
     if (atq==0){
         bonus = bonus * 1.8;
     }else if (atq == 1){
