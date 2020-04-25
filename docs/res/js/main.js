@@ -1,5 +1,13 @@
+window.onkeydown = function(evt){
+  evt = evt || window.event;
+  if(evt.keyCode == 13){
+    calculate()
+  }
+}
+
 window.onload = function() {
     elem_inputs.refresh();
+    capa_toggle(elem_inputs.atk_type);
     elem_inputs.pv_max["old_value"] = elem_inputs.pv_max.valueAsNumber;
 
     elem_inputs.pv_max.onchange = function() {
@@ -10,20 +18,29 @@ window.onload = function() {
             elem_inputs.pv_reste.valueAsNumber += this.valueAsNumber - this.old_value;
         }
         this.old_value = this.valueAsNumber;
-        elem_inputs.pv_reste.onchange()
+        elem_inputs.pv_reste.onchange();
     }
 
     elem_inputs.pv_reste.onchange = function() {
+        this.max = elem_inputs.pv_max.valueAsNumber;
         if(this.valueAsNumber >= elem_inputs.pv_max.valueAsNumber){
-            this.valueAsNumber = elem_inputs.pv_max.valueAsNumber
+            this.valueAsNumber = elem_inputs.pv_max.valueAsNumber;
         }
         if(this.valueAsNumber <= 0){
             this.valueAsNumber = 0;
         }
         if(isNaN(this.valueAsNumber)){
-            this.valueAsNumber = elem_inputs.pv_max.valueAsNumber
+            this.valueAsNumber = elem_inputs.pv_max.valueAsNumber;
         }
     }
+}
+
+function capa_toggle(elem){
+  if(parseInt(elem.value)){
+    elem_inputs.capacite_type.disabled = false;
+  }else{
+    elem_inputs.capacite_type.disabled = true;
+  }
 }
 
 function log_ecriture(){

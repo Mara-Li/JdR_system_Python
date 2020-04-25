@@ -2,9 +2,6 @@
 
 ### TO DO :
 - Ecriture des logs dans la zone dédié
-- Grisage des spinbox (IMPORTANT)
-- Faire en sorte qu'entrée lance le programme
-- Permettre de lancer le programme avec "ENTER"
 
 
 # HTML/CSS code:
