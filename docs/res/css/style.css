@@ -74,7 +74,7 @@ input[type="number"] {
     margin: 3% auto;
     padding: 2%;
     display: flex;
-    text-align: justify;
+    justify-content: center;
 }
 
 .input-zone{
