@@ -168,9 +168,9 @@ function createLogFromActualInput(){
 
   function clearAll(){} //Ajouter un bouton d'effacer tous les champs mais NE DOIT PAS EFFACER LES LOGS
 
-  function test_none(val){
-    //parce que j'ai la flemme de marquer un pavé géant
-    if (((! t) || (t.trim().length == 0))) {
+  function test_none(t){
+    lg=t.trim();
+    if (((! t) || (lg.length == 0))) {
       return true;
     }
     return false;
@@ -178,56 +178,68 @@ function createLogFromActualInput(){
 
    function checkError()
   {
-    var pv_max=parseInt(elem_inputs.pv_max.value);
-    var atq = parseInt(elem_inputs.des_atq.value);
-    var shield = parseInt(elem_inputs.bouclier.value);
-    var dice_endurance=parseInt(elem_inputs.endurance.value);
-    var pv_restant=parseInt(elem_inputs.pv_reste.value);
-    var bonus_entry=parseInt(elem_inputs.bonus.value);
-    var defense=parseInt(elem_inputs.des_def.value);
+    var pv_max=elem_inputs.pv_max.value;
+    var atq = elem_inputs.des_atq.value;
+    var shield =elem_inputs.bouclier.value;
+    var dice_endurance=elem_inputs.endurance.value;
+    var pv_restant=elem_inputs.pv_reste.value;
+    var bonus_entry=elem_inputs.bonus.value;
+    var defense=elem_inputs.des_def.value;
+
+    var int_pv_max=parseInt(pv_max);
+    var int_atq=parseInt(atq);
+    var int_shield=parseInt(shield);
+    var int_dice_endu=parseInt(dice_endurance);
+    var int_pv_restant=parseInt(pv_restant);
+    var int_bonus=parseInt(bonus);
+    var int_defense=parseInt(defense);
+
+
     if ((isNaN(pv_max)) || (isNaN(atq)) || (isNaN(shield)) || (isNaN(dice_endurance)) || (isNaN(pv_restant)) || (isNaN(bonus_entry)) || (isNaN(defense)))
     {
-      pv_max.style.color="#841A15";
-      atq.style.color="#841A15";
-      shield.style.color="#841A15";
-      dice_endurance.style.color="#841A15";
-      pv_restant.style.color="#841A15";
-      bonus_entry.style.color="#841A15";
-      defense.style.color="#841A15";
-      element_inputs.res_deg.innerHTML='Erreur, les variables ne sont pas numériques';
+      elem_inputs.pv_max.style.color="#841A15";
+      elem_inputs.des_atq.style.color="#841A15";
+      elem_inputs.bouclier.style.color="#841A15";
+      elem_inputs.endurance.style.color="#841A15";
+      elem_inputs.pv_reste.style.color="#841A15";
+      elem_inputs.bonus.style.color="#841A15";
+      elem_inputs.des_def.style.color="#841A15";
+      elem_inputs.res_deg.innerHTML='Erreur, les variables ne sont pas numériques';
     }
-    else if (((test_none(pv_max)) || (test_none(atq)) || (test_none(shield)) || (test_none(dice_endurance)) || (test_none(pv_restant)) || (test_none(defense)))
-    { pv_max.style.color="#841A15";
-    atq.style.color="#841A15";
-    shield.style.color="#841A15";
-    dice_endurance.style.color="#841A15";
-    pv_restant.style.color="#841A15";
-    bonus_entry.style.color="#841A15";
-    defense.style.color="#841A15";
-    element_inputs.res_deg.innerHTML='Erreur, les variables sont vides';
-    }
-    else if ( (atq > 10) || (defense > 10) || (dice_endurance > 10) || (bonus_entry > 10))
+    else if (((test_none(pv_max)) || (test_none(atq)) || (test_none(shield)) || (test_none(dice_endurance)) || (test_none(pv_restant)) || (test_none(defense))))
     {
-        atq.style.color="#841A15";
-        defense.style.color="#841A15";
-        dice_endurance.style.color="#841A15";
-        bonus_entry.style.color="#841A15";
-      element_inputs.res_deg.innerHTML='Erreur, certaines variables sont supérieures à 10.';
+      elem_inputs.pv_max.style.color="#841A15";
+      elem_inputs.des_atq.style.color="#841A15";
+      elem_inputs.bouclier.style.color="#841A15";
+      elem_inputs.endurance.style.color="#841A15";
+      elem_inputs.pv_reste.style.color="#841A15";
+      elem_inputs.bonus.style.color="#841A15";
+      elem_inputs.des_def.style.color="#841A15";
+      elem_inputs.res_deg.innerHTML='Erreur, les variables sont vides';
     }
-    else if ((bonus_entry > 100)||(shield > 100))
+    else if ( (int_atq > 10) || (int_defense > 10) || (int_dice_endu > 10) || (int_bonus > 10))
     {
-      shield.style.color="#841A15";
-      bonus_entry.style.color="#841A15";
-      element_inputs.res_deg.innerHTML='Erreur, certaines variables sont supérieures à 100.';
+      elem_inputs.des_atq.style.color="#841A15";
+      elem_inputs.des_def.style.color="#841A15";
+      elem_inputs.endurance.style.color="#841A15";
+      elem_inputs.bonus.style.color="#841A15"
+      elem_inputs.res_deg.innerHTML='Erreur, certaines variables sont supérieures à 10.';
     }
-    else if ((pv_max <=0))
+    else if ((int_bonus >= 100)||(int_shield >= 100))
     {
-      pv_max.style.color="#841A15";
-      element_inputs.res_deg.innerHTML='Erreur, les pv max sont inférieur ou égal à 0';
+      elem_inputs.bonus.style.color="#841A15";
+      elem_inputs.bouclier.style.color="#841A15";
+      elem_inputs.res_deg.innerHTML='Erreur, certaines variables sont supérieures à 100.';
+    }
+    else if ((int_pv_max <=0))
+    {
+      elem_inputs.pv_max.style.color="#841A15";
+      elem_inputs.res_deg.innerHTML='Erreur, les pv max sont inférieur ou égal à 0';
+      elem_inputs.res_deg.style.color="#841A15";
     }
     else if ((pv_restant > pv_max))
     {
-      pv_restant.style.color="#841A15";
-      element_inputs.res_deg.innerHTML='Erreur, les pv restant sont supérieurs au pv max';
+      elem_inputs.pv_reste.style.color="#841A15";
+      elem_inputs.res_deg.innerHTML='Erreur, les pv restant sont supérieurs au pv max';
     }
   }
