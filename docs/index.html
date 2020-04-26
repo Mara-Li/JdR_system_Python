@@ -57,7 +57,7 @@
                       <label for="atq_norm">Attaque normale</label>
                   </div>
                   <div class="input-zone">
-                      <input type="radio" name="atq_type" value="1" onclick="capa_toggle(this)">
+                      <input type="radio" id="capa" name="atq_type" value="1" onclick="capa_toggle(this)">
                       <label for="capacite">Capacité</label>
                       <select id="capacite_type">
                           <option value="0">Burst</option>
@@ -103,12 +103,16 @@
         <div id="submit" class="card">
             <span class="titre-card">Résultat</span>
             <div class="input-zone">
-                <input type="button" value="Calculer !" onclick="calculate()">
+
             </div>
-            <label for="res_deg">Dégats finaux :</label>
-            <span id="res_deg">░</span><br>
+            <p>
+            <label for="res_deg">Dégats finaux : </label>
+            <span id="res_deg">░</span>
+            <br>
             <label for="res_pv">PV restant :</label>
             <span id="res_pv">░</span>
+            <input type="button" value="📲" onclick="calculate()">
+          </p>
         </div>
         <div class="flex-break"></div>
         <div id="log" class="card">
