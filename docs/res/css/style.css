@@ -107,6 +107,13 @@ label[for=bonus] {
     display:flex;
     text-align: center;
 }
+.titre-card-resultat{
+    color: teal;
+    font-size: 1.5em;
+    font-family: 'Concert One', cursive;
+    display:flex;
+    text-align: center;
+}
 
 #submit{
     width: 90%;
