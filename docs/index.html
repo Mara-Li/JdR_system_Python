@@ -24,11 +24,11 @@
                     </div>
                     <div class="input-zone">
                         <label for="bouclier">Bouclier</label>
-                        <input type="number" id="bouclier" value="0"  min="0" max="99">
+                        <input type="number" id="bouclier" value="0"  min="0" max="100">
                     </div>
                     <div class="input-zone">
                         <label for="endurance">Endurance</label>
-                        <input type="number" id="endurance" value="0"  min="0" max="99">
+                        <input type="number" id="endurance" value="0"  min="0" max="10">
                     </div>
                 </form>
             </div>
@@ -50,7 +50,7 @@
                           <option value="5">Contondant</option>
                           <option value="9">Autre</option>
                       </select>
-                      <input type="number" id="bonus" value="0" min="0">
+                      <input type="number" id="bonus" value="0" min="0" max="100">
                   </div>
                   <div class="input-zone">
                       <input type="radio" name="atq_type" value="0" checked="checked" onclick="capa_toggle(this)">
@@ -106,9 +106,9 @@
                 <input type="button" value="Calculer !" onclick="calculate()">
             </div>
             <label for="res_deg">Dégats finaux :</label>
-            <span id="res_deg">NaN</span><br>
+            <span id="res_deg">░</span><br>
             <label for="res_pv">PV restant :</label>
-            <span id="res_pv">NaN</span>
+            <span id="res_pv">░</span>
         </div>
         <div class="flex-break"></div>
         <div id="log" class="card">

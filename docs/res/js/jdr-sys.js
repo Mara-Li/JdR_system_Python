@@ -98,19 +98,21 @@ function degat_normaux(){
         endu_de=defe;
     }else{ //Esquive & test (valeur = 1)
         if (remise) {
-            if (defe < (atq/2)){
+            if (defe < (atq/2)){ //esquive réussi : Pas de dégât
                 defe=0;
                 endu_de=0;
-            }else {
+            }else { //esquive raté
                 endu_val=0;
                 endu_de=10;
+
+
             }
         }else {
-            if (defe <= (atq/2)){
+            if (defe <= (atq/2)){ //esquive réussi : pas de dégât
                 defe=0;
                 endu_de=0;
             }
-            else {
+            else { //esquive raté
                 endu_val=0;
                 endu_de=10;
             }
@@ -160,7 +162,7 @@ function degat_type(){
         case 0: //Endurance
             endu_de = defe;
             break;
-        case 1: //Esquive raté
+        case 1: //Esquive
         if (remise) {
           if (defe < (atq/2)){
             defe=0;
@@ -271,6 +273,9 @@ function choix_bonus(){
         case 9: //Autre
             b = bonus_val;
             break;
+    }
+    if (b>=100) {
+      b=100;
     }
     return b;
 }
@@ -409,9 +414,33 @@ function degat_autre(bonus, atq, defe, endu_val){
     return [d, endu_val];
 }
 
+function phrase_esquive(finaux){
+  var remise = elem_inputs.des_bonus_def.checked;
+  var atq = parseInt(elem_inputs.des_atq.value); //champ attaque dans dé
+  var defe = parseInt(elem_inputs.des_def.value); //champ défense dans dé
+  sel_def = parseInt(elem_inputs.des_esquive.value);
+  if (sel_def){
+    if (remise){
+      if (defe < (atq/2)){
+        finaux='Esquive réussie';
+      }
+    }
+    else {
+      if (defe <= (atq/2)){
+        finaux='Esquive réussie';
+      }
+    }
+  }
+  return finaux;
+
+}
 
 function vie_restante(finaux){
     var vie = parseInt(elem_inputs.pv_reste.value) - finaux; //champ pv restant
+    finaux=phrase_esquive(finaux)
+    if (isNaN(finaux)){
+      vie=elem_inputs.pv_max.value;
+    }
     elem_inputs.res_deg.innerHTML = finaux;
     elem_inputs.pv_reste.value = (vie <= 0 || isNaN(vie)) ? 0 : vie;
     elem_inputs.res_pv.innerHTML = (vie <= 0 || isNaN(vie)) ? "X" : vie;
