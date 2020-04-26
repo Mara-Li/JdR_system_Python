@@ -106,7 +106,15 @@ label[for=bonus] {
     font-family: 'Concert One', cursive;
     display:flex;
     text-align: center;
+    flex:2;
+    justify-content: center;
 }
+
+form {
+
+  flex:3;
+}
+
 .titre-card-resultat{
     color: teal;
     font-size: 1.5em;
@@ -145,6 +153,7 @@ input[type="button"]{
 
 #log{
     width: 90%;
+
 }
 
 #log_box{
