@@ -16,22 +16,22 @@ class LogObject{
     this.pv_reste = parseInt(pv_reste);
     this.date = date;
   }
-  
+
   formatDate(date){
     return "jj/mm/aaaa a HHhMM".replace("jj", this.formatNumber(date.getDate())).replace("mm", this.formatNumber(date.getMonth()+1))
       .replace("aaaa", this.formatNumber(date.getFullYear())).replace("HH", this.formatNumber(date.getHours()))
       .replace("MM", this.formatNumber(date.getMinutes()));
   }
-  
+
   formatNumber(num){
     if(num < 10){
       return "0" + num.toString();
     }
     return num.toString();
   }
-  
+
   defToStr() {
-    var res = 
+    var res =
     "Defenseur:\n"+
     "- Pv max: {pv_max}\n"+
     "- Bouclier: {bouclier}\n"+
@@ -39,33 +39,33 @@ class LogObject{
     return res.replace("{pv_max}", this.pv_max)
       .replace("{bouclier}", this.bouclier)
       .replace("{endurance}", this.endurance);
-  } 
-  
+  }
+
   atqToStr(){
-    var res = 
+    var res =
     "Attaquant:\n"+
     "- Bonus: {bonus}\n"+
     "- Valeur du bonus: {val_bonus}\n"+
     "- {atq_type}\n"+
     "- {dist}\n";
-    
+
     if(!this.atq_type){
       res = res.replace("{atq_type}", "Attaque normale");
     }else{
       res = res.replace("{atq_type}", "Capacité: {capa_type}");
     }
-    
+
     if(!this.dist){
       res = res.replace("{dist}", "Corps-à-corps");
     }else{
       res = res.replace("{dist}", "Distance");
     }
-    
+
     return res.replace("{bonus}", this.bonus)
       .replace("{val_bonus}", this.val_bonus)
       .replace("{capa_type}", this.capa_type);
   }
-  
+
   desToStr(){
     var res =
     "Des:\n"+
@@ -78,27 +78,27 @@ class LogObject{
     }else{
       res = res.replace("{remise}", "Non");
     }
-    
+
     if(!this.des_esquive){
       res = res.replace("{des_esquive}", "Endurance");
     }else{
       res = res.replace("{des_esquive}", "Esquive");
     }
-    
+
     return res.replace("{des_atq}", this.des_atq)
       .replace("{des_def}", this.des_def);
   }
-  
+
   resToStr(){
     var res =
     "Resultats:\n"+
     "- Degats: {res_deg}\n"+
     "- Pv restants: {pv_reste}\n";
-    
+
     return res.replace("{res_deg}", this.res_deg)
       .replace("{pv_reste}", this.pv_reste)
   }
-  
+
   toString(){
     return this.formatDate(this.date)+"\n\n"+
       this.defToStr()+"\n"+this.atqToStr()+"\n"+
@@ -115,21 +115,21 @@ function createLogFromActualInput(){
     elem_inputs.des_bonus_def.checked, elem_inputs.des_esquive.value, parseInt(elem_inputs.res_deg.innerText),
     elem_inputs.pv_reste.valueAsNumber, new Date())
   }
-  
+
   window.onkeydown = function(evt){
     evt = evt || window.event;
     if(evt.keyCode == 13){
       calculate()
     }
   }
-  
+
   window.onload = function() {
     elem_inputs.refresh();
     capa_toggle(elem_inputs.atq_type);
     elem_inputs.pv_max["old_value"] = elem_inputs.pv_max.valueAsNumber;
-    
+
     elem_inputs.pv_max.onchange = function() {
-      
+
       if(this.old_value > this.valueAsNumber){
         elem_inputs.pv_reste.valueAsNumber -= this.old_value - this.valueAsNumber;
       }else if(this.old_value < this.value){
@@ -138,7 +138,7 @@ function createLogFromActualInput(){
       this.old_value = this.valueAsNumber;
       elem_inputs.pv_reste.onchange();
     }
-    
+
     elem_inputs.pv_reste.onchange = function() {
       this.max = elem_inputs.pv_max.valueAsNumber;
       if(this.valueAsNumber >= elem_inputs.pv_max.valueAsNumber){
@@ -152,7 +152,7 @@ function createLogFromActualInput(){
       }
     }
   }
-  
+
   function capa_toggle(elem){
     if(parseInt(elem.value)){
       elem_inputs.capacite_type.disabled = false;
@@ -160,14 +160,14 @@ function createLogFromActualInput(){
       elem_inputs.capacite_type.disabled = true;
     }
   }
-  
+
   function log_ecriture(){
-    
+
   } //A faire plus tard quand le cadre aura été fait, partie 2 du programme
   //s'efface quand on actualise !
-  
+
   function clearAll(){} //Ajouter un bouton d'effacer tous les champs mais NE DOIT PAS EFFACER LES LOGS
-  
+
   function test_none(val){
     //parce que j'ai la flemme de marquer un pavé géant
     if (((! t) || (t.trim().length == 0))) {
@@ -175,34 +175,59 @@ function createLogFromActualInput(){
     }
     return false;
   }
-  
-  /* function checkError()
+
+   function checkError()
   {
-    if ((isNaN(pv_max)) || (isNaN(atq)) || (isNaN(shield)) || (isNaN(valeur_dé_endurance)) || (isNaN(pv_restant)) || (isNaN(bonus_entry)) || (isNaN(de_defense)))
+    var pv_max=parseInt(elem_inputs.pv_max.value);
+    var atq = parseInt(elem_inputs.des_atq.value);
+    var shield = parseInt(elem_inputs.bouclier.value);
+    var dice_endurance=parseInt(elem_inputs.endurance.value);
+    var pv_restant=parseInt(elem_inputs.pv_reste.value);
+    var bonus_entry=parseInt(elem_inputs.bonus.value);
+    var defense=parseInt(elem_inputs.des_def.value);
+    if ((isNaN(pv_max)) || (isNaN(atq)) || (isNaN(shield)) || (isNaN(dice_endurance)) || (isNaN(pv_restant)) || (isNaN(bonus_entry)) || (isNaN(defense)))
     {
-      //Les valeurs qui ont un problème deviennent rouges
-      //Affichage du message ("Erreur, les variables ne sont pas numériques")
+      pv_max.style.color="#841A15";
+      atq.style.color="#841A15";
+      shield.style.color="#841A15";
+      dice_endurance.style.color="#841A15";
+      pv_restant.style.color="#841A15";
+      bonus_entry.style.color="#841A15";
+      defense.style.color="#841A15";
+      element_inputs.res_deg.innerHTML='Erreur, les variables ne sont pas numériques';
     }
-    else if (((test_none(pv_max)) || (test_none(atq)) || (test_none(shield)) || (test_none(val_de_endurance)) || (test_none(pv_restant)) || (test_none(de_defense)))
-    { //Même chose
-      //affiche le message d'erreur "Erreur, les variables sont vides"
+    else if (((test_none(pv_max)) || (test_none(atq)) || (test_none(shield)) || (test_none(dice_endurance)) || (test_none(pv_restant)) || (test_none(defense)))
+    { pv_max.style.color="#841A15";
+    atq.style.color="#841A15";
+    shield.style.color="#841A15";
+    dice_endurance.style.color="#841A15";
+    pv_restant.style.color="#841A15";
+    bonus_entry.style.color="#841A15";
+    defense.style.color="#841A15";
+    element_inputs.res_deg.innerHTML='Erreur, les variables sont vides';
     }
-    else if ( (atq > 10) || (defense > 10) || (endurance_dé > 10) || (bonus_entry > 10))
+    else if ( (atq > 10) || (defense > 10) || (dice_endurance > 10) || (bonus_entry > 10))
     {
-      //Même chose
-      //affiche le message ("Erreur, Certaines valeurs sont supérieures à 10.")
+        atq.style.color="#841A15";
+        defense.style.color="#841A15";
+        dice_endurance.style.color="#841A15";
+        bonus_entry.style.color="#841A15";
+      element_inputs.res_deg.innerHTML='Erreur, certaines variables sont supérieures à 10.';
     }
     else if ((bonus_entry > 100)||(shield > 100))
     {
-      //"Certaines valeurs sont supérieures à 100"
+      shield.style.color="#841A15";
+      bonus_entry.style.color="#841A15";
+      element_inputs.res_deg.innerHTML='Erreur, certaines variables sont supérieures à 100.';
     }
     else if ((pv_max <=0))
     {
-      //Les PV sont inférieurs ou égaux à 0.
+      pv_max.style.color="#841A15";
+      element_inputs.res_deg.innerHTML='Erreur, les pv max sont inférieur ou égal à 0';
     }
     else if ((pv_restant > pv_max))
     {
-      //Les pv restants sont supérieurs aux PV maximum.
+      pv_restant.style.color="#841A15";
+      element_inputs.res_deg.innerHTML='Erreur, les pv restant sont supérieurs au pv max';
     }
-  } //truc en rouge qui indique quand y'a des erreurs*/
-  
+  }
