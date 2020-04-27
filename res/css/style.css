@@ -11,6 +11,22 @@ body{
     font-family: 'Josefin Sans', sans-serif;
 }
 
+header.page-header {
+    display: block;
+    height: 120px;
+    min-width: 120px;
+    color: #fff;
+    text-shadow: #000 0 0 .2em;
+    justify-content: center;
+    text-align: center;
+}
+
+header.page-header > h1 {
+    font: bold calc(1em + 2 * (100vw - 120px) / 100)
+    font-family: 'Josefin Sans', sans-sans-serif;
+    margin: 2%;
+}
+
 @media only screen and (max-width: 800px) {
     .flex-column{
         width: 95%;
@@ -32,6 +48,18 @@ body{
         max-width: 80%;
     }
 }
+
+
+header {
+  display:block;
+  padding: 60px;
+  text-align: center;
+  background: #1abc9c;
+  color: blue;
+  font-size: 30px;
+}
+
+
 
 #endurance {
   width:100px;
@@ -105,9 +133,9 @@ label[for=bonus] {
     font-size: 1.5em;
     font-family: 'Concert One', cursive;
     display:flex;
-    text-align: center;
-    flex:2;
+    flex:1;
     justify-content: center;
+    align-items: center;
 }
 
 form {
