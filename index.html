@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="res/css/style.css">
+        <script src="res/js/jdr-sys.js"></script>
+        <script src="res/js/main.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/png" href="res/logo.png" />
+        <title>Système JdR</title>
+    </head>
+    <body>
+      <div class="flex-break">
+      <header>
+        <h1> coucou </h1>
+        <p> coucou </p>
+      </header>
+    </div>
+        <div class="flex-column">
+            <div id="defense" class="card">
+                <span class="titre-card">Defenseur</span>
+                <form>
+                    <div class="input-zone">
+                        <label for="pv_max">PV (max)</label>
+                        <input type="number" id="pv_max" value="100"  min="0">
+                    </div>
+                    <div class="input-zone">
+                        <label for="pv_reste">PV (restant)</label>
+                        <input type="number" id="pv_reste" value="100" min="0">
+                    </div>
+                    <div class="input-zone">
+                        <label for="bouclier">Bouclier</label>
+                        <input type="number" id="bouclier" value="0"  min="0" max="100">
+                    </div>
+                    <div class="input-zone">
+                        <label for="endurance">Endurance</label>
+                        <input type="number" id="endurance" value="0"  min="0" max="10">
+                    </div>
+                </form>
+            </div>
+            <div class="flex-break"></div>
+            <div id="attaquant" class="card">
+              <span class="titre-card">Attaquant</span>
+              <form>
+                  <div class="input-zone">
+                      <label for="bonus">Bonus</label>
+                      <select id="arme">
+                          <option value="0">Aucun</option>
+                          <option value="1">Pouvoir</option>
+                          <option value="7">Pistolet</option>
+                          <option value="2">Fusil</option>
+                          <option value="8">Artillerie</option>
+                          <option value="3">Projectile</option>
+                          <option value="6">Couteau</option>
+                          <option value="4">Épée</option>
+                          <option value="5">Contondant</option>
+                          <option value="9">Autre</option>
+                      </select>
+                      <input type="number" id="bonus" value="0" min="0" max="100">
+                  </div>
+                  <div class="input-zone">
+                      <input type="radio" name="atq_type" value="0" checked="checked" onclick="capa_toggle(this)">
+                      <label for="atq_norm">Attaque normale</label>
+                  </div>
+                  <div class="input-zone">
+                      <input type="radio" id="capa" name="atq_type" value="1" onclick="capa_toggle(this)">
+                      <label for="capacite">Capacité</label>
+                      <select id="capacite_type">
+                          <option value="0">Burst</option>
+                          <option value="1">Perforant</option>
+                          <option value="2">Autre</option>
+                      </select>
+                  </div>
+                  <div class="input-zone">
+                      <input type="radio" name="dist_atq" value="0" checked="checked">
+                      <label for="cac">Corps-à-corps</label>
+                      <input type="radio" name="dist_atq" value="1">
+                      <label for="dist">Distance</label>
+                  </div>
+                </form>
+            </div>
+          </div>
+        <div class="flex-column">
+            <div id="dés" class="card">
+              <span class="titre-card">Dés</span>
+              <form>
+                  <div class="input-zone">
+                      <label for="des_atq">ATQ</label>
+                      <input type="number" id="des_atq" value="0" min="0" max="10">
+                  </div>
+                  <div class="input-zone">
+                      <label for="des_def">DEF</label>
+                      <input type="number" id="des_def" value="0" min="0" max="10">
+                      <input type="checkbox" id="des_bonus_def">
+                      <label for="des_bonus_def">Remise</label>
+                  </div>
+                  <div class="input-zone">
+                      <input type="radio" name="des_esquive" value="0" checked="checked">
+                      <label for="des_esquive">Endurance</label>
+                  </div>
+                  <div class="input-zone">
+                      <input type="radio" name="des_esquive" value="1">
+                      <label for="des_esquive">Esquive</label>
+                  </div>
+                </form>
+            </div>
+        </div>
+        <div class="flex-break"></div>
+        <div id="submit" class="card">
+            <div class="input-zone">
+                <input type="button" class=titre-card-resultat value="Résultat" onclick="calculate()">
+            </div>
+            <p>
+
+            <label for="res_deg">Dégats finaux : </label>
+            <span id="res_deg">░</span>
+            <br>
+            <label for="res_pv">PV restant :</label>
+            <span id="res_pv">░</span>
+            <br>
+
+          </p>
+        </div>
+        <div class="flex-break"></div>
+        <div id="log" class="card">
+            <span class="titre-card">Logs</span>
+            <div id="log_box" class="input-zone">
+            </div>
+        </div>
+    </body>
+</html>
